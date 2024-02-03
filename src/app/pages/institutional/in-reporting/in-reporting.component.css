@@ -1,0 +1,302 @@
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+
+.fundHeader1 {
+    background: linear-gradient(60deg, #03A9F4, #CDDC39) !important;
+}
+.table-payroll {
+    font-size: 14px;
+}
+.payroll-header {
+    font-weight: 600;
+    padding: 6px 8px!important;
+    border-bottom: 2px solid rgba(0,0,0,.06)!important;
+    border-top: 1 solid rgba(0,0,0,.06)!important;
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.payroll-content{
+    background-color: #fff;
+    padding: 6px 8px!important;
+    font-size: 16px;
+}
+.row-indivual{
+    padding: 6px 8px!important;
+    border-bottom: 1px solid rgba(0,0,0,.1)!important;
+}
+
+.noData-msg{
+    margin: auto;  
+}
+.right{
+    text-align: right;
+}
+.hidden-row{
+    padding-top: 15px;
+    font-size: 13px;
+}
+
+.btn.btn-white.btnPdf {
+    color: #000 !important;
+    padding: 3px 5px 0px 7px !important;
+}
+.btnPdf {
+    color: #000 !important;
+}
+.reportCSS {
+    /* position: absolute;
+    font-size: 32px;
+    right: 28%;
+    bottom: 1px; */
+    max-width: 100%;
+}
+/* .aLogoCss{
+    max-width: 100%; */
+    /* position: absolute;
+    background: #000;
+    bottom: -5px; */
+    .aLogoCss{
+        max-width: 100%; 
+        /* background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 120px;
+        width: 100px;
+        border: 1px solid;
+        background-image: url('https://lh3.googleusercontent.com/-Z-UNINsTqpo/W_jyaZkP_bI/AAAAAAAAAAQ/qRHgS_RF6gUZwvTxkd_TLU_xoZTMdl1XQCL0BGAYYCw/h390/orange_logo_only.png'); */
+    }
+/* } */
+
+.aLogoCss img {
+    width: 100px !important;
+}
+.max-WT-1030 {
+    max-width: 1030px !important;
+}
+.html2canvas-container { width: 3000px !important; height: 3000px !important; }
+.pl5 {
+    margin-left: 15px !important
+}
+.pr5 {
+    margin-right: 15px !important;
+}
+.font-bold {
+    font-weight: bold !important;
+}
+.pt100 {
+    padding-top: 100px !important;
+}
+@media (max-width: 767px) { 
+    .input-group {
+        margin-left: 208px;
+        margin-top: -39px;
+    }
+    .pdffile {
+        margin-top: -30px;
+    }
+  
+}
+@media screen and (device-aspect-ratio: 3/4) {
+    /* .input-group {
+        margin-left: -46px;
+    margin-top: -27px;
+    } */
+    
+}
+@media all and (max-width: 991px) {}
+/* @media (max-width: 640px) and (min-width: 320px){
+    .input-group {
+        margin-left: 157px;
+        margin-top: -24px;
+    }
+} */
+
+.pdffile {
+    width: 30px;
+    cursor: pointer;
+}
+.p-tb-10{
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+
+
+/* <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> */
+.steel {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+  }
+.panel-group{
+  width: 100%;
+  width: 100%;
+  margin-left: 15px !important;
+  margin-right: 15px !important;
+}
+.badge {
+  padding: 4px 7px;
+  background: #f36e47;
+  color: #fff;
+}
+
+.badge1{
+    padding: 4px 7px;
+  background: #7f7a7a;
+  color: #fff;
+}
+
+.table thead th {
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  font-size: 14px !important;
+}
+
+td{
+  font-size: 13px !important;
+}
+
+.panel-group .panel-title > a{
+  display: block;
+  padding: 10px !important;
+  /* text-decoration: none; */
+}
+
+.panel-group .panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #EEEEEE;
+  margin-right: 15px !important;
+}
+
+.panel-group .panel-default > .panel-heading {
+  padding: 0;
+  border-radius: 0;
+  color: #212121;
+  background-color: #e7e8e9 !important;
+  border-color: #EEEEEE;
+}
+
+[data-toggle="collapse"]:after {
+  display: inline-block;
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    content: "\f054";
+    transform: rotate(90deg) ;
+    transition: all linear 0.25s;
+    float: right;
+    }   
+  [data-toggle="collapse"].collapsed:after {
+    transform: rotate(0deg) ;
+  }
+
+  @media screen and (device-aspect-ratio: 40/71) {
+    .panel-group .panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+
+    .panel-group {
+        width: 100%;
+        width: 100%;
+       margin-left: 0px !important;
+       margin-right: 0px !important
+    }
+} 
+
+
+@media (max-width: 640px) and (min-width: 360px){
+    .panel-group.panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+
+    .panel-group {
+        width: 100%;
+        width: 100%;
+       margin-left: 0px !important;
+       margin-right: 0px !important
+    }
+}
+
+@media(min-width:768px){
+    .panel-group.panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+
+    .panel-group {
+        width: 100%;
+        width: 100%;
+       margin-left: 0px !important;
+       margin-right: 0px !important
+    }
+}
+
+
+@media(max-width: 767px){ 
+    .panel-group.panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+    .panel-group {
+        width: 100%;
+        width: 100%;
+       margin-left: 0px !important;
+       margin-right: 0px !important
+    }
+}
+
+@media(min-width:1024px){
+    .panel-group{
+        width: 100%;
+        width: 100%;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+      }
+}
+
+@media(min-width:1024px) and (max-width:1279px){
+    .panel-group{
+        width: 100%;
+        width: 100%;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+      }
+}
+
+
+@media(min-width:1280px) and (max-width:1480px){
+    .panel-group{
+        width: 100%;
+        width: 100%;
+        margin-left: 15px !important;
+        margin-right: 15px !important;
+      }
+}

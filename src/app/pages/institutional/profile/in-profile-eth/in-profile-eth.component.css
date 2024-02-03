@@ -1,0 +1,16 @@
+@import "../../../../../assets/institutional/css/style1.css";
+@import "../../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+.copybtn {
+    margin-left: -45px;
+    margin-bottom: -5px;
+}
+@media (max-width: 640px) and (min-width: 320px){
+.copybtn {
+    margin-left: 0px;
+    margin-top: 3px;
+    margin-bottom: 0;
+}
+
+}

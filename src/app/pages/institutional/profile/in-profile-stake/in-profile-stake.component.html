@@ -1,0 +1,142 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="9"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Profile'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary profileHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'my-staking'| translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-quantity' | translate}}</label>
+                                        <div class="viewField">{{stakeData?.token_quantity ? (stakeData?.token_quantity | separator:5) :  '0'}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'stakeaddress' | translate}}</label>
+                                        <input type="text" class="form-control stakeaddressInp" placeholder="Stake address" [formControl]="profileForm.controls['stakeaddress']" maxlength="50" />
+                                        <button class="copybtn" type="button" *ngIf="profileForm.controls['stakeaddress'].value" (click)="profileForm.controls['stakeaddress'].value ? copyToClipboard(profileForm.controls['stakeaddress'].value) : ''" >
+                                            <i class="fa fa-copy" style="color:#fff"></i>
+                                        </button>
+                                        <!-- <div class="errMsg" *ngIf="form.firstName.dirty && form.firstName.invalid">
+                                            <span *ngIf="form.firstName.hasError('required')">*Please enter first name.</span>
+                                            <span *ngIf="form.firstName.hasError('minlength')">*First name must be between 2 to 50 characters.</span>
+                                            <span *ngIf="form.firstName.hasError('pattern') && !form.firstName.hasError('minlength')">*Please enter valid first name.</span>
+                                        </div> -->
+                                    </div> 
+                                </div>
+
+                                <div class="col-md-12 text-md-right">
+                                    <div class="form-group horizontalGroup ">
+                                        <label class="control-label"></label>
+                                        <div class="form-control rtl-text-right border0 padd0 formActionBtn">
+                                            <button type="button" class="btn btn-vertex minWidth100" [disabled]="profileForm.invalid" (click)="saveStakingAddress(profileForm.controls['stakeaddress'].disabled)" >{{profileForm.controls['stakeaddress'].disabled ? 'EDIT' : 'SAVE ADDRESS'}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'approved' | translate}}</label>
+                                        <div class="viewField">{{stakeData.approved == true ? 'Yes' : 'No' }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'proofaddress' | translate}} </label>
+                                        <div class="viewField"> <span>{{stakeTransactionData.admin_stake_address || '- - -'}} </span>
+                                            <button class="copybtn h35 mL15" type="button" *ngIf="stakeTransactionData.admin_stake_address" (click)="stakeTransactionData?.admin_stake_address ? copyToClipboard(stakeTransactionData.admin_stake_address) : ''" >
+                                                <i class="fa fa-copy" style="color:#fff"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'transactionid' | translate}}</label>
+                                        <div class="viewField" [ngClass]="stakeTransactionData?.transcation_id ? 'link-make1' : '' " (click)="stakeTransactionData?.transcation_id ? openEther(stakeTransactionData?.transcation_id, ''): ''" >{{stakeTransactionData.transcation_id || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">Token Quantity</label>
+                                        <div class="viewField">{{stakeTransactionData.token_quantity || '- - -' }}</div>
+                                    </div>
+                                </div> -->
+                                
+                                
+
+  
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  
+
+  <!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="in-stake-address">
+    <div class="modal-dialog max-WT-500">
+      <form class="pin_code_form">
+        <div class="modal-content">
+            <div class="padd10">
+                <!-- <h4 class="modal-title text-center">Heading</h4> -->
+                <button type="button" class="close padd5" data-dismiss="modal" >&times;</button>
+            </div>
+          <div class="modal-body">
+            <div class="row align-items-center minh300 ">
+              <div class="col modalAbs">
+                <form class="common-form" >
+                  <div class="head_box2 text-center">
+                    <!-- <h4>Offering Added</h4> -->
+                    <!-- <p>Please send 1 VTEX Token to the admin address <span class="font-bold addressFont">{{stakeTransactionData.admin_stake_address }} </span>as
+                        to prove your ownership</p> -->
+                        <p>Please send 1 VTEX Token to the admin address <span class="font-bold addressFont">{{stakeTransactionData.admin_stake_address}} </span> <span class="makeLink"  (click)="copyToClipboard(stakeTransactionData.admin_stake_address)"><i class="fa fa-clipboard copyFont"></i></span><br> as
+                            to prove your ownership</p>
+                  </div>
+                  <div class="mt40">
+                    <div class="qr-code-box">
+                            <!-- <img src="http://res.cloudinary.com/vertexportal/image/upload/v1538982752/non0bf2nlhcpiae0ju5i.png" class="qr-code-box"> -->
+                      <!-- <img src="https://www.cognex.com/library/media/resources/symbologies/qrcode.jpg?h=300&w=447&la=en&hash=A5A3FD0478D5941A5B1838829B5E50F441C91C19" alt="images" /> -->
+                      <qrcode [qrdata]="stakeTransactionData.admin_stake_address" [size]="256" [level]="'M'"></qrcode>
+                      
+                    </div>
+                  </div>
+                  
+                  <div class="action-btn text-center  mb10 mt10">
+                    <button type="button" class="btn btn-orange max-WT-150" data-dismiss="modal">{{'ok' | translate}}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal End -->

@@ -1,0 +1,686 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<div class="row tabs">
+  <!-- <div class="col-md-1"></div> -->
+  <div class="col-md-12">
+    <main class="main-container bg_gray">
+      <section class="inner_section common_section">
+        <div class="container">
+          <div class="tabordion row" id="tabordion">
+            <!---------------------------Profile-------------------------------------------->
+            <section id="section1">
+              <input type="radio" name="sections" id="option1" checked>
+              <label for="option1" class="label1">{{'myprofile' | translate}}</label>
+              <article id="option1">
+                <main class="main-container bg_gray">
+                  <section class="inner_section common_section">
+                    <div class="container">
+                      <div class="max-WT-650 center-box">
+                        <div class="global_box1">
+                          <div class="mb30" *ngIf="profileData?.is_email_verified == false">
+                            <label class="">
+                              <h5> {{'verify-email' | translate}}
+                                <span class="color-orange">{{profileData?.email}}</span>
+                                <!-- . -->
+                              </h5>
+                            </label>
+                            <div>
+                              <button type="button" class="btn btn-orange link-make" (click)="verifyEmail()">Resend</button>
+                            </div>
+                            <label>
+                              <br>
+                              <h5>{{'resend-email' | translate}}</h5>
+                            </label>
+                          </div>
+                          <!-- <div class="alert alert-success text-center" style="font-size:18px;" *ngIf="profileData.kyc_doc_information == 'ACCEPT'">
+                            {{'alertkyc' | translate}}
+                          </div>
+
+                          <div class="alert alert-danger text-center" style="font-size:18px;" *ngIf="profileData.kyc_doc_information != 'ACCEPT'">
+                            {{'validatekyc' | translate}}
+                          </div> -->
+                          <div class="head_box2 head_box2_border row" *ngIf="profileData?.is_email_verified != false">
+                            <h4 class="col-5 col-md-6">{{'myprofile' | translate}}</h4>
+                            <h4 class="col-7 col-md-6 media-level">
+                              <span class="">{{'tier-level' | translate}}</span>
+                              <span class="color-orange pl10">{{ (profileData?.buyer_tier != 'N/A') ? profileData?.buyer_tier : '- - -'}}</span>
+                            </h4>
+                            <!-- <label>
+                              <h4>Your tier level is
+                                <span class="color-orange pl10">{{ (profileData?.buyer_tier != 'N/A') ? profileData?.buyer_tier : '- - -'}}</span>
+                              </h4>
+                            </label> -->
+                            <!-- <h5 class="tier-level">Your tier level is
+                              <span class="color-orange pl10">{{ (profileData?.buyer_tier != 'N/A') ? profileData?.buyer_tier : '- - -'}}</span>
+                            </h5> -->
+                          </div>
+                          <ng-container *ngIf="profileData?.is_email_verified">
+                            <div class="" *ngIf=" (!kycData?.manual_approve) && ( kycData?.verify_stage != 'VERIFIED' && kycData?.verify_stage != 'UNVERIFIED' && kycData?.verify_stage != 'PROCESSING' && kycData?.verify_stage != 'INITIATED') ">
+                              <label>
+                                <!-- <span style="color:rgb(255, 247, 247);"></span> -->
+                                <h5 style="color:red">* {{'complete-basic' | translate}}</h5>
+                              </label>
+                            </div>
+                            <div class="" *ngIf="(!kycData?.manual_approve && kycData?.verify_stage == 'PROCESSING') ">
+                              <label>
+                                <h5 style="color:red">* {{'kyc-program' | translate}}.</h5>
+                              </label>
+                            </div>
+                            <div class="" *ngIf="(!kycData?.manual_approve && kycData?.verify_stage == 'INITIATED') ">
+                              <label>
+                                <h5 style="color:red">* {{'upgrade_b2_kyc_msg' | translate}}.</h5>
+                              </label>
+                            </div>
+                            <div class="" *ngIf="(!kycData?.manual_approve && kycData?.verify_stage == 'UNVERIFIED') ">
+                              <label>
+                                <h5 style="color:red">* {{'kyc-unverify' | translate}}
+                                  <span class="color-orange">admin@vertex.market</span>
+                                </h5>
+                              </label>
+                            </div>
+                            <div class="" *ngIf="!profileData?.eth_address">
+                              <label>
+                                <h5 style="color:red">* {{'etherum-verify' | translate}}</h5>
+                              </label>
+                            </div>
+                          </ng-container>
+                          <form class="" [formGroup]="profileForm" *ngIf="profileData?.is_email_verified">
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{ 'user_name' | translate }}</label>
+                              <div class="col-md-8">
+                                <span class="" *ngIf="profileData?.user_name">{{profileData?.user_name}}</span>
+                                <!-- <div class="d-flex align-items-center">
+                                  <input type="text" class="form-control" placeholder="User name" formControlName="user_name" *ngIf="!profileData?.user_name">
+                                  <button class="btn-gray btn-profile-user link-make mL5 pt13 pb13" type="button" *ngIf="!profileData?.user_name" (click)="saveUserName()">{{'save' | translate}}</button>
+                                </div> -->
+                                <div class="input-group">
+                                  <input type="text" class="form-control" placeholder="User name" formControlName="user_name" *ngIf="!profileData?.user_name">
+                                  <span class="input-group-prepend">
+                                    <button class=" input-group-text btn-gray btn-profile-user link-make mL5 pt13 pb13" type="button" *ngIf="!profileData?.user_name"
+                                      (click)="saveUserName()">{{'save' | translate}}</button>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{'email'|translate}}</label>
+                              <div class="col-md-8">
+                                <span class="" *ngIf="profileData?.email">{{profileData?.email}}</span>
+                                <input type="text" class="form-control" placeholder="Email id" maxlength="50" *ngIf="!profileData?.email" formControlName='firstName'
+                                  [(ngModel)]="profileData.email" readonly>
+                                <!-- <span class="media-input-text">{{profileData?.email || '- - -'}}</span> width: 252px;height: 232px;left: 250px; -->
+                              </div>
+                            </div>
+
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{'firstname' | translate}}</label>
+                              <div class="col-md-8">
+                                <span class="" *ngIf="kycData?.first_name">{{kycData?.first_name}}</span>
+                                <input type="text" class="form-control" placeholder="First name" maxlength="50" formControlName='firstName' *ngIf="!kycData?.first_name">
+                                <div class="error" *ngIf="profileForm.get('firstName').dirty && profileForm.get('firstName').invalid">
+                                  <span *ngIf="profileForm.get('firstName').hasError('required')">{{'enterfirstname' | translate}}
+                                  </span>
+                                  <span *ngIf="profileForm.get('firstName').hasError('minlength')">{{'validfirstname' | translate}}
+                                  </span>
+                                  <span *ngIf="profileForm.get('firstName').hasError('pattern') && !profileForm.get('firstName').hasError('minlength')">{{'entervalidfirstname' | translate}}</span>
+                                </div>
+                              </div>
+
+
+                            </div>
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{'lastname' | translate}}</label>
+                              <div class="col-md-8">
+                                <span class="" *ngIf="kycData?.last_name">{{kycData?.last_name}}</span>
+                                <input type="text" class="form-control" placeholder="Last name" maxlength="50" formControlName='lastName' *ngIf="!kycData?.last_name">
+                                <div class="error" *ngIf="profileForm.get('lastName').dirty && profileForm.get('lastName').invalid">
+                                  <span *ngIf="profileForm.get('lastName').hasError('required')">{{'enterlastname' | translate}}
+                                  </span>
+                                  <span *ngIf="profileForm.get('lastName').hasError('minlength')">{{'validlastname' | translate}}
+                                  </span>
+                                  <span *ngIf="profileForm.get('lastName').hasError('pattern') && !profileForm.get('lastName').hasError('minlength')">{{'validenterlastname' | translate}}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{'dob' | translate}}</label>
+                              <div class="col-md-8">
+                                <span class="" *ngIf="kycData?.dob">{{kycData?.dob}}</span>
+                                <input type="text" class="form-control calendar-icon" *ngIf="!kycData?.dob" placeholder="Date Of Birth" ngx-mydatepicker
+                                  [options]="dateOptions" #kycDob="ngx-mydatepicker" formControlName='dob' (click)="kycDob.toggleCalendar()"
+                                  readonly="true">
+                              </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{'country' | translate}}</label>
+                              <div class="col-md-8">
+                                <span class="mt10" *ngIf="kycData?.country">{{kycData?.country}}</span>
+                                <!-- <select class="form-control inline-block mnh0 w30percent w165" formControlName='country' *ngIf="!kycData?.country">
+                                  <option value="">{{'selectcountry' | translate}}</option>
+                                  <option *ngFor="let country of countryListArr" [value]="country.name">{{country.name}}</option>
+                                </select> -->
+                                <ng-select class="" [items]="countryListArr" bindLabel="name" bindValue="name" placeholder="Select Country" formControlName='country'
+                                  *ngIf="!kycData?.country">
+                                </ng-select>
+                                <div class="error" *ngIf="profileForm.get('country').dirty && profileForm.get('country').invalid">
+                                  <span *ngIf="profileForm.get('country').hasError('required')">{{'selectcountry_message' | translate}}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{'nationality' | translate}}</label>
+                              <div class="col-md-8">
+                                <span class="mt10" *ngIf="kycData?.nationality">{{kycData?.nationality}}</span>
+                                <!-- <select class="form-control inline-block mnh0 w30percent w165" formControlName='nationality' *ngIf="!kycData?.nationality">
+                                  <option value="">{{'Select Nationality'}}</option>
+                                  <option *ngFor="let item of nationalityListArr" [value]="item">{{item}}</option>
+                                </select> -->
+                                <ng-select class="" [items]="nationalityListArr" bindLabel="item" bindValue="item" placeholder="Select Nationality" formControlName='nationality'
+                                  *ngIf="!kycData?.nationality">
+                                </ng-select>
+                                <div class="error" *ngIf="profileForm.get('nationality').dirty && profileForm.get('nationality').invalid">
+                                  <span *ngIf="profileForm.get('nationality').hasError('required')">{{'select_nationality'|translate}}
+                                  </span>
+                                </div>
+                              </div>
+
+
+                            </div>
+                            <div class="form-group row align-items-center">
+                              <label class="col-md-4">{{'mobilenumber' | translate}}</label>
+                              <div class="col-md-8">
+                                <span class="" *ngIf="kycData?.phone">{{kycData?.phone}}</span>
+                                <span class="input-group input-group-contact mobile-input w-100" *ngIf="!kycData?.phone">
+                                  <span class="input-group-prepend">
+                                    <span class="input-group-text code-width">
+                                      <!-- <select class="form-control inline-block" formControlName='phoneCode'>
+                                        <option value="">{{'code' | translate}}</option>
+                                        <option *ngFor="let country of allCountryListArr | orderBy: 'code'" [value]="country.code"
+                                          selected>{{country.code}}</option>
+                                      </select> -->
+                                      <ng-select [items]="allCountryListArr" bindLabel="code" bindValue="code" placeholder="Select Code" formControlName='phoneCode'
+                                        *ngIf="!kycData?.phone">
+                                      </ng-select>
+                                    </span>
+                                  </span>
+                                  <input type="text" class="form-control inline-block" placeholder="Mobile no." maxlength="16" formControlName="mobile_number"
+                                    *ngIf="!kycData?.phone" />
+                                </span>
+                                <div class="error" *ngIf="profileForm.get('mobile_number').dirty && profileForm.get('mobile_number').invalid">
+                                  <span *ngIf="profileForm.get('mobile_number').hasError('required')">{{'enterno' | translate}}
+                                  </span>
+                                  <span *ngIf="profileForm.get('mobile_number').hasError('pattern')">{{'validno' | translate}}
+                                  </span>
+                                </div>
+                              </div>
+
+
+                            </div>
+                            <div class="form-group mb30">
+                              <button class="btn btn-block btn-orange text-uppercase" [disabled]="profileForm.invalid" (click)="saveDocuments()" *ngIf="!kycData">{{'save' | translate}}</button>
+                              <button class="btn btn-block btn-orange" [routerLink]="['/change-password']">{{'changepassword' | translate}}</button>
+                              <button class="btn btn-block btn-orange" [routerLink]="['/kyc']" *ngIf="profileData.buyer_tier == 'B1'">{{'completekyc' | translate}}</button>
+                              <button class="btn btn-block  text-uppercase" [ngClass]="applicationData?.bank_statement && applicationData?.verify_stage != 'UNVERIFIED' ? 'btn-gray' : 'btn-orange'"
+                                [routerLink]="['/upgrade-b3']" *ngIf="profileData.buyer_tier == 'B2'">{{'upgrade_B3' | translate}}</button>
+                              <button class="btn btn-block  text-uppercase" [ngClass]="applicationData?.institutional_type && applicationData?.verify_stage != 'UNVERIFIED' ? 'btn-gray' : 'btn-orange'"
+                                [routerLink]="['/apply-selling']" *ngIf="profileData.buyer_tier == 'B2' || profileData.buyer_tier == 'B3'">{{'apply_selling' | translate}}</button>
+                            </div>
+
+
+
+
+
+                          </form>
+                          <div class="head_box2 text-center">
+                            <h4>{{'step2' | translate}}</h4>
+                          </div>
+                          <!-- Google Auth Button -->
+                          <button type="button" class="btn btn-block" [ngClass]="profileData?.google_auth ? 'btn-orange' : 'btn-gray' " (click)="changeAuth('google')">{{'googleauth' | translate}}</button>
+                          <!-- End Google Auth Button -->
+                          <!-- OTP Auth Button -->
+                          <button type="button" class="btn btn-block " [ngClass]="profileData?.otp_auth ? 'btn-orange' : 'btn-gray' " (click)="changeAuth('otp')">{{'otpauth' | translate}}</button>
+                          <!-- End OTP Auth Button -->
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </main>
+              </article>
+            </section>
+            <!---------------------------End Profile-------------------------------------------->
+
+            <!---------------------------Eth Address-------------------------------------------->
+            <section id="section2">
+              <input type="radio" name="sections" id="option2">
+              <label for="option2" class="label1" *ngIf="!eth.eth_address">
+                {{'myethereum' | translate}}
+                <i class="fa fa-exclamation-circle" style="font-size:14px;color:red"></i>
+              </label>
+              <label for="option2" class="label1" *ngIf="eth.eth_address">
+                {{'myethereum' | translate}}
+              </label>
+              <article>
+                <main class="main-container bg_gray">
+                  <section class="inner_section common_section">
+                    <div class="container">
+                      <div class="max-WT-650 center-box">
+                        <div class="global_box1">
+                          <div class="head_box2 head_box2_border">
+                            <h4>{{'myethereum' | translate}}</h4>
+                          </div>
+                          <div class="form-group mb20">
+                            <label>{{'ethwallet' | translate}}</label>
+                            <div class="row col-sm-12">
+                              <!-- <input type="text" class="form-control copttxt" placeholder="Ethereum address" name="eth_address" [(ngModel)]="eth.eth_address"
+                                [disabled]="inactives" #inputTarget/>
+                              <button type="button" class="copybtn copy-media-btn ipad-copy-btn" *ngIf="eth.eth_address" (click)="eth.eth_address ? copyToClipboard(eth.eth_address) : ''">
+                                <i class="fa fa-copy" style="color:#fff"></i>
+                              </button> -->
+                              <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Ethereum address" name="eth_address" [(ngModel)]="eth.eth_address" [disabled]="inactives"
+                                  #inputTarget/>
+                                <span class="input-group-prepend" *ngIf="eth.eth_address" (click)="eth.eth_address ? copyToClipboard(eth.eth_address) : ''">
+                                  <label class="input-group-text copy_icon">
+                                    <i class="fa fa-copy"></i>
+                                  </label>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group mb30">
+                            <div class="row col-sm-12">
+                              <a class="btn btn-block btn-orange iphonex-edit-btn" (click)="changeEditStatus()" *ngIf="inactives">{{'edit' | translate}}</a>
+                              <a class="btn btn-block btn-orange iphonex-edit-btn" (click)="changeAddress()" *ngIf="!inactives">{{'saveaddress' | translate}}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </main>
+              </article>
+            </section>
+            <!---------------------------End Eth Address-------------------------------------------->
+            <!-- My BTC -->
+            <section id="section4">
+              <input type="radio" name="sections" id="option4">
+              <!-- <label for="option4" class="label1" *ngIf="!bitcoin.btc_address">
+                {{'my-bitcoin' | translate}}
+                <i class="fa fa-exclamation-circle" style="font-size:14px;color:red"></i>
+              </label> -->
+              <label for="option4" class="label1">
+                {{'my-bitcoin' | translate}}
+              </label>
+              <article>
+                <main class="main-container bg_gray">
+                  <section class="inner_section common_section">
+                    <div class="container">
+                      <div class="max-WT-650 center-box">
+                        <div class="global_box1">
+                          <div class="head_box2 head_box2_border">
+                            <h4>{{'my-bitcoin' | translate}}</h4>
+                          </div>
+                          <div class="form-group mb20">
+                            <label>{{'bitcoin-wallet' | translate}}</label>
+                            <div class="row col-md-12">
+                              <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Bitcoin address" name="bitcoin_address" [(ngModel)]="bitcoin.btc_address"
+                                  [disabled]="inactivebitcoin" #inputTarget/>
+                                <span class="input-group-prepend" *ngIf="bitcoin.btc_address" (click)="bitcoin.btc_address ? copyToClipboard(bitcoin.btc_address) : ''">
+                                  <label class="input-group-text copy_icon">
+                                    <i class="fa fa-copy"></i>
+                                  </label>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group mb30">
+                            <div class="row col-md-12">
+                              <a class="btn btn-block btn-orange iphonex-edit-btn" (click)="changeEditStatusBitcoin()" *ngIf="inactivebitcoin">{{'edit' | translate}}</a>
+                              <a class="btn btn-block btn-orange iphonex-edit-btn" (click)="changebitcoinAddress()" *ngIf="!inactivebitcoin">{{'saveaddress' | translate}}</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </main>
+              </article>
+            </section>
+            <!-- End MY BTC -->
+
+            <!-- My Stellar -->
+            <!-- <section id="section4">
+              <input type="radio" name="sections" id="option5">
+              <label for="option5" class="label1">
+                {{'my-stellar' | translate}}
+              </label>
+              <article>
+                <main class="main-container bg_gray">
+                  <section class="inner_section common_section">
+                    <div class="container">
+                      <div class="max-WT-650 center-box">
+                        <div class="global_box1">
+                          <div class="head_box2 head_box2_border">
+                            <h4>{{'my-stellar' | translate}}</h4>
+                          </div>
+                          <div class="form-group mb20">
+                            <label>{{'stellar-wallet' | translate}}</label>
+                            <div class="row col-md-12 ipad-pro-media copy-input">
+                              <input type="text" class="form-control copttxt" placeholder="Stellar address" [formControl]="stellarForm.controls['stellar']" />
+                              <button type="button" class="copybtn copy-media-btn ipad-copy-btn ipad-pro-copy" *ngIf="stellarForm.controls['stellar'].value" (click)="copyToClipboard(stellarForm.controls['stellar'].value)">
+                                <i class="fa fa-copy" style="color:#fff"></i>
+                              </button>
+                            </div>
+                          </div>
+                          <div class="form-group mb30">
+                            <div class="row col-md-12">
+                                <button type="button" class="btn btn-block btn-orange iphonex-edit-btn" [disabled]="stellarForm.invalid" (click)="changeStellarAddress(stellarForm.controls['stellar'].disabled)" > {{stellarForm.controls['stellar'].disabled ? 'EDIT' : 'SAVE ADDRESS'}} </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </main>
+              </article>
+            </section>  -->
+            <!-- End My Stellar -->
+
+            <!---------------------------Staking Address-------------------------------------------->
+            <section id="section3">
+              <input type="radio" name="sections" id="option3">
+              <!-- <label for="option3" class="label1" *ngIf="!stake?.stake_data?.stake_address">
+                {{'mystaking' | translate}}
+                <i class="fa fa-exclamation-circle" style="font-size:14px;color:red"></i>
+              </label> -->
+              <label for="option3" class="label1">
+                {{'mystaking' | translate}}
+              </label>
+              <article>
+                <main class="main-container bg_gray">
+                  <section class="inner_section common_section">
+                    <div class="container">
+                      <div class="max-WT-650 center-box">
+                        <div class="global_box1">
+                          <div class="head_box2 head_box2_border">
+                            <h4>{{'mystaking' | translate}}</h4>
+                          </div>
+                          <p>{{'for_staking_msg' | translate}}</p>
+
+                          <div class="form-group mb20">
+                            <label>{{'tokenquantity' | translate}}</label>
+                            <span class="paddleft40"> {{stakeData.token_quantity ? (stakeData.token_quantity|separator:5) : '0' }}</span>
+                          </div>
+                          <div class="form-group mb20">
+                            <label>{{'stakeaddress' | translate}}</label>
+                            <div class="row col-md-12">
+                              <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Stake address" name="stake_address" [(ngModel)]="stake.stake_data.stake_address"
+                                  [disabled]="inactive" #inputTarget/>
+                                <span class="input-group-prepend" *ngIf="stake?.stake_data?.stake_address" (click)="stake?.stake_data?.stake_address ? copyToClipboard(stake.stake_data.stake_address) : ''">
+                                  <label class="input-group-text copy_icon">
+                                    <i class="fa fa-copy"></i>
+                                  </label>
+                                </span>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="form-group mb30">
+                            <div class="row col-md-12">
+                              <a class="btn btn-block btn-orange iphonex-edit-btn" (click)="changeStatus()" *ngIf="inactive">
+                                {{'edit' | translate}}</a>
+
+                              <a class="btn btn-block btn-orange iphonex-edit-btn" (click)="saveStakingAddress()" *ngIf="!inactive">
+                                {{'saveaddress'| translate}}</a>
+                            </div>
+                          </div>
+                          <div class="head_box2 head_box2_border">
+                          </div>
+                          <div>
+                            <div class="row mb30">
+                              <strong class="orange_color col-3">{{'approved' | translate}}</strong>
+                              <span class="col-9" *ngIf="stakeData.approved == true">{{'yes' | translate}}</span>
+                              <span class="col-9" *ngIf="stakeData.approved == false">{{'no' | translate}}</span>
+                            </div>
+                            <div class="row mb30">
+                              <strong class="orange_color col-3">{{'proofaddress' | translate}}</strong>
+                              <span class="col-9 qrcode">{{stakeTransactionData.admin_stake_address}}</span>
+                              <button class="copybtn proofAdrsCopy" type="button" *ngIf="stakeTransactionData?.admin_stake_address" (click)="stakeTransactionData?.admin_stake_address ? copyToClipboard(stakeTransactionData.admin_stake_address) : ''">
+                                <i class="fa fa-copy" style="color:#fff"></i>
+                              </button>
+                            </div>
+                            <div class="row mb30">
+                              <strong class="orange_color col-3">{{'transactionid' | translate}}</strong>
+                              <span class="col-9">
+                                <a [ngClass]=" stakeTransactionData.transcation_id ? 'link-make1' : '' " (click)="stakeTransactionData.transcation_id ? goToEther(stakeTransactionData.transcation_id, '') : '' ">
+                                  {{stakeTransactionData.transcation_id || '- - -'}}</a>
+                              </span>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </main>
+              </article>
+            </section>
+
+            <!---------------------------End Staking Address-------------------------------------------->
+            <section id="section5">
+              <input type="radio" name="sections" id="option5">
+              <label for="option5" class="label1">
+                {{'my-ranking' | translate}}
+              </label>
+              <article>
+                <main class="main-container bg_gray">
+                  <section class="inner_section common_section">
+                    <div class="container">
+                      <div class="max-WT-650 center-box">
+                        <div class="global_box1">
+                          <div class="head_box2 head_box2_border">
+                            <h4>{{'my-ranking' | translate}}
+                            </h4>
+                          </div>
+                          <div class="mt30 text-center">
+                            <h5>
+                              <span class="media-level text-center">
+                                <span *ngIf="ranking == 'Diamond'">
+                                  <img src="assets/images/svg/diamond-img.svg" class="steel">
+                                </span>
+                                <span *ngIf="ranking == 'Steel'">
+                                  <img src="../../../assets/images/svg/beam.svg" class="steel">
+                                </span>
+                                <span *ngIf="ranking == 'Silver'">
+                                  <img src="../../../assets/images/svg/silver-medal.svg" class="steel">
+                                </span>
+                                <span *ngIf="ranking == 'plutonium'">
+                                  <img src="../../../assets/images/svg/gold.svg" class="steel">
+                                </span>
+                                <span *ngIf="ranking == 'Gold'">
+                                  <img src="../../../assets/images/svg/gold.svg" class="steel">
+                                </span>
+                                {{'your-current-status' | translate}}
+                                <span class="color-orange" *ngIf="ranking">{{ranking}}</span>
+                                <span class="color-orange" *ngIf="!ranking">---</span>
+                              </span>
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </main>
+              </article>
+            </section>
+
+            <!-- Invite Friend Section  -->
+
+            <section id="section6" *ngIf="profileData.buyer_tier != 'N/A' && profileData.eth_address">
+              <input type="radio" name="sections" id="option6">
+              <label for="option6" class="label1">
+                {{'invite-friend' | translate}}
+              </label>
+              <article>
+                <main class="main-container bg_gray">
+                  <section class="inner_section common_section">
+                    <div class="container">
+                      <div class="max-WT-650 center-box">
+                        <div class="global_box1">
+                          <div class="head_box2 head_box2_border">
+                            <h4>{{'invite-friend' | translate}}</h4>
+                          </div>
+                          <div class="form-group mb20">
+                            <form [formGroup]="inviteForm">
+                              <label>{{'email' | translate}}</label>
+                              <div class="row col-md-12 ipad-pro-media copy-input">
+                                <input type="text" class="form-control " placeholder="Email id" [formControl]="inviteForm.controls['email']" maxlength="64"
+                                />
+                                <div class="error" *ngIf="inviteForm.controls['email'].dirty && inviteForm.controls['email'].invalid">
+                                  <span *ngIf="inviteForm.controls['email'].hasError('required')">{{'enter_email_req' | translate}}</span>
+                                  <span *ngIf="inviteForm.controls['email'].hasError('pattern')">{{'enter_email_valid' | translate}}</span>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="form-group mb30">
+                            <div class="row col-md-12">
+                              <button class="btn btn-block btn-orange iphonex-edit-btn" [disabled]="inviteForm.invalid" (click)="inviteFriend()">{{'invite' | translate}}</button>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </main>
+              </article>
+            </section>
+            <!-- End Invite Friend Section  -->
+
+          </div>
+          <!---------------------------------Model --------------------------------------------------->
+          <!-- Modal Start-->
+          <div class="modal fade global-modal reset-modal" id="stakeAddress">
+            <div class="modal-dialog max-WT-500">
+              <form class="pin_code_form">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close zIndex link-make" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <div class="head_box2 text-center">
+                          <h4 class="font-bold">
+                            <p> {{'send1vtex_msg' | translate}} </p>
+                            <!-- <p class="word-break  mt-1">{{stakeTransactionData.admin_stake_address }} </p> -->
+                            <p class="word-break  mt-1">{{stakeTransactionData.admin_stake_address }}
+                              <span class="makeLink" (click)="copyToClipboard(stakeTransactionData.admin_stake_address)">
+                                <i class="fa fa-clipboard copyFont"></i>
+                              </span>
+                            </p>
+                            <p class="mt-0 mb-3">{{'as_prove_ownership' | translate}} </p>
+                          </h4>
+                          <!-- <img src="http://res.cloudinary.com/vertexportal/image/upload/v1538982752/non0bf2nlhcpiae0ju5i.png" class="qr-code-box"> -->
+                          <div class="qr-profileModal">
+                            <qrcode [qrdata]="stakeTransactionData.admin_stake_address" [size]="256" [level]="'M'"></qrcode>
+                          </div>
+
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <div class="form-group mb20"></div>
+                        <div class="action-btn text-center">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- Modal End -->
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- <div class="col-md-1"></div> -->
+</div>
+
+
+<!-- Email Verify Modal Start-->
+<div class="modal fade global-modal reset-modal" id="verify_email_profile">
+  <div class="modal-dialog max-WT-500 signupModalmt ">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close zIndex link-make" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center">
+            <div class="col">
+              <div class="head_box2 text-center mt20">
+                <h4 class="font-bold">
+                  <!-- <h5> {{'sucessfully_registered' | translate}} </h5> -->
+                  <p class="mt20">{{'register_link_message' | translate}}</p>
+                  <!-- <p class="word-break  mt-1">{{stakeTransactionData.admin_stake_address }} </p> -->
+                </h4>
+                <!-- <img src="http://res.cloudinary.com/vertexportal/image/upload/v1538982752/non0bf2nlhcpiae0ju5i.png" class="qr-code-box"> -->
+
+              </div>
+              <!-- <div class="form-group">
+                </div> -->
+              <!-- <div class="form-group mb20"></div> -->
+              <div class="action-btn text-center mb20">
+                <button type="button" class="btn btn-orange max-WT-200" data-dismiss="modal">{{'ok' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Email Verify Modal End -->
+
+<!-- Google Auth QR Modal Start   -->
+<div class="modal fade global-modal reset-modal" id="google_auth_qr">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <!-- <h4 class="modal-title text-center">Heading</h4> -->
+          <button type="button" class="close zIndex" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col">
+              <form class="common-form" autocomplete="off">
+                <div class="head_box2 text-center">
+                  <h4>{{'googleauthenticator' | translate}}</h4>
+                  <p>{{'msgqrcode' | translate}}</p>
+                </div>
+                <div class="form-group">
+                  <div class="qr-code-box">
+                    <img src="{{gAuthqrImage}}" alt="images" />
+                  </div>
+                </div>
+                <div class="form-group mb20">
+                  <input class="form-control no_arrow text-center" type="text" [(ngModel)]="enableGOtp" name="enableGOtp" maxlength="6" />
+                </div>
+                <div class="action-btn text-center">
+                  <button type="button" class="btn btn-orange max-WT-200" (click)="enableGOtpSubmit()">{{'submit' | translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Google Auth QR Modal End -->

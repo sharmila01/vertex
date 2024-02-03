@@ -1,0 +1,56 @@
+.mt-neg2{
+    margin-top: -16px !important;
+}
+
+.modal-feilds {
+    margin-bottom: 20px;
+}
+.upload-label {
+    margin-left: -15px;
+}
+.custom-form-feild:read-only {
+    background-image: none;
+}
+.file-upload {
+    background-color: #aaa;
+    color: white;
+    text-align: center;
+    padding-left: 14px;
+}
+.table tbody .payment-btn:hover{
+    background: #e04b1d;
+}
+.table tbody .payment-btn {
+    background: #f36e47;
+    color: #fff
+}
+.backOrange{
+    background: #e98769;
+    color: #fff
+}
+@media (max-width: 767px) {
+    .main-container {
+        min-height: calc(100vh - 300px);
+        }   
+    .justify-content-end {
+        justify-content: flex-start !important;
+    }
+}
+/* ----ipad--------- */
+@media only screen and (min-device-width: 768px)  and (max-device-width: 1024px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+    .mt-neg2 {
+        margin-top: 3px!important;
+        margin-left: 50px;
+    }
+    .main-container {
+        overflow-x: hidden
+    }
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: none !important;
+}

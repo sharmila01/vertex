@@ -1,0 +1,70 @@
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+
+
+.heading {
+    margin-left: 19px;
+    margin-right: 22px;
+}
+
+/* .noti {
+    opacity: .5;
+}
+
+.noti.read_notifi {
+    opacity: 1 !important;
+} */
+
+.notification_time {
+    font-size: 12px;
+    margin-bottom: 0px;
+    clear: both;
+    position: relative;
+    top: 20px;
+}
+
+.noti .title {
+    font-weight: bold;
+    color: #000;
+    padding-right: 20px;
+    font-size: 13px;
+    max-width: 99%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    float: left;
+    line-height: 31px;
+}
+
+.noti-wrap {
+    overflow: unset;
+    display: inline-block;
+    width: 80%;
+    cursor: pointer;
+}
+
+.check-hover:hover {
+    color: #056305 !important;
+    transform: scale(1.5);
+}
+
+.notification_delete:hover {
+    color: #8c0707 !important;
+    transform: scale(1.5);
+}
+.cross-hover:hover {
+    color: #8c0707 !important;
+    transform: scale(1.5);
+}
+.list-group-item:hover, .notificolor:hover {
+    background-color: #f8f9fa !important;
+    height: 80px;
+}
+.list-group-item {
+    height: 80px;
+}
+.action-button {
+    margin-top: 42px !important;
+}

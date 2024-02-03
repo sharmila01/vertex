@@ -1,0 +1,207 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="7"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Apply Selling'" ></app-in-header>
+        <!-- <app-in-header [headerName]="'Edit Offering'" *ngIf="currId != 'add'" ></app-in-header> -->
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary offHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'upgrade_tier' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box" novalidate autocomplete="off" [formGroup]="companyForm" >
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" >{{ 'register_as' | translate }}</label>
+                                        <select class="form-control custom_select" [formControl]="cForm.registerAs">
+                                          <option value="">{{'select_type' | translate}}</option>
+                                          <option value="Company">Company</option>
+                                        </select>
+                                        <div class="errMsg " *ngIf="cForm.registerAs.dirty && cForm.registerAs.invalid">
+                                            <span *ngIf="cForm.registerAs.hasError('required')">{{'Please select type of registration.'}}</span>
+                                        </div>
+                                      </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" >{{'registration_no' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Registration no" maxlength="30" [formControl]="cForm.regNo" />
+                                        <div class="errMsg" *ngIf="cForm.regNo.dirty && cForm.regNo.invalid">
+                                          <span *ngIf="cForm.regNo.hasError('required')">{{'reg_no_required' | translate}}</span>
+                                          <span *ngIf="cForm.regNo.hasError('pattern')">{{'reg_no_pattern' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" >{{'country_of_registration' | translate}}</label>
+                                        <!-- <select class="form-control custom_select" [formControl]="cForm.country">
+                                          <option value="">{{'selectcountry' | translate}}</option>
+                                          <option *ngFor="let country of countryListArr" [value]="country.name">{{country.name}}</option>
+                                        </select> -->
+                                        <ng-select class="inNgSelect margtop"  [items]="countryListArr" bindLabel="name" bindValue="name" placeholder="Select Country" [formControl]="cForm.country">
+                                        </ng-select>
+                                        <div class="errMsg" *ngIf="cForm.country.dirty && cForm.country.invalid">
+                                          <span *ngIf="cForm.country.hasError('required')">{{'select_country_of_residence' | translate}}</span>
+                                        </div>
+                                    </div>
+                                            
+                                </div>
+                                <div class="col-md-12">
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label" >{{'scan_company_reg' | translate}}</label>
+                                            <input type="file" class="form-control in_file_input" id="scan_company_reg" accept="image/*"  (change)="fileChangeEvent($event)" *ngIf="!imageUploaded" />
+                                            <input type="text" class="form-control" value="{{imageUploaded}}" *ngIf="imageUploaded" [disabled]="true"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" >{{'name_of_company' | translate}} </label>
+                                        <input type="text" class="form-control" maxlength="30" [formControl]="cForm.companyName" placeholder="Name of company" />
+                                        <div class="errMsg" *ngIf="cForm.companyName.dirty && cForm.companyName.invalid">
+                                          <span *ngIf="cForm.companyName.hasError('required')">{{'comp_name_req' | translate}}</span>
+                                          <span *ngIf="cForm.companyName.hasError('pattern')">{{'comp_name_pattern' | translate}}</span>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" >{{'incorporation_year' | translate}} </label>
+                                        <input type="text" class="form-control" maxlength="4"  [formControl]="cForm.startYear" placeholder="Incorporation year" />
+                                        <div class="errMsg" *ngIf="cForm.startYear.dirty && cForm.startYear.invalid">
+                                          <span *ngIf="cForm.startYear.hasError('required')">{{'inc_year_req' | translate}}</span>
+                                          <span *ngIf="cForm.startYear.hasError('pattern')">{{'inc_year_pattern' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" >{{'managing_director' | translate}} </label>
+                                        <input type="text" class="form-control" placeholder="Managing director name" maxlength="30"  [formControl]="cForm.director" placeholder="Managing director name" />
+                                        <div class="errMsg" *ngIf="cForm.director.dirty && cForm.director.invalid">
+                                          <span *ngIf="cForm.director.hasError('required')">Please enter managing director name.</span>
+                                          <span *ngIf="cForm.director.hasError('pattern')">Please enter valid managing director name.</span>
+                                        </div>
+                                    </div>
+                              </div>
+                                
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'online_reg_link' | translate}} </label>
+                                            <input type="text" class="form-control" placeholder="Online registry link" maxlength="200"  [formControl]="cForm.registryLink" placeholder="Online registry link" />
+                                            <div class="errMsg" *ngIf="cForm.registryLink.dirty && cForm.registryLink.invalid">
+                                              <span *ngIf="cForm.registryLink.hasError('required')">Please enter registry link.</span>
+                                              <span *ngIf="cForm.registryLink.hasError('pattern')">Please enter valid registry link.</span>
+                                            </div>
+                                        </div>
+                                </div>
+  
+                              <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" >{{'token_platform' | translate}} </label>
+                                        <select class="form-control custom_select" [formControl]="cForm.platform" >
+                                          <option value="">Select Platform</option>
+                                          <option *ngFor="let item of platformArr" [value]="item.id" >{{item?.acceptable_token_symbol}}</option>
+                                        </select>
+                                        <div class="errMsg" *ngIf="cForm.platform.dirty && cForm.platform.invalid">
+                                          <span *ngIf="cForm.platform.hasError('required')">Please select token platform.</span>
+                                        </div>
+                                    </div>
+                              </div> 
+                              <!-- <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label" >{{'token_address' | translate}} </label>
+                                    <input type="text" class="form-control" maxlength="50" placeholder="Token address" [formControl]="cForm.tokenAdd" />
+                                    <div class="errMsg" *ngIf="cForm.tokenAdd.dirty && cForm.tokenAdd.invalid">
+                                      <span *ngIf="cForm.tokenAdd.hasError('required')">Please enter token address.</span>
+                                      <span *ngIf="cForm.tokenAdd.hasError('pattern')">Please enter valid token address.</span>
+                                    </div>
+                                </div>
+                          </div>  -->
+                          <div class="col-md-12">
+                            <div class="form-group horizontalGroup">
+                                <!-- <label class="control-label" >{{'uptoinfinite'}}</label>
+                                <div class="form-check mt-0">
+                                    <label class="form-check-label t-6" >
+                                        <input class="form-check-input" type="checkbox"  [formControl]="form.infiniteEnd" (change)="onInfiniteEnd()" />
+                                        
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div> -->
+                                <label class="control-label"></label>
+                                <label class="checkbox-design agreeTerms">
+                                  <input type="checkbox" name="remember" [formControl]="cForm.terms" >
+                                  <span></span>{{'agree' | translate}}<a target="_blank" [routerLink]="['/terms']"> {{'termandservices'| translate}}</a>
+                                </label>
+                            </div>
+                          </div>
+  
+                            <div class="col-md-12 text-md-right">
+                              <div class="form-group horizontalGroup ">
+                                  <label class="control-label"></label>
+                                  <div class="form-control text-left border0 padd0 formActionBtn">
+                                      <button type="submit" class="btn btn-vertex minWidth100" [disabled]="isDisableFun()" (click)="(companyForm.invalid) ? '' : registerSelling()" >{{ 'upgrade' | translate}} </button>
+                                      <button type="button" class="btn btn-default minWidth100" (click)="goBack()">{{'cancel' | translate}} </button>
+                                  </div>
+                              </div>
+                          </div>
+  
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  <div class="modal fade global-modal reset-modal" id="inAddOffering1">
+        <div class="modal-dialog max-WT-500">
+          <form class="pin_code_form">
+            <div class="modal-content">
+              <!--<div class="modal-header ">
+                           <h4 class="modal-title text-center">Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div> -->
+              <div class="modal-body">
+                <div class="row align-items-center minHeight180">
+                  <div class="col">
+                    <!-- <form class="common-form" autocomplete="off"> -->
+                      <div class="head_box2 text-center mb15">
+                        <h4>You have to tansfer</h4>
+                        <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                      </div>
+                    
+                      <div class="modalActionBtn text-center">
+                        <!-- <button type="button" class="btn btn-gray max-WT-150" (click)="goToFund()" >CANCEL</button> -->
+                        <button type="button" class="btn btn-orange max-WT-150"  >DELETE</button>
+                      </div>
+                    <!-- </form> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    

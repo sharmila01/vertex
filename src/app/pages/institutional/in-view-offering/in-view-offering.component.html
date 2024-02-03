@@ -1,0 +1,213 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="2"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'View Offering'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary offHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'view-offering' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'offeringid' | translate}} </label>
+                                        <div class="viewField">{{offDet?.offering_order_id}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'token' | translate}} </label>
+                                            <div class="viewField">{{offDet?.projectName}}</div>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'startdate' | translate}} </label>
+                                            <div class="viewField">{{offDet?.start_date | date : 'MMM. dd yyyy'}} </div>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'enddate' | translate}}</label>
+                                        <div class="viewField" *ngIf="!offDet.is_infinite_end_date">{{offDet?.end_date | date : 'MMM. dd yyyy' }} </div>
+                                        <div class="viewField" *ngIf="offDet.is_infinite_end_date">Never End</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" >
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'status' | translate}}</label>
+                                            <div class="viewField" *ngIf="offDet?.is_closed">Closed</div>
+                                            <div class="viewField" *ngIf="offDet?.soft_close">Temporarily Closed</div>
+                                            <div class="viewField" *ngIf="(!offDet?.is_closed) && offDet?.is_cancel">{{offDet?.is_pending_cancellation ? 'Pending Cancellation' : 'Cancelled'}}</div>
+                                            <div class="viewField" *ngIf="(!offDet?.is_closed) && (!offDet?.is_cancel)" >{{offDet?.is_live ? 'Active': 'Pay Funds'}}</div>
+                                        </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'cancelleddate' | translate}}</label>
+                                        <div class="viewField" *ngIf="offDet.is_cancel == true">{{offDet?.updated_at  | date : 'MMM. dd yyyy' }}</div>
+                                        <div class="viewField" *ngIf="offDet.is_cancel == false">---</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="offDet.is_cancel">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'cancel_date' | translate}}</label>
+                                        <div class="viewField" >{{(offDet?.deleted_at) ? (offDet?.deleted_at | date : 'MMM. dd yyyy') : '- - -' }} </div>
+                                    </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'offer_type' | translate}}</label>
+                                    <div class="viewField" >{{offDet?.offer_type || '- - -'}} </div>  
+                                </div>
+                               </div>
+                              
+                                <div class="col-md-12" >
+                                    <div class="form-group horizontalGroup">
+                                          <label class="control-label">{{'accepting_currency' | translate}}</label>
+                                           <div class="viewField">{{offDet?.symbol_name || '- - -'}}</div>
+                                      </div>
+                                  
+                              </div>
+                                <div class="col-md-12" >
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'price' | translate}}</label>
+                                             <div class="viewField">{{offDet?.token_price | separator:7 }}  {{offDet?.symbol_name}}</div>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-md-12" *ngIf="offDet.offer_type == 'Floating'">
+                                        <div class="form-group horizontalGroup">
+                                              <label class="control-label">{{'third_market_percent' | translate}}</label>
+                                               <div class="viewField">{{offDet?.third_market_percent}}%</div>
+                                          </div>
+                                      
+                                  </div>
+                                  <div class="col-md-12" *ngIf="offDet?.offer_type == 'Linked Token' || offDet?.offer_type == 'Linked Currency'">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'fixed_price' | translate}}</label>
+                                        <div class="viewField">{{offDet?.fixed_price | separator:7 }}  </div>
+                                    </div>  
+                                  </div>
+                                
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'quantity-for-sale' | translate}} </label>
+                                             <div class="viewField">{{offDet?.token_for_sale | separator:5  }} </div>
+                                        </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'initial_amount_token' | translate}} </label>
+                                        <div class="viewField">{{offDet?.initial_supply ? (offDet?.initial_supply | separator: 5) : '0'  }} </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12">
+                                  <div class="form-group horizontalGroup">
+                                      
+                                          <label class="control-label">Initial Supply</label>
+                                          <div class="viewField">{{offDet?.initial_supply}} </div>
+                                      
+                                  </div>
+                              </div> -->
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label" >{{'payout-address' | translate}}</label>
+                                    <div class="viewField" [ngClass]="offDet.payout_address ? 'link-make1': '' " (click)="offDet?.payout_address ? openAddress(offDet?.payout_address, offDet?.symbol_name) : ''" >{{offDet?.payout_address || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">Hot Storage Private Key</label>
+                                    <div class="viewField">{{offDet?.token_private_key}} </div>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">VTEX Cold Storage Address</label>
+                                    <div class="viewField">{{offDet?.cold_storage_address || '- - -'}} </div>
+                                </div>
+                            </div> -->
+                            <div class="col-md-12" >
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'token_burning' | translate}}</label>
+                                    <div class="viewField">{{offDet?.token_burning ? 'Yes' : 'No' }} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'isapproved' | translate}}</label>
+                                    <div class="viewField">{{offDet?.is_approved ? 'Yes' : 'No' }} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'islive' | translate}}</label>
+                                        <div class="viewField text-success" *ngIf="offDet?.is_live">Yes</div>
+                                        <div class="viewField text-danger" *ngIf="!offDet?.is_live">No</div>
+                                    </div>
+                                </div>
+
+                                
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'status' | translate}}</label>
+                                        <div class="viewField">
+                                                {{offDet?.is_cancel ? 'Cancelled' : 'Active'}}
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-12">
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'createddate' | translate}}</label>
+                                            <div class="viewField">{{offDet?.created_at | utcTime | date: 'MM/dd/yyyy hh:mm a' }} </div>
+                                        </div>
+                                    </div>
+  
+  
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="custom-file">
+                                            <input type="file" id="file" class="custom-file-input">
+                                            <span class="custom-file-control"></span>
+                                        </label>
+                                    </div>
+                                </div> -->
+  
+                                <div class="col-md-12 ">
+                                  <div class="form-group horizontalGroup ">
+                                      <label class="control-label"></label>
+                                      <div class="form-control  border0 padd0 formActionBtn">
+                                              <button type="button" class="btn btn-primary minWidth100" (click)="onEdit(offDet)">{{'editbtn' | translate}} </button>
+                                              <button type="button" class="btn btn-default minWidth100" (click)="goBack()" >{{'back' | translate}} </button>
+                                      </div>
+                                  </div>
+                              </div>
+  
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>

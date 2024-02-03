@@ -1,0 +1,494 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container bg_gray">
+  <section class="inner_section common_section">
+    <div class="container-1280">
+      <!-----------------------------------------search section------------------------------------------------>
+      <!-- <div class="card_box">
+        <div class="row spacerow">
+          <div class="col-md-3 col-lg-2">
+            <div class="form-group">
+              <select class="form-control select_style1 searchdrop" name="platform" [(ngModel)]="searchData.platform">
+                <option value="">{{'platforms'| translate}}</option>
+                <option value="">{{'type1'| translate}}</option>
+                <option *ngFor="let platform of platformListArr" [value]="platform.acceptable_token_symbol">{{platform.acceptable_token_symbol}} ({{platform.acceptable_ticker}})</option>
+
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-2">
+            <div class="form-group ">
+              <select class="form-control select_style1 searchdrop" name="type" [(ngModel)]="searchData.type">
+                <option value="">{{'tokentype'| translate}}</option>
+                <option value="">{{'type1'| translate}}</option>
+                <option>{{'type2'| translate}}</option>
+                <option>{{'type3'| translate}}</option>
+                <option>{{'type4'| translate}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-2">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Name" maxlength="50" name="name" [(ngModel)]="searchData.name" />
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-2">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Ticker" maxlength="50" name="ticker" [(ngModel)]="searchData.ticker"
+              />
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-2">
+            <div>
+              <button class="btn-default searchBtn" (click)="search()">
+                <i class="fa fa-search" aria-hidden="true"></i> {{'searchbtn'| translate}}</button>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-2">
+            <div>
+              <button class="btn-default searchBtn1" (click)="reset()">
+                <i class="fa fa-reset" aria-hidden="true"></i>
+                {{'resetbtn'| translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="card_box">
+        <div class="row" *ngIf="!iswebApp">
+          <div class="col-6">
+            <button (click)="toggleSearch($event)" class="btn-default searchBtn">
+              <i *ngIf="filter" class="fa fa-search-minus" aria-hidden="true"></i>
+              <i *ngIf="!filter" class="fa fa-search-plus" aria-hidden="true"></i>
+              &nbsp; Filter &nbsp;
+            </button>
+          </div>
+        </div>
+        <div class="row media-sale-search" *ngIf="filter && !iswebApp">
+          <div class="col-md-3 col-lg-3 col-6">
+            <div class="form-group">
+              <select class="form-control select_style1 searchdrop" name="platform" [(ngModel)]="searchData.platform">
+                <option value="">{{'platforms'| translate}}</option>
+                <option value="">{{'type1'| translate}}</option>
+                <option *ngFor="let platform of platformListArr" [value]="platform.acceptable_token_symbol">{{platform.acceptable_token_symbol}} ({{platform.acceptable_ticker}})</option>
+
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3 col-6">
+            <div class="form-group ">
+              <select class="form-control select_style1 searchdrop" name="type" [(ngModel)]="searchData.type">
+                <option value="">{{'tokentype'| translate}}</option>
+                <option value="">{{'type1'| translate}}</option>
+                <option>{{'type2'| translate}}</option>
+                <option>{{'type3'| translate}}</option>
+                <option>{{'type4'| translate}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3 col-6">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Token name or ticker…" maxlength="50" name="name" [(ngModel)]="searchData.name"
+              />
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3 col-6">
+            <div>
+              <button class="btn-default searchBtn" (click)="search()">
+                <i class="fa fa-search" aria-hidden="true"></i> {{'searchbtn'| translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="row spacerow" *ngIf="iswebApp">
+
+          <div class="col-md-3 col-lg-3">
+            <div class="form-group">
+              <select class="form-control select_style1 searchdrop" name="platform" [(ngModel)]="searchData.platform">
+                <option value="">{{'platforms'| translate}}</option>
+                <option value="">{{'type1'| translate}}</option>
+                <option *ngFor="let platform of platformListArr" [value]="platform.acceptable_token_symbol">{{platform.acceptable_token_symbol}} ({{platform.acceptable_ticker}})</option>
+
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3">
+            <div class="form-group ">
+              <select class="form-control select_style1 searchdrop" name="type" [(ngModel)]="searchData.type">
+                <option value="">{{'tokentype'| translate}}</option>
+                <option value="">{{'type1'| translate}}</option>
+                <option>{{'type2'| translate}}</option>
+                <option>{{'type3'| translate}}</option>
+                <option>{{'type4'| translate}}</option>
+              </select>
+            </div>
+          </div>
+          <!-- <div class="col-md-3 col-lg-2">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Name" maxlength="50" name="name" [(ngModel)]="searchData.name" />
+              </div>
+            </div> -->
+          <div class="col-md-3 col-lg-3">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Token name or ticker…" maxlength="50" name="name" [(ngModel)]="searchData.name"/>
+            </div>
+          </div>
+          <div class="col-md-3 col-lg-3">
+            <div>
+              <button class="btn-default searchBtn" (click)="search($event)">
+                <i class="fa fa-search" aria-hidden="true"></i> {{'searchbtn'| translate}}</button>
+
+            </div>
+          </div>
+          <!-- <div class="col-md-6 col-lg-2">
+              <div>
+                <button class="btn-default searchBtn1" (click)="reset()">
+                  <i class="fa fa-reset" aria-hidden="true"></i>
+                  {{'resetbtn'| translate}}</button>
+              </div>
+            </div> -->
+        </div>
+      </div>
+      <!-----------------------------------------end search section------------------------------------------------>
+      <!-- token_sale_box Start -->
+      <div class="token_sale_box">
+        <!-- <div class="token_sale_head"> -->
+
+        <!-- <div *ngIf="tab == 'ongoing'" class="head_box3"> -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="toggle-btn">
+              <ngx-toggle onColor="{{model.onColor}}" onText="{{model.onText}}" offColor="{{model.offColor}}" offText="{{model.offText}}"
+                [disabled]="model.disabled" [size]="model.size" [(ngModel)]="model.value" (ngModelChange)="toggleChange(model.value)">
+              </ngx-toggle>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="allTokenDet?.paginationData?.total>allTokenDet?.paginationData?.limit && !isOfferings">
+            <div class="pagination offer-pagination">
+              <div class="pagination_block mt0 mb0 text-center pagin">
+                <pagination [itemsPerPage]='allTokenDet?.paginationData?.limit' [totalItems]="allTokenDet?.paginationData?.total" (pageChanged)="projectsPaginationChanged($event)"
+                  [maxSize]="5" [boundaryLinks]="true" [rotate]="false" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                  lastText="&raquo;"></pagination>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="totalOfferings >  offeringLimit && isOfferings">
+            <div class="pagination offer-pagination">
+              <div class="pagination_block mt0 mb0 text-center">
+                <pagination [itemsPerPage]='offeringLimit' [totalItems]="totalOfferings" (pageChanged)="offersPaginationChanged($event)"
+                  [maxSize]="5" [boundaryLinks]="true" [rotate]="false" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;"
+                  lastText="&raquo;"></pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-content">
+
+          <div class="tab-pane fade " [ngClass]="{'show active': tab == 'all'}" *ngIf="!isOfferings">
+            <div class="row media-tiles-row">
+              <div class="col-6 col-md-3 col-lg-4 media-tiles-col" *ngFor="let token of allTokenDet.docs | paginate: { itemsPerPage: allTokenDet?.paginationData?.limit, currentPage: allTokenDet?.paginationData?.page, totalItems: allTokenDet?.paginationData?.total} ">
+                <div *ngIf="isProjects" class="trading_box link-make" (click)="goToTradingDetail(token)">
+                  <div class="special-offer" *ngIf="token?.special_offering == true">
+                    <div class="special-offer-txt">special offer</div>
+                  </div>
+                  <div class="trading_box_head clearfix">
+                    <div class="clearfix row">
+                      <div class="col-9 specOff">
+                        <div *ngIf="token?.offering_type.length && token?.offering_nos > 0 && iswebApp" [ngClass]="{'specialoff-true': token?.special_offering}">
+                          <span class="badge badge-pill badge-warning badges"  *ngIf="token?.offering_type.includes('Fixed')">
+                            <b>FIX</b>
+                          </span>
+                          <span class="badge badge-pill badge-warning badges" *ngIf="token?.offering_type.includes('Floating')">
+                            <b>FLO</b>
+                          </span>
+                          <span class="badge badge-pill badge-warning badges" *ngIf="token?.offering_type.includes('Linked Currency') || token?.offering_type.includes('Linked Token')">
+                            <b>LNK</b>
+                          </span>
+                        </div>                        
+                      </div>
+                      <div class="col-3 offerNos">
+                        <span class="badge badge-pill badge-warning">
+                          <b>{{token?.offering_nos}}</b>
+                        </span>
+                      </div>
+                      <!-- <div class="offerNos" *ngIf="!token?.offering_nos > 0">
+                        <span class="badge badge-pill badge-warning">
+                          <b>{{token?.offering_nos}}</b>
+                        </span>
+                      </div> -->
+                    </div>
+                  </div>
+                  <div class="trading_box_body">
+                    <span class="trade_icon">
+                      <img src="{{ token?.token_symbol || 'assets/images/diamond-icon.png'}}" alt="icon">
+                    </span>
+                    <h3 *ngIf="!iswebApp">
+                      {{token?.token_name | truncate : 13 :'...' }}
+                      <span class="ticker">({{token?.ticker}})</span>
+                    </h3>
+                    <h3 *ngIf="iswebApp">
+                      {{token?.token_name}}
+                      <span class="ticker">({{token?.ticker}})</span>
+                    </h3>
+                    <p *ngIf="iswebApp">{{token?.description | truncate : 150 :'.' }}</p>
+                  </div>
+                  <div class="trading_head_foot clearfix">
+                    <span class="sales_start_time f-left">
+                      <i class="far fa-clock"></i>
+                      <!-- {{timer.TST}}  -->
+                      {{token?.remTime}}
+                    </span>
+                    <span class="price-range" *ngIf="token?.price_range[1] != 0">
+                      ${{token?.price_range[0] | number:'1.2-2'}} - ${{token?.price_range[1] | number:'1.2-2'}}
+                    </span>
+                    <span class="clearfix row symbol-group" *ngIf="token?.offering_nos > 0">
+                      <div class="currency-symbol" *ngFor="let symbol of token?.offering_symbol">
+                        <div *ngIf="symbol == 'ETH'">
+                          <img src="../../../assets/images/coin-crypto.svg" class="currencyicon">
+                        </div>
+                        <div *ngIf="symbol == 'US Dollar'">
+                          <img src="../../../assets/images/money-bag.jpg" class="currencyicon">
+                        </div>
+                        <div *ngIf="symbol == 'BTC'">
+                          <img src="../../../assets/images/btc.svg" class="currencyicon">
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+              <div style="margin-left: 42%;" *ngIf="allTokenDet.docs.length == 0">
+                <h5>{{'notokensale'| translate}}</h5>
+              </div>
+            </div>
+
+          </div>
+
+          <div *ngIf="isOfferings" class="card_box token_detail_head_box shadow_border offering-table table-responsive">
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" style="cursor:pointer">
+                    {{'logo' | translate}}
+                  </th>
+                  <th scope="col" (click)="sorting('project__ticker')" style="cursor:pointer">
+                    {{'project-name' | translate}}
+                    <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+                  </th>
+
+                  <th scope="col" (click)="sorting('offer_type')" style="cursor:pointer">{{'pricing-type' | translate}}
+                    <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+                  </th>
+                  <!-- <th scope="col" (click)="sorting('start_date')" style="cursor:pointer">
+                    {{'start-date' | translate}}
+                    <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+                  </th> -->
+                  <th scope="col" (click)="sorting('end_date')" style="cursor:pointer">
+                    {{'end-date' | translate}}
+                    <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+                  </th>
+                  <th scope="col" (click)="sorting('token_price')" style="cursor:pointer">
+                    {{'price' | translate}}
+                    <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+                  </th>
+                  <th scope="col" (click)="sorting('payment_type')" style="cursor:pointer">
+                    {{'payment-type' | translate}}
+                    <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+                  </th>
+                  <th></th>
+                  <th scope="col" (click)="sorting('token_for_sale')" style="cursor:pointer">
+                    {{'available' | translate}}
+                    <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+                  </th>
+                  <th> {{'action' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container>
+                  <ng-container>
+                    <tr id="tr-row" *ngFor="let offer of offerings">
+                      <td>
+                        <img src="{{ offer?.token_symbol || 'assets/images/logo-offer.jpg'}}" class="logoImg">
+                        <!-- <img src="assets/images/logo-offer.jpg" class="logoImg"> -->
+
+                      </td>
+                      <td>
+                        <a class="projectName" (click)="gotoTokenDetail(offer)">{{offer.token_name || '---'}} ({{offer.token_ticker || '---'}})</a>
+                      </td>
+                      <td>{{offer.offer_type || '---'}}</td>
+                      <!-- <td>{{offer.start_date || '---'}}</td> -->
+                      <td>{{offer.end_date == '9999-12-31' ? 'Infinite' : offer.end_date}}</td>
+                      <td>
+                        {{offer.token_price | separator: 7}} 
+                        <span *ngIf="offer.payment_type == cryptoCurrencyID"> ({{offer.symbol_name}}) </span>
+                        <span *ngIf="offer.payment_type == bankTransferID"> ({{offer.accepting_currency}}) </span>
+                      </td>
+                      <td>
+                        <span *ngIf="offer.payment_type == cryptoCurrencyID">
+                          Crypto Currency
+                        </span>
+                        <span *ngIf="offer.payment_type == bankTransferID">
+                          Bank Transfer
+                        </span>
+                      </td>
+                      <td>
+                        <span *ngIf="isLoggedIn">
+                          <button class="btncalculator" (click)=openModal(offer)>
+                            <i class="fa fa-calculator" aria-hidden="true"></i>
+                          </button>
+                        </span>
+                        <span *ngIf="!isLoggedIn">
+                          <button class="btncalculator" (click)=openModals(offer)>
+                            <i class="fa fa-calculator" aria-hidden="true"></i>
+                          </button>
+                        </span>
+                      </td>
+                      <td>
+                          <span *ngIf="offer.payment_type == cryptoCurrencyID">
+                              {{getAvailableToken(offer.token_for_sale) |separator: 7}} ({{getPercentTokenSales(offer)}}%)
+                          </span>
+                          <span *ngIf="offer.payment_type == bankTransferID">
+                              {{getAvailableToken(offer.available_amount) | separator: 7}} ({{getPercentTokenSale(offer)}}%)
+                            </span>
+                          </td>
+
+                      <td>
+                        <button class="btnBuy" (click)="buyToken(offer)">
+                          <i class="fas fa-cart-plus icon"></i>{{'buynow'| translate}}
+                        </button>
+                      </td>
+                    </tr>
+                    <tr id="tr-row" *ngIf="offerings.length === 0">
+                      <td colspan="8" class="text-center">{{'no-offering-found'| translate}}.</td>
+                    </tr>
+                  </ng-container>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+         
+          <!-- Tab 3 End -->
+        </div>
+        <!-- tab-content End -->
+      </div>
+      <!-- token_sale_box End -->
+    </div>
+  </section>
+</main>
+<!-- main End -->
+
+
+
+
+
+<!-- <div id="calculation" class="modal fade" role="dialog" style="margin-top: 145px;"> -->
+<div class="modal fade" id="calculation" role="dialog" style="margin-top: 145px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'project-calculation' | translate}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!isLoggedIn">
+          <p class="block" class="modalTxt">Calculate the cost if you buy right now</p>
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{'buy-token' | translate}} : </label>
+              <input type="number" class="form-control " [(ngModel)]="tokenValue" min="1" max="999" (ngModelChange)="changeCalculatorValue($event)">
+            </div>
+            <div class="col-md-6">
+              <label>{{'token-price' | translate}} : </label>
+              <input type="text" class="form-control" placeholder="token price" value="{{tokenValue * tokenPrice + calculatorprice?.fee | number:'1.7-7' }} {{(currencyOfName)}}"
+                readonly />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top:25px;">
+            <div class="col-md-12">
+              <!-- <div>Fees : {{calculatorprice?.fee | number:'1.2-2' || '0'}}</div>
+            <div>Percent : {{calculatorprice?.percent | number:'1.2-2' || '0'}}</div> -->
+              <div>USD {{'amount' | translate}}:{{calculatorprice?.usd_amount | number:'1.2-2' || 0}}</div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isLoggedIn">
+          <!-- <p class="block" class="modalTxt">current staking</p> -->
+          <div class="row">
+            <div class="col-md-6">
+              <label>{{'buy-token' | translate}} : </label>
+              <input type="number" class="form-control " [(ngModel)]="tokenValue" min="1" max="999" (ngModelChange)="changeCalculatorValue($event)">
+            </div>
+            <div class="col-md-6">
+              <label>{{'token-price' | translate}} : </label>
+              <input type="text" class="form-control" value="{{tokenValue * tokenPrice + calculatorprice?.fee | number: '1.7-7' }} {{(currencyOfName)}}"
+                readonly />
+            </div>
+          </div>
+          <div class="row" style="margin-top:25px;">
+            <div class="col-md-12">
+              <!-- <li>Fees : {{calculatorprice?.fee | number:'1.2-2' || '0'}}</li>
+          <li>Percent : {{calculatorprice?.percent | number:'1.2-2' || '0'}}</li> -->
+              <li>USD {{'amount' | translate}} : {{calculatorprice?.usd_amount | number:'1.2-2' || 0}}</li>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class="modal fade global-modal reset-modal" id="buyTokenModal">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <div class="modal-body" style="max-height: 307px;margin-top: -98px;">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col">
+              <div class="head_box2 text-center">
+                <h4>{{'sure_to_buy' | translate}}</h4>
+              </div>
+              <div class="form-group">
+              </div>
+              <div class="form-group mb20"></div>
+              <div class="action-btn text-center">
+                <button type="button" class="btn btn-gray max-WT-150" style="float: left;" data-dismiss="modal">{{'no'| translate}}</button>
+                <button type="button" class="btn btn-orange max-WT-150" style="float: right;" (click)="confirmBuy()">{{'yes'| translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div id="blockUser" class="modal fade" role="dialog" style="margin-top: 145px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'buy-token-alert' | translate}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <p class="block">{{blockError}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

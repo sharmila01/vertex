@@ -1,0 +1,13 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container">
+  <section class="static_page_section common_section">
+    <div class="container-1280">
+      <div class="head_box2 mb20">
+        <h4 class="rtl-text-right">{{'privacy' | translate}}</h4>
+      </div>
+      <p [innerHTML]="privacyData" class="word-break rtl-text-right"></p>
+    </div>
+  </section>
+</main>
+<!-- main End -->

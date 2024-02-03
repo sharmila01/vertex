@@ -1,0 +1,49 @@
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css";
+/* .uploadImgDiv{
+    position: relative;
+    width: 150px;
+}
+.uploadFileDiv {
+    position: absolute;
+    right: -23px;
+    top: -14px;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+}
+.uploadFileDiv input{
+    opacity: 0;
+    position: absolute;
+    z-index: 999;
+    width: 33px;
+    height: 35px;
+}
+.uploadFileDivLabel {
+    width: 34px;
+    height: 34px;
+    border-radius: 100%;
+    border: 1px solid;
+    position: relative;
+}
+.uploadFileDivLabel::after {
+    content: "\f040";
+    color: #757575;
+    position: absolute;
+    top: 7px;
+    font-family: 'FontAwesome';
+    right: 10px;
+} */
+.w50percent {
+    width: 50% !important;
+}
+.dFlex{
+    display: flex;
+}
+@media(max-width: 767px) {
+    .dFlex {
+        display: block !important;
+    }
+}
+.pointerNone{
+    pointer-events: none;
+}

@@ -1,0 +1,1115 @@
+@media(min-width:1280px) and (max-width:1480px){
+.list-group1 {
+    width: 95.2% !important;
+}  
+}
+
+.tokenusd{
+    font-size: 15px;
+    font-weight: 500;
+    margin: 5px;
+}
+.h3add{
+    font-size: 20px !important;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.token_trading_block .trading_box1 {
+    margin-bottom: 15px;
+}
+.trading_box1{
+    border: 2px solid lightgray;
+    border-radius: 4px;
+    background: #fff;
+    width: 100%;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.trading_box_body1{
+        padding: 10px 10px 30px;
+        text-align: center;
+        height: 183px;
+}
+.trade_icon1 img {
+    height: 60px;
+    object-fit: scale-down;
+}
+
+.trade_icon1 {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 0;
+}
+.card-new{
+    margin-right: 43px;
+}
+  
+.btnbuy {
+    position: fixed;
+    right: 21px;
+    bottom: 242px !important;
+    background-position: 0 0;
+    width: 140px;
+    height: 40px;
+    z-index: 100;
+    cursor: pointer;
+    background: #407a49;
+    border: 1px solid #407a49;
+    color: #fff;
+    transition: 0.5s;
+}
+.media-pb {
+    padding-bottom: 7.5px;
+}
+.card_box{margin: 14px 0 30px}
+.token_trading_block .trading_box {
+    margin-bottom: 30px;
+}
+.ng-select .ng-arrow-wrapper {
+    display: none !important;
+  }
+  .badges{
+      margin-right: 5px;
+  }
+.btnbuy {
+    position: fixed;
+    right: 21px;
+    bottom: 242px !important;
+    background-position: 0 0;
+    width: 140px;
+    height: 40px;
+    z-index: 100;
+    cursor: pointer;
+    background: #407a49;
+    border: 1px solid #407a49;
+    color: #fff;
+    transition: 0.5s;
+}
+.list-group{
+    position: absolute;   
+    z-index: 2; 
+    width: 611px;
+    color: black;
+}
+
+.lib-panel {
+    margin-bottom: 30px;
+}
+.tooltip-buy{
+    z-index: 2;
+}
+.row-img{
+    width: 50%;
+}
+.selected_option {
+    padding: 8px 10px;
+    margin: -8px 0;
+}
+.selectImg{
+    height: 20px;
+    object-fit: scale-down;
+}
+.lib-panel img {
+    background-color: transparent;
+    height: 215px;
+    width: 100%;
+    object-fit: scale-down;
+}
+.lib-img {
+    position: absolute;
+    /* width: 100px; */
+    object-fit: cover;
+    margin: 4px;
+    margin-right: 10px;
+    /* border: 1px solid #ddd; */
+    border-radius: 4px;
+    padding: 3px;
+    left: 0;
+    top: 0;
+}
+.searchimg{
+    width: 45px;
+    height: 25px;
+    object-fit: scale-down;
+}
+.box-shadow:hover{
+    border-color: #f36e47;
+    transition: 0.5s;
+    box-shadow: 0 0 10px 0 #f36e47;
+    transform: translateY(-10px);
+    border-color : none;
+}
+.lib-panel .row,
+.lib-panel .col-md-6 {
+    padding: 0;
+    background-color: #FFFFFF;
+    height: 230px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.lib-panel .row:hover {
+    border-color: #f36e47;
+    transition: 0.5s;
+    box-shadow: 0 0 10px 0 #f36e47;
+}
+
+
+.lib-panel .lib-row {
+    /* padding: 0 20px 0 20px; */
+}
+
+.lib-panel .lib-row.lib-header {
+    background-color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 10px 0 0px;
+    color: #f36f46;
+    text-align: start;
+}
+
+.lib-panel .lib-row.lib-header .lib-header-seperator {
+    height: 2px;
+    width: 26px;
+    background-color: #d9d9d9;
+    margin: 7px 0 7px 0;
+}
+
+.lib-panel .lib-row.lib-desc {
+    position: relative;
+    max-height: 50%;
+    display: block;
+    font-size: 13px;
+    /* overflow-y: auto; */
+
+}
+/* .lib-panel .lib-row.lib-desc a{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    left: 20px;
+} */
+.imgspace{
+    padding: 0px;
+}
+.row-margin-bottom {
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+}
+
+.no-padding {
+    padding: 0;
+}
+.mt30{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: visible;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: visible;
+  }
+
+
+.list-group-item{
+    font-size: 17px;
+    color: black;
+}
+select.icon-menu option {
+    background-repeat:no-repeat;
+    background-position:bottom left;
+    padding-left:30px;
+    }
+    .contain {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin-right: 0px;
+        margin-top: 14px;
+    
+      }
+    
+     
+      
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 15px;
+        padding: 90px;
+        height: 188px;
+        background: rgba(0, 0, 0, 0);
+        transition: background 0.5s ease;
+      }
+    
+      .contain:hover .overlay {
+        display: block;
+        background:rgba(255, 255, 255, 0.822);
+        border: 2px solid lightgray;
+        border-radius: 4px;
+    
+      }
+    
+      .buybtn {
+        position: absolute;
+        left: 58px;
+        top: 48px;
+        width: 100px;
+        font-size: 14px;
+        padding: 8px;
+        height: 40px;
+        float: left;
+        text-align: center;
+        opacity: 0;
+        /* transition: opacity .35s ease; */
+        cursor: pointer;
+        background: #407a49;
+        border: 1px solid #407a49;
+        color: #fff;
+      }
+      .buybtn:hover{
+        width: 100px;
+        height: 40px;
+        background: #4f9159;
+        border-color: #f36e47;
+        /* transition: 0.5s; */
+        box-shadow: 0 0 10px 0 #f36e47 !important;
+        /* transform: translateY(-5px); */
+    }
+      .sellbtn {
+        position: absolute;
+        left: 58px;
+        padding: 8px;
+        width: 100px;
+        height: 40px;
+        font-size: 14px;
+        float: right;
+        top: 97px;
+        text-align: center;
+        opacity: 0;
+        /* transition: opacity .35s ease; */
+        background: #913232;
+        border: 1px solid #913232;
+        cursor: pointer;
+        color: #fff;
+      }
+      .sellbtn:hover{
+        width: 100px;
+        height: 40px;
+        background: #8f2525;
+        border-color: #f36e47;
+        /* transition: 0.5s; */
+        box-shadow: 0 0 10px 0 #f36e47 !important;
+        /* transform: translateY(-4px); */
+      }
+  .itemdata:hover{
+      color: black;
+      font-weight: bold;
+  }
+  .banner-img{
+      width: 100% !important;
+      /* height: 243.5px; */
+      height: calc(52vh*3/4);
+      object-fit: cover;
+  }
+
+  .contain:hover .buybtn  {
+    opacity: 1;
+  }
+  .row1{
+    /* display: -webkit-box; */
+    /* display: -ms-flexbox; */
+    display: flex;
+    /* -ms-flex-wrap: wrap; */
+    flex-wrap: wrap;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  .btnspace{
+      margin-right: 15px;
+  }
+  .contain:hover .sellbtn  {
+    opacity: 1;
+  }
+  
+  ::ng-deep  .ng-select.ng-select-single .ng-select-container {
+    height: 50px !important;
+    background: #f2f2f2;
+    border: 1px solid #f2f2f2;
+}
+.search-container {
+    width: 100%;
+    float: left;
+  }
+
+  .search-container1 {
+    width: 100%;
+    float: right;
+  }
+  
+  .search-box {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    height: 65px;
+    position: relative;
+  }
+  
+  .search-icon {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    width: 32px;
+    height: 40px;
+    color: #999;
+    font-size: 1.3em;
+    padding: 19px 15px;
+  }
+  
+  .search-input {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 90%;
+    height: 60px;
+    float: right;
+    background-color: transparent;
+    border: 0px;
+    padding: 10px;
+    text-transform: uppercase;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 17px;
+    position: relative;
+    outline: 0px;
+  }
+  
+  @-webkit-keyframes fadeInTop {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(-1.334em) translateZ(0);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fadeInTop {
+    0% {
+      opacity: 0;
+      -moz-transform: translateY(-1.334em) translateZ(0);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInTop {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(-1.334em) translateZ(0);
+      -moz-transform: translateY(-1.334em) translateZ(0);
+      -ms-transform: translateY(-1.334em) translateZ(0);
+      -o-transform: translateY(-1.334em) translateZ(0);
+      transform: translateY(-1.334em) translateZ(0);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .search-results {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 999;
+    width: 368px;
+    max-height: 200px;
+    overflow: scroll;
+    top: 40px;
+    left: 32px;
+    text-align: left;
+  }
+  .search-results li {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 40px;
+    background-color: #9BC788;
+    color: white;
+    font-weight: bold;
+    /* ANIMATION */
+    /* remove this part if you dont like the animation */
+    /* END OF ANIMATION */
+  }
+  .search-results li:hover {
+    background-color: #87bc70;
+    cursor: pointer;
+  }
+  .search-results li:nth-child(1) {
+    /* Animation */
+    -webkit-animation: fadeInTop 0.4s 0s forwards;
+    animation: fadeInTop 0.4s 0s forwards;
+    opacity: 0;
+  }
+  .search-results li:nth-child(2) {
+    /* Animation */
+    -webkit-animation: fadeInTop 0.4s 0.1s forwards;
+    animation: fadeInTop 0.4s 0.1s forwards;
+    opacity: 0;
+  }
+  .search-results li:nth-child(3) {
+    /* Animation */
+    -webkit-animation: fadeInTop 0.4s 0.2s forwards;
+    animation: fadeInTop 0.4s 0.2s forwards;
+    opacity: 0;
+  }
+  .search-results li:nth-child(4) {
+    /* Animation */
+    -webkit-animation: fadeInTop 0.4s 0.3s forwards;
+    animation: fadeInTop 0.4s 0.3s forwards;
+    opacity: 0;
+  }
+  .search-results li:nth-child(5) {
+    /* Animation */
+    -webkit-animation: fadeInTop 0.4s 0.4s forwards;
+    animation: fadeInTop 0.4s 0.4s forwards;
+    opacity: 0;
+  }
+  
+.main-container .common_section1 {
+    padding: 2em 0;
+}
+
+.media-mt-7 {
+    margin-bottom: 30px;
+    margin-top: 0px;
+}
+.main-container .common_section1 {
+    padding: 1em 0;
+}
+.btn {
+    cursor: pointer;
+}
+.mbot-60 {
+    margin-bottom: 60px;
+}
+
+.f-right {
+    float: right;
+}
+
+.mr-20{
+    margin-right: -20px
+}
+
+@media (min-width: 1024px){
+    .list-group1{
+        width: 611px;
+    }
+    .banner img {
+        object-fit: contain;
+        width: 100% !important;
+    }
+}
+.investing {
+    object-fit: contain;
+    width: 15%;
+    padding: 5px;
+    cursor: pointer;
+}
+.investing:hover {
+    background-color: rgb(238, 238, 238);
+}
+/* .btn-tg {
+    right: 25px !important;
+    float: left;
+    bottom: 10px !important;
+} */
+.badge b{
+    text-transform: uppercase !important;
+}
+.clearfix .w-15s {
+    min-width: 50%;
+    max-width: 50%;
+}
+
+/* -------mobile ------------ */
+
+@media (max-width: 767px) {
+    .h3add{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .tokenusd {
+        font-size: 13px !important;
+    }
+    .why_choose_section {
+        margin-top: 7.5px
+    }
+    .media-mt-7 {
+        margin-bottom: 7.5px;
+    }
+    .card_box{padding:10px;margin: 7.5px 0 !important}
+
+    .lib-panel img {
+        background-color: transparent;
+        height: 155px;
+        width: 100%;
+        -o-object-fit: scale-down;
+        object-fit: scale-down;
+    }
+    .token_trading_block .trading_box {
+        margin-bottom: 7.5px;
+    }
+    .lib-panel {
+        margin-bottom: 22px;
+    }
+    .media-mb-10 { margin-bottom: 10px;  }
+    .trade_list {
+        margin-top: 7px !important;
+    }
+    .trade-time {
+        font-size: 10px
+    }
+   .tooltiptext {
+        font-size: 13px;
+    }
+    .banner-img {
+        height: auto;
+    }  
+    .mbot-60 {
+        margin-bottom: 0px;
+    }
+    .price-range {
+        text-align: center;
+        margin-right: 0;
+        font-size: 11px;
+    }
+    .list-group1{
+        width: 92%;
+    } 
+    .data-tooltip { 
+           width: 92% !important;
+        }
+    .investing {   
+        width: 35%;
+    }
+    .about-vertex-section,.common_section {padding:2.6em 0 !important;}
+    .trading_box{
+        width: 100% !important;
+    }       
+    .search-container {
+        width: 100%
+    }
+    .search-container1 {
+        width: 100%;
+        margin-top: 5px;
+    }
+    .search-input {
+        position: absolute;
+        width: 90%;
+    }
+    .trading_box{
+        width: 100% !important;
+    }        
+    .trading_box_body {
+        /* min-height: calc(44vh - 256.27px); */
+        padding: 10px 0;
+        min-height: 101px;
+    }     
+     
+    
+    .sales_start_time {
+        display: none;
+    }
+    .offerNos {
+        margin-right: 8%;
+    }
+    .offerNo {
+        margin-right: 8%;
+    }    
+    .special-offer {        
+        width: 82px;
+    margin-left: -12px;
+    margin-top: 46px;
+    border-bottom: 14px solid #913232;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    }
+    .special-offer-txt {
+        font-size: 69%;
+        left: 0;
+    } 
+    .special-offer-txt1 {
+        font-size: 9px;
+        padding-left: 2px;
+    }
+
+    .token_trading_block .media-tiles-row {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
+    .media-tiles-col {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
+    .trade_icon img {
+        height: 40px;
+    }
+    .trading_box_head {
+        padding: 5px 10px 0;
+    }
+    .trading_box_body h3 {
+        font-size: 15px;
+        margin: 9px auto;
+    }
+    .specialoff-true {
+        margin-left: 25px;
+    }
+    .trading_head_foot {
+        padding: 5px 10px;
+        min-height: 30px;
+        text-align: center;
+    }
+    .contain {
+        margin-right: 0;
+      }
+}
+/* ---------end mobile-------- */
+
+/* -----------iphone 5s ----------*/
+@media screen and (device-aspect-ratio: 40/71) {
+.trading_box1{
+    height: 165px !important;
+}
+
+.tokenusd {
+    font-size: 11px !important;
+    font-weight: 500;
+    margin: 5px;
+}
+    .lib-panel img {
+        background-color: transparent;
+        height: 155px;
+        width: 100%;
+        -o-object-fit: scale-down;
+        object-fit: scale-down;
+    }
+    /* .btn-tg {
+        right: 19px !important;
+        left: unset !important;
+        bottom: 70px !important;
+    } */
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 15px;
+        padding: 144px;
+        height: 299px;
+        background: rgba(0, 0, 0, 0);
+        transition: background 0.5s ease;
+    }
+    .list-group1{
+        width: 92%;
+    }
+    .buybtn{
+        left: 87px;
+    }
+
+    .sellbtn{
+        left: 87px;
+    }
+    .search-container {
+        width: 100%
+    }
+    .search-container1 {
+        width: 100%
+    }
+    .search-input {
+        position: absolute;
+    }
+   
+    .badge {
+        padding: 4px 7px;
+    }
+    .trading_box_head {
+        padding: 3px 7px 7px;
+    }    
+    
+    .trade_icon img {
+        height: 30px;
+    }
+    
+    .trading_box_body h3 {
+        font-size: 12px;
+        margin: 7px auto;
+    }
+    .trading_box_body {
+        min-height: 62.5px;
+        padding: 0;
+    }
+    .special-offer {
+        width: 69px;
+        margin-left: -10px;
+        margin-top: 38px;
+        border-bottom: 12px solid #913232;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+    }
+    .special-offer-txt {
+        font-size: 59%;
+        left: 0;
+    }
+
+    .contain {
+        margin-right: 0;
+      }
+  }
+  /* -----------end iphone 5s ----------*/
+
+  /* ----ipad--------- */
+  @media only screen and (min-device-width: 768px)  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+      
+    .tokenusd{
+        font-size: 14px !important;
+    }
+    .media-sale-search {
+        margin-top: 15px !important;
+    }
+    .data-tooltip { 
+        width: 92.5% !important;
+     }
+ 
+    .banner-img {
+        height: auto;
+    }  
+    .mbot-60 {
+        margin-bottom: 0px;
+    }
+    .price-range {
+        text-align: center;
+        margin-right: 0;
+        font-size: 11px;
+    }
+    .list-group1{
+        width: 92%;
+    }
+    .trading_box {
+        width: 100%;
+        }
+    .trading_box_body {
+        padding: 0px 10px 5px;
+        /* min-height: calc(33vh - 265.05px); */
+        min-height: 94.25px;
+    }
+    .trade_icon {
+        margin-top: 5px;
+    }
+    .trade_icon img {
+    height: 40px;
+    }
+    .trading_box_body h3 {
+    font-size: 15px;
+    margin: 10px auto;
+    }
+    .trading_head_foot {
+    text-align: center;
+    padding: 5px 10px;
+    min-height: 30px;
+    }
+  
+    .sales_start_time {
+        display: none;
+    }
+    .offerNos {
+        margin-right: 8%;
+    }
+    .offerNo {
+        margin-right: 8%;
+    }
+    
+    .search-container {
+        width: 100%
+    }
+    .search-container1 {
+        width: 100%
+    }
+    .search-input {
+        position: absolute;
+    }
+    .special-offer {
+        width: 107px;
+        margin-left: -16px;
+        margin-top: 60px;
+        border-bottom: 20px solid #913232;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+    }
+    .special-offer-txt {
+        font-size: 89%;
+        left: 0;
+    }
+    
+    .specialoff-true {
+        margin-left: 27px;
+    }
+    .token_trading_block .media-tiles-row {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
+    .media-tiles-col {
+        padding-left: 7.5px;
+        padding-right: 7.5px;
+    }
+    .contain {
+        margin-right: 0;
+      }
+  }
+  /* ----end ipad--------- */
+
+
+/* ----------- iPhone 6 landscape ----------- */
+  @media only screen and (min-device-width: 375px) and (max-device-width: 812px) 
+  and (orientation: landscape) { 
+
+    
+    #snackbar {
+        left: 141px !important;
+        bottom: 495px !important;
+    }
+    .trading_box_body {
+        min-height: calc(48vh - 255.77px);
+        padding: 12px 0;
+    }
+   
+    .specialoff-true {
+        margin-left: 30px;
+    }
+    .trading_head_foot {
+        min-height: 30px;
+    }
+}
+
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+@media only screen  and (min-device-width: 414px)  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+    .trading_box_body {
+        min-height: 120.5px;
+    }
+
+}
+
+/* ----------- Galaxy S4, S5 and Note 3 ----------- */
+
+/* Portrait and Landscape */
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+    .special-offer-txt1 {
+        font-size: 8px;
+        padding-left: 3px;
+    }
+    
+    .trading_box_body {
+        padding: 8px 0;
+        min-height: 93.5px;
+    }
+}
+/* Portrait */
+@media only screen   and (min-device-width: 1024px) 
+  and (max-device-width: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+    .trading_box_body {
+        padding: 0px 10px 5px;
+        min-height: 158.25px;
+    }
+    .trading_box_body p {
+        font-size: 11px;
+    }
+
+}
+
+/* ipad pro */
+@media only screen 
+  and (min-device-width: 1024px) 
+  and (max-device-width: 1366px) 
+  and (-webkit-min-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+    .trading_box_body {
+        padding: 0px 10px 5px;
+        min-height: 158.25px;
+    }
+    .trading_box_body p {
+        font-size: 11px;
+    }
+
+    .contain {
+        margin-right: 0
+    }
+    .specialoff-true {
+        margin-left: 70px;
+    }
+    .list-group1 {
+        width: 94% !important;
+    }
+}
+	
+/* .currency-symbol {
+    width: 14px!important;
+} */
+/* ----------- iPhone 6 landscape ----------- */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) 
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) { 
+    .trading_box_body {
+        min-height: 247px !important;
+        padding: 65px 0 !important;
+    }
+    .special-offer-txt1 {
+        padding-left: 32px !important;
+    }
+    .specialoff-true {
+        margin-left: 70px !important;
+    }
+}
+/* ----------- end iPhone 6 landscape ----------- */
+
+/* ----------- end iPhone 6 landscape ----------- */
+
+   /* iPhone 6 Plus in landscape */
+   @media only screen  and (min-device-width: 414px)   and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)  and (orientation: landscape) { 
+    .trading_box_body {
+        min-height: 281.5px !important;
+        padding: 102px 0 !important;
+    }
+
+}
+
+   /*end iPhone 6 Plus in landscape */
+
+   .data-tooltip {
+    width: 95.5%;
+    background-color: #ee7955;
+    color: #fff;
+    text-align: center;
+    margin-top: 10px;
+    padding: 7px 0;
+    border-radius: 6px;
+    position: absolute;
+    /* z-index: 2; */
+  }
+  .data-tooltip ::before {    display: block;    position: absolute;    color: white;    content: "";    margin-top: -15px;    margin-left: 59px;    width: 0;    height: 0;    border-left: 5px solid transparent;    border-right: 5px solid transparent;    border-bottom: 10px solid #ee7955;      }
+
+      /* &:before {
+        border-radius:0.2em;
+        content:attr(title);
+        background-color:$alphablack;
+        margin-top:-2.5em;
+        padding:0.3em;
+      }
+      &:after {
+        content:'';
+        margin-top:-2.1em;
+        margin-left:1em;
+        border-style:solid;
+        border-color:transparent;
+        border-top-color:$alphablack;
+        border-width:0.5em 0.5em 0 0.5em;
+    
+  } */
+    
+
+
+
+
+/** CSS For SnackBar */
+body{
+    display: flex;/* Center according to the main axis */
+      justify-content: center;/* Center according to the secondary axis */
+      align-items: center;
+  }
+  
+  button{
+    color:#000;
+    background-color:#999;
+    /* margin-top:20px; */
+  }
+ 
+  
+  .trade-time {
+    color: #4c4848;
+    font-size: 12px
+}
+.trade_list {
+    margin-top: 1rem;
+    text-align: left;
+}
+  /* Show the snackbar when clicking on a button (class added with JavaScript) */
+  .show {
+      visibility: visible !important; /* Show the snackbar */
+  
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  /* Animations to fade the snackbar in and out */
+ /*  @-webkit-keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+  }
+  
+  @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+  }
+  
+  @-webkit-keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+  }
+  
+  @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+  } */
+
+  .snackbar-delete-icon {
+    width: 10px;
+    float: right;
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    cursor: pointer;
+  }
+  

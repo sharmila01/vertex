@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+.addOffTooltip {
+    /* float: left; */
+    background-color: #fff !important;
+    color: #485057 !important;
+  }
+  .ng-select.ng-select-single .ng-select-container {
+    height: 50px !important;
+}
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input{
+  top: 13px !important;
+}
+.ng-dropdown-panel {
+  left: 0 !important;
+}
+.ng-select.inNgSelect .ng-select-container {
+  width: 400px !important;
+}
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background-color: #fff;
+  color: rgba(0,0,0,0.87);
+  padding: 8px 10px;
+  text-align: left;
+}
+.ng-select.profileNgSelect .ng-select-container {
+  width: 230px !important;
+  margin-left: 4px !important;
+}
+@media (max-width: 767px) {
+  .ng-select.inNgSelect .ng-select-container{
+      width: 100%!important;
+  }
+  .ng-select.profileNgSelect .ng-select-container{
+    width: 145px !important;
+  }
+  .d-blockk {
+    display: block !important;
+  }
+}
+@media (max-width: 767px) {
+  .ng-select.profileNgSelect .ng-select-container{
+    width: 145px !important;
+  }
+}
+@media(max-width: 411px) {
+  ngb-carousel {
+    width: 100% !important;
+  }
+}
+/* ngb-carousel .carousel-control-prev-icon {
+  background-image: url('https://cdn3.vectorstock.com/i/1000x1000/60/87/arrow-left-flat-black-color-icon-vector-6076087.jpg') !important;
+}
+ngb-carousel .carousel-control-next-icon {
+  background-image: url('https://image.shutterstock.com/image-illustration/arrow-right-icon-primitive-set-260nw-319695065.jpg') !important;
+} */

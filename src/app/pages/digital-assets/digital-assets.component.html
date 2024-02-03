@@ -1,0 +1,13 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container">
+  <section class="static_page_section common_section">
+    <div class="container-1280">
+      <div class="head_box2 mb20">
+        <h4>{{currHtml?.meta_title}}</h4>
+      </div>
+      <p [innerHTML]="currHtml?.text" class="word-break"></p>
+    </div>
+  </section>
+</main>
+<!-- main End -->

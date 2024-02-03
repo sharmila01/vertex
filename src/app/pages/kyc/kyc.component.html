@@ -1,0 +1,317 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container bg_gray">
+  <section class="inner_section common_section">
+    <div class="container-1280">
+      <!-- global_box Start -->
+      <div class="global_box">
+        <div class="head_box2 head_box2_border mb10 max-WT-400">
+          <h4>{{'kycprofile' | translate}}</h4>
+          <p class="mt0">{{'completeregistration' | translate}}</p>
+        </div>
+        <!-- kyc_box Start -->
+        <div class="kyc_box">
+          <div class="kyc_user"><span>{{'user' | translate}}:</span> {{profileData?.email}}</div>
+          <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> -->
+          <!-- kyc_left_spcae Start -->
+          <div class="kyc_left_spcae">
+            <!-- validate_document_box -->
+            <div class="validate_document_box">
+              <!-- <p>We reserve our time to validate your documents.</p> -->
+              <!-- <p *ngIf="profileData.kyc_doc_information == 'MANUAL_REVIEW'">
+                {{'kyctitle' | translate}}
+              </p> -->
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="validate_box" [ngClass]="profileData.is_email_verified ? 'green_light_bg':  'pink_bg' ">{{'validateemailid'| translate}}<span class="validateIcon"><img src="{{profileData.is_email_verified ? 'assets/images/check-icon.png': 'assets/images/close-icon.png'}}"/></span></div>
+                </div>
+                <div class="col-md-4">
+                  <div class="validate_box" [ngClass]="(kycData.verify_stage == 'VERIFIED' || kycData.manual_approve)? 'green_light_bg':  'pink_bg' ">{{'userinformation'| translate}}<span class="validateIcon"><img src="{{(kycData.verify_stage == 'VERIFIED' || kycData.manual_approve) ? 'assets/images/check-icon.png': 'assets/images/close-icon.png'}}"/></span></div>
+                </div>
+                <div class="col-md-4">
+                  <div class="validate_box" [ngClass]="(kycData.verify_stage == 'VERIFIED' || kycData.manual_approve) ? 'green_light_bg':  'pink_bg' ">{{'uploadkycdocuments'| translate}}<span class="validateIcon"><img src="{{(kycData.verify_stage == 'VERIFIED' || kycData.manual_approve) ? 'assets/images/check-icon.png': 'assets/images/close-icon.png'}}"/></span></div>
+                </div>
+              </div>
+            </div>
+            <!-- kyc_inner_box End -->
+            <!-- kyc_inner_box Start -->
+            <div class="kyc_inner_box max-WT-750">
+              <h2 class="head3 rtl-text-right">{{'validateemail' | translate}}</h2>
+              <p>{{'youremail' | translate}}  {{profileData?.email}}</p>
+              <p *ngIf="!profileData.is_email_verified">{{'tovalidatemailtext' | translate}}</p>
+              <div [ngClass]="profileData?.is_email_verified ? 'verify_status': 'verify_status1'" (click)="verifyEmail()" >
+                <img src="{{profileData?.is_email_verified ? 'assets/images/check-icon.png' : 'assets/images/close-icon.png'}}" />{{profileData?.is_email_verified ? 'VERIFIED' : 'VERIFY NOW'}}
+              </div>
+              <p>{{'adminemail' | translate}}</p>
+            </div>
+            <!-- kyc_inner_box End -->
+
+            <!-- kyc_inner_box Start -->
+            <!-- <div class="kyc_inner_box" *ngIf="(profileData.kyc_doc_information != 'MANUAL_REVIEW') && (profileData.kyc_doc_information != 'ACCEPT') "> -->
+            <div class="kyc_inner_box">
+              <h2 class="head3 rtl-text-right">{{'kyc' | translate}}</h2>
+              <!-- <div id="idm-container" style="width: 500px;"></div> -->
+              
+              
+              
+              <div [ngClass]="{'d-flex' :( (!kycData?.manual_approve) &&( kycData?.verify_stage == 'INITIATED' || kycData?.verify_stage == 'PROCESSING') )}">
+                  <div class="verify_status w-250" [ngClass]="{'boxStatus_unverified': kycData?.verify_stage == 'UNVERIFIED', 'boxStatus_initiated': kycData?.verify_stage == 'INITIATED', 'boxStatus_processing': kycData?.verify_stage == 'PROCESSING' }" *ngIf="kycData?.verify_stage && !kycData?.manual_approve">
+                      <img src="{{ kycData?.verify_stage == 'VERIFIED' ? 'assets/images/check-icon.png' : 'assets/images/close-icon.png'}}" *ngIf="kycData?.verify_stage == 'VERIFIED' || kycData?.verify_stage == 'UNVERIFIED' " />{{kycData?.verify_stage}}
+                      <br><label *ngIf="kycData?.verify_stage == 'UNVERIFIED'" class="fs13">Please contact :  admin@vertex.market</label>
+                  </div>
+                <button class="btn btn-dark-gray w-250 btn-neue-bold uploadBtnKyc" type="button" (click)="updateAndScroll()" *ngIf="(!kycData?.manual_approve) &&( kycData?.verify_stage == 'INITIATED' || kycData?.verify_stage == 'PROCESSING')">Upload Documents</button>
+                <div class="verify_status" *ngIf="kycData?.manual_approve">
+                    <img src="assets/images/check-icon.png"/>VERIFIED
+                  </div>
+              </div>
+              <div class="form-box">
+                <form class="complete_kyc_form" [formGroup]="kycUserForm">
+                  <div class="kycFormClass">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'firstname' | translate}}</label>
+                          <input type="text" class="form-control" placeholder="First name" maxlength="50" [formControl]="kForm.firstName">
+                          <div class="error" *ngIf="kForm.firstName.dirty && kForm.firstName.invalid">
+                            <span *ngIf="kForm.firstName.hasError('required')">{{'enterfirstname' | translate}}</span>
+                            <span *ngIf="kForm.firstName.hasError('minlength')">{{'validfirstname' | translate}}</span>
+                            <span *ngIf="kForm.firstName.hasError('pattern') && !kForm.firstName.hasError('minlength')">{{'entervalidfirstname' | translate}}</span>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'lastname' | translate}}</label>
+                          <input type="text" class="form-control" placeholder="Last name" maxlength="50" [formControl]="kForm.lastName">
+                          <div class="error" *ngIf="kForm.lastName.dirty && kForm.lastName.invalid">
+                              <span *ngIf="kForm.lastName.hasError('required')">{{'enterlastname' | translate}}</span>
+                              <span *ngIf="kForm.lastName.hasError('minlength')">{{'validlastname' | translate}}</span>
+                              <span *ngIf="kForm.lastName.hasError('pattern') && !kForm.lastName.hasError('minlength')">{{'validenterlastname' | translate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'email' | translate}}</label>
+                          <input type="text" class="form-control" placeholder="Email id" maxlength="64" [formControl]="kForm.email" />
+                          <div class="error" *ngIf="kForm.email.dirty && kForm.email.invalid">
+                            <span *ngIf="kForm.email.hasError('required')">{{'enteremail' | translate}}</span>
+                            <span *ngIf="kForm.email.hasError('pattern')">{{'validemail' | translate}}</span>
+                          </div>
+                        </div>
+                    </div> -->
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>{{'dob' | translate}}</label>
+                        <input type="text" style="float:none" class="form-control calendar-icon" placeholder="Date Of Birth" ngx-mydatepicker [options]="dateOptions"  #kycDob="ngx-mydatepicker" [formControl]="kForm.dob" (click)="kycDob.toggleCalendar()" readonly="true">
+                        <!-- (inputFieldChanged)="onStartDateChanged($event)" -->
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'country' | translate}}</label>
+                          <!-- <select class="form-control select_style1" [formControl]="kForm.country">
+                            <option value="">{{'selectcountry' | translate}}</option>
+                              <option *ngFor="let country of countryListArr" [value]="country.name">{{country.name}}</option> 
+                          </select> -->
+                          <ng-select [items]="countryListArr"
+                            bindLabel="name"
+                            bindValue="name"
+                            placeholder="Select Country"
+                            [formControl]="kForm.country">
+                          </ng-select> 
+                          <div class="error" *ngIf="kForm.country.dirty && kForm.country.invalid">
+                            <span *ngIf="kForm.country.hasError('required')">{{'Please select country' }}</span>
+                          </div>
+                        </div>
+                    </div>
+                   <div class="col-md-6">
+                        <div class="form-group">
+                          <label>{{'nationality' | translate}}</label>
+                          <!-- <select class="form-control select_style1" [formControl]="kForm.nationality">
+                            <option value="">{{'Select Nationality'}}</option>
+                            <option *ngFor="let item of nationalityListArr" [value]="item">{{item}}</option> 
+                          </select> -->
+                          <ng-select [items]="nationalityListArr"
+                            bindLabel="item"
+                            bindValue="item"
+                            placeholder="Select Nationality"
+                            [formControl]="kForm.nationality">
+                          </ng-select>
+                          <div class="error" *ngIf="kForm.nationality.dirty && kForm.nationality.invalid">
+                            <span *ngIf="kForm.nationality.hasError('required')">{{'Please select nationality'}}</span>
+                          </div>
+                        </div>
+                    </div> 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{'mobilenumber' | translate}}</label>
+                            <div class="input-group input-group-contact">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                    <!-- <select class="form-control select_style1 borderBlack" [formControl]="kForm.phoneCode" >
+                                      <option value="">{{'selectcode' | translate}}</option>
+                                      <option *ngFor="let country of allCountryListArr | orderBy: 'code'" [value]="country.code" selected>{{country.code}}</option>
+                                    </select> -->
+                                    <ng-select [items]="allCountryListArr"
+                                      bindLabel="code"
+                                      bindValue="code"
+                                      placeholder="Select Code"
+                                      [formControl]="kForm.phoneCode">
+                                    </ng-select>
+                                  </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Mobile no." maxlength="16" [formControl]="kForm.mobile_number" />
+                                
+                              </div>
+                              <div class="error" *ngIf="kForm.mobile_number.dirty && kForm.mobile_number.invalid">
+                                  <span *ngIf="kForm.mobile_number.hasError('required')">{{'enterno' | translate}}</span>
+                                  <span *ngIf="kForm.mobile_number.hasError('pattern')">{{'validno' | translate}}</span>
+                              </div>
+                          </div> 
+                    </div>
+                    <div class="col-md-6" *ngIf="kycData?.verify_stage != 'VERIFIED' && kycData?.verify_stage !=  'UNVERIFIED' && !kycData?.manual_approve">
+                        <button class="btn btn-dark-gray btn-block btn-neue-bold" [disabled]="kycUserForm.invalid" (click)="saveDocuments()" *ngIf="!kycUserForm.disabled" >{{'save_docs' | translate}} </button>
+                        <button class="btn btn-dark-gray btn-block btn-neue-bold" (click)="editKycForm()" *ngIf="kycUserForm.disabled"> {{'editbtn' |translate}} </button>
+                    </div>
+                      
+                      
+                    
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- kyc_inner_box End -->
+            <!-- Div For SUM SUB  KYC -->
+             <!-- <div id="idensic">
+              
+            </div>  -->
+            <!-- Div For SUM SUB  KYC -->
+            
+          </div>
+          <!-- Left Space -->
+        </div>
+        <!-- kyc_box End -->
+      </div>
+      <!-- global_box End -->
+    </div>
+  </section>
+
+</main>
+<!-- main End -->
+ <!-- Modal Start-->
+<!-- <div class="modal fade global-modal reset-modal" id="email_verify_modal" >
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height270">
+            <div class="col">
+              <form class="common-form" autocomplete="off">
+                <div class="head_box2 text-center mb10">
+                  <h4>{{'emailverification' | translate}}</h4>
+                  <p>{{'verifyemailmsg' | translate}}</p>
+                </div>
+                <div class="form-group mb20">
+                  <ul class="insert_qr_code d-flex">
+                    <li>
+                      <input class="form-control no_arrow" type="text" id="emailFirstInput" maxlength="1" [(ngModel)]="otp.one" name="one" (keyup)="changeFocus(otp.one, 'emailSecondInput', $event)" (keydown.backspace)="remove(otp.one, 'emailSecondInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="emailSecondInput" [(ngModel)]="otp.two" name="two" (keyup)="changeFocus(otp.two, 'emailThirdInput', $event)" (keydown.backspace)="remove(otp.two, 'emailThirdInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="emailThirdInput" [(ngModel)]="otp.three" name="three" (keyup)="changeFocus(otp.three, 'emailFourthInput', $event)"  (keydown.backspace)="remove(otp.three, 'emailFourthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="emailFourthInput" [(ngModel)]="otp.four" name="four" (keyup)="changeFocus(otp.four, 'emailFifthInput', $event)" (keydown.backspace)="remove(otp.four, 'emailFifthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="emailFifthInput" [(ngModel)]="otp.five" name="five" (keyup)="changeFocus(otp.five, 'emailSixthInput', $event)" (keydown.backspace)="remove(otp.five, 'emailSixthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="emailSixthInput" [(ngModel)]="otp.six" name="six" (keyup)="changeFocus(otp.six, 'complete', $event)" (keydown.backspace)="remove(otp.six, 'complete', $event)"  onlyNumber/>
+                    </li>
+                  </ul>
+                </div>
+                <div class="action-btn text-center">
+                  <button type="button" class="btn btn-orange max-WT-200" (click)="(otp.one&&otp.two&&otp.three&&otp.four&&otp.five&&otp.six) ? submitotp() : '' ">{{'submit' | translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->
+<!-- Modal End -->
+<!-- Email Verify Modal Start-->
+<div class="modal fade global-modal reset-modal" id="verify_email">
+    <div class="modal-dialog max-WT-500 signupModalmt ">
+      <form class="pin_code_form">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close zIndex link-make" data-dismiss="modal" >&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <div class="head_box2 text-center mt20">
+                  <h4 class="font-bold">
+                    <!-- <h5> {{'sucessfully_registered' | translate}} </h5> -->
+                    <p class="mt20">{{'register_link_message' | translate}}</p>
+                    <!-- <p class="word-break  mt-1">{{stakeTransactionData.admin_stake_address }} </p> -->
+                  </h4>
+                  <!-- <img src="http://res.cloudinary.com/vertexportal/image/upload/v1538982752/non0bf2nlhcpiae0ju5i.png" class="qr-code-box"> -->
+                  
+                </div>
+                <!-- <div class="form-group">
+                </div> -->
+                <!-- <div class="form-group mb20"></div> -->
+                <div class="action-btn text-center mb20">
+                    <button type="button" class="btn btn-orange max-WT-200" data-dismiss="modal">{{'ok' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Email Verify Modal End -->
+<!--  Modal For KYC IFrame -->
+  <div class="modal fade global-modal reset-modal" id="kyc_iframe_modal" >
+      <div class="modal-dialog max-WT-900 signupModalmt ">
+        <form class="pin_code_form">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close zIndex link-make" data-dismiss="modal" >&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="row align-items-center">
+                <div class="col">
+                  <div class="head_box2 text-center mt10">
+                    <h4 class="font-bold">
+                      <!-- <h5> {{'sucessfully_registered' | translate}} </h5> -->
+                      <h4 class="mt10 mb10">{{'upload_docs' | translate }}</h4>
+                      <div id="idensic"></div>
+                      <!-- <p class="word-break  mt-1">{{stakeTransactionData.admin_stake_address }} </p> -->
+                    </h4>
+                    <!-- <img src="http://res.cloudinary.com/vertexportal/image/upload/v1538982752/non0bf2nlhcpiae0ju5i.png" class="qr-code-box"> -->
+                    
+                  </div>
+                  <!-- <div class="form-group">
+                  </div> -->
+                  <!-- <div class="form-group mb20"></div> -->
+                  <div class="action-btn text-center mb20">
+                      <button type="button" class="btn btn-orange max-WT-200" data-dismiss="modal">{{'ok' | translate}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  <!--  End Modal For KYC IFrame -->

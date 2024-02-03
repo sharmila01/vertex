@@ -1,0 +1,89 @@
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+.btn-hot{
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3) !important;
+    width: 100%;
+    color: #fff;  
+    cursor: pointer;
+    height: 80px;
+    background: #6c757d;
+}
+
+.btn-hot:hover {
+    background: #6c757d;
+    border-color: #ccc;
+    transition: 0.5s;
+    box-shadow: 0 0 10px 0 #ccc !important;
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+}
+.custom-form-feild {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-image: none
+}
+.modal-feilds {
+    margin-bottom: 20px;
+}
+.upload-label {
+    margin-top: -4px;
+    margin-left: -15px;
+}
+.custom-form-feild:read-only {
+    background-image: none;
+}
+
+.file-upload {
+    background-color: #aaa;
+    color: white;
+    text-align: center;
+    padding-left: 14px;
+}
+.table tbody .payment-btn:hover{
+    background: #f36e47 !important;
+}
+/* .btn-hot:hover{
+    cursor: pointer;
+    background: #0d99ac; 
+} */
+.checkWhiteBg .check {background:#fff;}
+.pStatic{position:static!important;}
+@media (min-width:768px) and (max-width:1280px){
+    .col-md-4.col-lg-6 {
+        flex: 0 0 33.3333333333%;
+        max-width: 33.3333333333%;
+    }
+    .col-md-4.col-lg-4 {
+        flex: 0 0 33.3333333333%;
+        max-width: 33.3333333333%;
+        
+    }
+    
+    .col-md-4.col-lg-2 {
+        flex: 0 0 33.3333333333%;
+        max-width: 33.3333333333%;
+        
+    }
+/* flex: 0 0 16.6666666667%;
+        max-width: 16.6666666667%; */
+        /* 0 0 33.3333333333%     0 0 50% */
+}
+
+@media (max-width:768px) {
+    .form-check.justify-content-end {
+        float: left !important;
+        margin-top: 10px !important;
+    }
+
+}

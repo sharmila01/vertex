@@ -1,0 +1,160 @@
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+.input_range{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: calc(100% - 200px);
+}
+input[type=range]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    background: rgba(59,173,227,1);
+    /* background: -moz-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%); */
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgb(255,0,0)), color-stop(25%, rgba(152,68,183,1)), color-stop(51%, rgb(255,255,0)), color-stop(100%, rgb(0,128,0)));
+    background: -webkit-linear-gradient(45deg, rgb(255,0,0) 0%, rgba(152,68,183,1) 25%, rgb(255,255,0) 51%, rgb(0,128,0) 100%);
+  /* background: -o-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+  background: -ms-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+  background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%); */
+  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3bade3 ', endColorstr='#ff357f ', GradientType=1 ); */
+  height: 2px;
+}
+input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-moz-range-track {
+    -moz-appearance: none;
+    background: rgba(59,173,227,1);
+    background: -moz-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgb(255,0,0)), color-stop(25%, rgba(152,68,183,1)), color-stop(51%, rgb(255,255,0)), color-stop(100%, rgb(0,128,0)));
+    background: -webkit-linear-gradient(45deg, rgb(255,0,0) 0%, rgba(152,68,183,1) 25%, rgb(255,255,0) 51%, rgb(0,128,0) 100%);
+    background: -o-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    background: -ms-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3bade3 ', endColorstr='#ff357f ', GradientType=1 ); */
+    height: 2px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 2px solid;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    max-width: 80px;
+    position: relative;
+    bottom: 11px;
+    background-color: #fff;
+    cursor: -webkit-grab;
+  
+    -webkit-transition: border 1000ms ease;
+    transition: border 1000ms ease;
+  }
+  
+  input[type=range]::-moz-range-thumb {
+    -moz-appearance: none;
+    border: 2px solid;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    max-width: 80px;
+    position: relative;
+    bottom: 11px;
+    background-color: #1d1c25;
+    cursor: -moz-grab;
+    -moz-transition: border 1000ms ease;
+    transition: border 1000ms ease;
+  }
+  .input_range::-webkit-slider-thumb::before {
+    content: 'adsa'
+  }
+  .outputVal {
+    position: absolute;
+    left: 66%;
+    top: -20px;
+  }
+
+  .addOffTooltip {
+    float: left;
+    background-color: blue !important;
+    color: blue !important;
+  }
+  .ngxmdp .selector{
+    position: absolute!important;
+    top: 62px !important;
+  }
+.show {
+  padding-right: 0 !important
+}
+  @media(max-width: 767px) {
+    input[type=range] {
+      width: 100% !important;
+      margin-top: 25px !important;
+    }
+    .outputVal {
+      position: absolute;
+      left: 49%;
+      top: 13px;
+    }
+    .myAddressClass{
+      margin-left: 14px !important;
+      margin-top: 4px;
+      display: contents !important;
+    }
+  }
+  .calendarReadCss[readonly] {
+    background-color: #fff !important;
+  }
+.ml200 {
+  margin-left: 200px;
+}
+.makeHover{
+  cursor: pointer;
+}
+input[type=radio] {
+  margin-right: 4px;
+}
+.checkbox-inline.mybox {
+  margin-right: 6px;
+}
+
+/* Added for box */
+/* .check-txt {
+  padding-top: 10px;
+}
+.t-3 {
+  top: 3px !important;
+  padding-right: 3px;
+  margin-bottom: 2px;
+} */
+.offerBox{
+  width: 75px;
+  height: 45px;
+  border: 1px solid #9E9E9E;
+  border-radius: 6px;
+}
+.offer{
+  text-align: center;
+  margin-top: 6px;
+  font-size: 13px;
+}
+.mg{
+  margin-bottom: 15px;
+}
+.backGreen{
+  background: #008000ad;
+}
+.disabledOffer {
+  pointer-events: none;
+  background: #d8d7d7 !important;
+}
+.show {
+  padding-right: 0 !important
+}
+.enabledOffer{
+  pointer-events: none;
+  background: #fff !important;
+}
+  
+  
+
+  

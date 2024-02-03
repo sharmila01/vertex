@@ -1,0 +1,151 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="3"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'View Order'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary dashHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'view-order' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox  center-box">
+                            <div class="row justify-content-end">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'orderid' | translate}} </label>
+                                            <div class="viewField">{{orderDet?.order_id || '- - -'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'transactionstatus' | translate}}</label>
+                                                <div class="viewField">{{orderDet?.transaction_status}} </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'payout-fund' | translate}}</label>
+                                            <div class="viewField">{{orderDet?.payout_fund ? (orderDet?.payout_fund | separator : 5) :  '0'}} {{orderDet?.fund_symbol}} </div>
+                                        </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'payout-transactionid' | translate}}</label>
+                                        <div class="viewField" [ngClass]="isInlcudeTokenBurning(orderDet.payout_transfer_transcation) ? 'link-make1': '' " (click)="isInlcudeTokenBurning(orderDet?.payout_transfer_transcation) ? openEther(orderDet?.payout_transfer_transcation, orderDet?.fund_symbol) : ''">
+                                            <span *ngIf="tokenDet.payment_type == cryptoCurrencyID">{{orderDet?.payout_transfer_transcation || '- - -'}} </span>
+                                            <span *ngIf="tokenDet.payment_type == bankTransferID">{{orderDet?.payout_transfer_transcation || 'Bank transfer'}} </span>
+
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'payout-transaction-date' | translate}}</label>
+                                        <div class="viewField">
+                                           <span *ngIf="tokenDet.payment_type == cryptoCurrencyID">{{orderDet?.payout_sent_at ? (orderDet?.payout_sent_at | utcTime | date: 'MM/dd/yyyy hh:mm a' ) : '- - -' }} </span> 
+                                           <span *ngIf="tokenDet.payment_type == bankTransferID">{{orderDet?.payout_sent_at ? (orderDet?.payout_sent_at | utcTime | date: 'MM/dd/yyyy hh:mm a' ) : 'Bank transfer' }} </span> 
+
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'fund-sendby-buyer' | translate}}</label>
+                                        <div class="viewField">{{orderDet?.fund_received ? (orderDet?.fund_received | separator : 5) : '0'}} {{orderDet?.fund_symbol}} </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'transaction-buyer' | translate}} </label>
+                                            <div class="viewField" [ngClass]="orderDet.incoming_transcation ? 'link-make1': '' " (click)="orderDet?.incoming_transcation ? openEther(orderDet?.incoming_transcation, orderDet?.fund_symbol) : ''">
+                                                    <span *ngIf="tokenDet?.payment_type == cryptoCurrencyID">{{orderDet?.incoming_transcation || '- - -'}} </span>
+                                                    <span *ngIf="tokenDet?.payment_type == bankTransferID">{{orderDet?.incoming_transcation || 'Bank transfer'}} </span>
+
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'buyer-transaction-date' | translate}}</label>
+                                        <div class="viewField">{{orderDet?.fund_received_at ? (orderDet?.fund_received_at | utcTime | date: 'MM/dd/yyyy hh:mm a' ) : '- - -' }} </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'paid-token-quantity' | translate}}</label>
+                                        <div class="viewField">{{orderDet?.token_quantity ?  (orderDet?.token_quantity | separator:5) : '0'}} {{orderDet?.token_name}} </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label"  >{{'paid-token-transaction' | translate}} </label>
+                                        <div class="viewField" [ngClass]="orderDet.outgoing_transcation ? 'link-make1': '' " (click)="orderDet?.outgoing_transcation ? openEther(orderDet?.outgoing_transcation, orderDet?.token_name) : ''" >{{orderDet?.outgoing_transcation || '- - -' }} </div>
+                                    </div>
+                            </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'paid-token-date' | translate}}</label>
+                                        <div class="viewField">{{orderDet?.token_sent_at ? (orderDet?.token_sent_at | utcTime | date: 'MM/dd/yyyy hh:mm a' ) : '- - -' }} </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'total-fee' | translate}}</label>
+                                        <div class="viewField">{{orderDet?.total_collected_fee || '- - -' }} {{orderDet?.fund_symbol}}</div>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-price' | translate}}</label>
+                                        <div class="viewField">{{orderDet?.token_price  ? (orderDet?.token_price | separator:5) : '0' }} {{orderDet?.fund_symbol}} </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'order-create-date' | translate}}</label>
+                                        <div class="viewField">{{orderDet?.order_created_at ? (orderDet?.order_created_at | utcTime | date: 'MM/dd/yyyy hh:mm a') : '- - -' }} </div>
+                                    </div>
+                                </div>  
+                                    <div class="col-md-12 ">
+                                    <div class="form-group horizontalGroup ">
+                                        <label class="control-label"></label>
+                                        <div class="form-control  border0 padd0 formActionBtn">
+                                                <!-- <button type="button" class="btn btn-primary minWidth100" (click)="onEdit(orderDet)">Edit </button> -->
+                                                <button type="button" class="btn btn-default minWidth100" (click)="goBack()" >{{'back' | translate}} </button>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                </div>
+                            </div>
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>

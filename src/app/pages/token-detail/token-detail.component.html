@@ -1,0 +1,927 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<main class="main-container bg_gray">
+  <section class="inner_section common_section">
+    <div class="container">
+      <div class="token_detail_head_box shadow_border">
+
+        <!-- <div class="content_image_center"> -->
+        <div class="row">
+          <div class="col-12 col-md-8 rtl-detail-head">
+            <div class="content_image_center">
+              <div class="d-cell v-middle">
+                <span class="token_img">
+                  <img src="{{ tokenDet?.token_symbol ||'assets/images/diamond-icon.png'}}" alt="icon" />
+                </span>
+              </div>
+              <div class="v-middle pl15Mobile rtl-token" [ngClass]="iswebApp ? 'd-cell1' : 'd-cell'">
+                <h2 class="token_head">{{tokenDet?.token_name}}
+                  <span class="ticker">({{tokenDet?.ticker}})</span>
+                </h2>
+                <div class="token-cur" [ngClass]="iswebApp ? 'd-cell1' : 'd-cell2'">
+                  <div *ngIf="tokenDet?.offering_type.length && tokenDet?.offering_nos > 0" class="v-middle  pl15Mobile" [ngClass]="iswebApp ? '' : 'd-cell'">
+                    <!--  <span style="color: #ffffff" class="badge badge-pill badge-warning">
+                             <b>3rd</b>
+                           </span> -->
+                    <span style="color: #ffffff" class="badge badge-pill badge-warning badges" *ngIf="tokenDet?.offering_type.includes('Fixed')">
+                      <b>FIX</b>
+                    </span>
+                    <span style="color: #ffffff" class="badge badge-pill badge-warning badges" *ngIf="tokenDet?.offering_type.includes('Floating')">
+                      <b>FLO</b>
+                    </span>
+                    <span style="color: #ffffff" class="badge badge-pill badge-warning badges" *ngIf="tokenDet?.offering_type.includes('Linked Currency') || tokenDet?.offering_type.includes('Linked Token')">
+                      <b>LNK</b>
+                    </span>
+                  </div>
+                  <div class="v-middle" [ngClass]="iswebApp ? '' : 'd-cell'">
+                    <span class="symbol-group" *ngIf="tokenDet?.offering_nos > 0">
+                      <div *ngFor="let symbol of tokenDet?.offering_symbol" class="d-cell1">
+                        <div *ngIf="symbol == 'ETH'" class="currency-symbol">
+                          <img src="../../../assets/images/coin-crypto.svg" class="currencyicon">
+                        </div>
+                        <div *ngIf="symbol == 'US Dollar'" class="currency-symbol">
+                          <img src="../../../assets/images/money-bag.jpg" class="currencyicon">
+                        </div>
+                        <div *ngIf="symbol == 'BTC'" class="currency-symbol">
+                          <img src="../../../assets/images/btc.svg" class="currencyicon">
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- For showing Current price (Market Price) -->
+          <div class="col-12 col-md-4">
+            <div class="market_rate_div" *ngIf="marketPrice">
+              <span class="market_title">{{'market_type'| translate}}</span>
+              <label class="market_rate">
+                <i class="fa fa-caret-up market_icon"></i>
+                {{marketPrice?.eth_price}} ETH
+                <span class="mobile-hyphen"> - </span>
+              </label>
+              <label class="market_rate">
+                <i class="fa fa-caret-up market_icon"></i>
+                {{marketPrice?.btc_price}} BTC
+                <span class="mobile-hyphen"> - </span>
+              </label>
+              <label class="market_rate">
+                <i class="fa fa-caret-up market_icon"></i>
+                ({{marketPrice?.usd_price}} USD)</label>
+            </div>
+            <div class="market_rate_div no_market_rate" *ngIf="!marketPrice">
+              <span class="market_title">{{'market_type'| translate}}</span>
+              <label class="market_rate">{{'no-market-rate'| translate}}</label>
+            </div>
+            <!-- End For showing Current price (Market Price) -->
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+      <div class="card_box token_detail_head_box shadow_border table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" (click)="sorting('third_market_percent')" style="cursor:pointer">
+                {{'type'| translate}}
+                <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+              </th>
+              <!-- <th scope="col" (click)="sorting('start_date')" style="cursor:pointer">
+                {{'startdate'| translate}}
+                <span class="fa fa-sort-down" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+              </th> -->
+              <th scope="col" (click)="sorting('end_date')" style="cursor:pointer">
+                {{'enddate'| translate}}
+                <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+              </th>
+              <th scope="col" (click)="sorting('initial_supply')" style="cursor:pointer">
+                {{'initial_amount'| translate}}
+                <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+              </th>
+
+              <th scope="col" (click)="sorting('token_for_sale')" style="cursor:pointer">
+                {{'tokensavailable'| translate}}
+                <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+              </th>
+              <th scope="col" (click)="sorting('token_price')" style="cursor:pointer">
+                {{'price'| translate}}
+                <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+              </th>
+              <th scope="col" (click)="sorting('payment_type')" style="cursor:pointer">
+                {{'payment-type' | translate}}
+                <span class="fa fa-sort-up" [ngClass]="{'fa-sort-down':reverse,'fa-sort-up':!reverse}"></span>
+              </th>
+              <th></th>
+              <th scope="col">{{'action'| translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="showLess">
+              <ng-container>
+                <tr id="tr-row" *ngFor="let offer of offering | slice:0:3 ">
+                  <!-- <span *ngIf="offer.third_market_percent > 0"> -->
+                  <td>
+                    <!-- <span>{{offer?.third_market_percent ? '3rd' : 'Normal' }}</span> -->
+                    <span>{{offer?.offer_type || '-'}}</span>
+                  </td>
+                  <!-- <td>{{offer.start_date}}</td> -->
+                  <td>{{offer.end_date == '9999-12-31' ? 'Infinite' : offer.end_date}}</td>
+                  <td>{{offer.initial_supply | separator: 7}}</td>
+                  <td>
+                  <span *ngIf="offer.payment_type == cryptoCurrencyID">
+                      {{getAvailableToken(offer.token_for_sale) | separator: 7}} ({{getPercentTokenSales(offer)}}%)
+                  </span>
+                  <span *ngIf="offer.payment_type == bankTransferID">
+                      {{getAvailableToken(offer.available_amount) | separator: 7}} ({{getPercentTokenSale(offer)}}%)
+                    </span>
+                  </td>
+                  <td>
+                       {{offer.token_price | separator: 7}}
+                    <span *ngIf="offer.payment_type == cryptoCurrencyID"> ({{offer.symbol_name}}) </span>
+                    <span *ngIf="offer.payment_type == bankTransferID"> ({{offer.accepting_currency}}) </span>
+                  </td>
+                  <td>
+                    <span *ngIf="offer.payment_type == cryptoCurrencyID">
+                      Crypto Currency
+                    </span>
+                    <span *ngIf="offer.payment_type == bankTransferID">
+                      Bank Transfer
+                    </span>
+                  </td>
+                  <td>
+                    <div *ngIf="isLoggedin" class="">
+                      <button class="btncalculator" (click)=openModal(offer)>
+                        <i class="fa fa-calculator" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div *ngIf="!isLoggedin" class="">
+                      <button class="btncalculator" (click)=openModals(offer)>
+                        <i class="fa fa-calculator" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <div *ngIf="convertToDate(offer.start_date) <= convertToDate(this.newdate)">
+                      <button class="btnBuy" (click)="buyToken(offer)">
+                        <i class="fas fa-cart-plus icon"></i>{{'buynow'| translate}}</button>
+                    </div>
+                    <div *ngIf="convertToDate(offer.start_date) > convertToDate(this.newdate)">
+                      <div class="timers">
+                        <ul class="count-down-timer" *ngIf="offer?.remTime !== 'Ongoing'">
+                          <div class="timers">
+                            <ul class="count-down-timer" *ngIf="offer?.remTime !== 'Ongoing'">
+                              {{offer?.remainingTimeMin}}
+                            </ul>
+                          </div>
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr id="tr-row" *ngIf="!offering.length">
+                  <td colspan="8" class="text-center">{{'no-offering-found'| translate}}.</td>
+                </tr>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="showMore">
+              <ng-container>
+                <tr id="tr-row" *ngFor="let offer of offering; let x = index">
+                  <td *ngIf="x >= 3">
+                    <!-- <span>{{offer?.third_market_percent ? '3rd' : 'Normal' }}</span> -->
+                    <span>{{offer?.offer_type || '-'}}</span>
+                  </td>
+                  <!-- <td *ngIf="x >= 3">{{offer.start_date}}</td> -->
+                  <td *ngIf="x >= 3">{{offer.end_date == '9999-12-31' ? 'Infinite' : offer.end_date}}</td>
+                  <td *ngIf="x >= 3">{{offer.initial_supply | separator: 7}}</td>
+                  <td *ngIf="x >= 3">
+                          <span *ngIf="offer.payment_type == cryptoCurrencyID">
+                              {{getAvailableToken(offer.token_for_sale) | separator: 7}} ({{getPercentTokenSales(offer)}}%)
+                          </span>
+                          <span *ngIf="offer.payment_type == bankTransferID">
+                              {{getAvailableToken(offer.available_amount) | separator: 7}} ({{getPercentTokenSale(offer)}}%)
+                            </span>
+                    </td>
+                  <td *ngIf="x >= 3">{{offer.token_price | separator:7 }}
+                    <span *ngIf="offer.payment_type == cryptoCurrencyID"> ({{offer.symbol_name}}) </span>
+                    <span *ngIf="offer.payment_type == bankTransferID"> ({{offer.accepting_currency}}) </span>
+                  </td>
+                  <td *ngIf="x >= 3">
+                    <span *ngIf="offer.payment_type == cryptoCurrencyID">
+                      Crypto Currency
+                    </span>
+                    <span *ngIf="offer.payment_type == bankTransferID">
+                      Bank Transfer
+                    </span>
+                  </td>
+                  <td *ngIf="x >= 3">
+                    <div *ngIf="isLoggedin" class="">
+                      <button class="btncalculator" (click)=openModal(offer)>
+                        <i class="fa fa-calculator" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                    <div *ngIf="!isLoggedin" class="">
+                      <button class="btncalculator" (click)=openModals(offer)>
+                        <i class="fa fa-calculator" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td *ngIf="x >= 3">
+                    <div *ngIf="convertToDate(offer.start_date) <= convertToDate(this.newdate)">
+                      <button class="btnBuy" (click)="buyToken(offer)">
+                        <i class="fas fa-cart-plus icon"></i>{{'buynow'| translate}}</button>
+                    </div>
+                    <div *ngIf="convertToDate(offer.start_date)> convertToDate(this.newdate) ">
+                      <div class="timers">
+                        <ul class="count-down-timer" *ngIf="offer?.remTime !== 'Ongoing'">
+                          {{offer?.remainingTimeMin}}
+                        </ul>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+        <div class="showMore" *ngIf="offering?.length != 0 && !showMore && offering?.length> 3">
+          <button class="btn btn-default btn-lg shows" (click)="show()">{{'showmore'| translate}}
+            <span>
+              <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="showMore" *ngIf="offering?.length != 0 && showMore && offering?.length> 3">
+          <button class="btn btn-default btn-lg shows" (click)="shows()">{{'showless'| translate}}
+            <span>
+              <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="row" *ngIf="showPagin">
+          <div class="col-md-12">
+            <div class="pagination detail-table-pagin">
+              <div class="pagination_block mt0 mb0 text-center pagin">
+                <pagination [totalItems]="totalRecords" (pageChanged)="pageChanged($event)"></pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- token_detail_head_box 1 End -->
+      <!-- Row Start-->
+      <div class="row">
+        <!-- Left Col Start -->
+        <div class="col-md-7 col-lg-8">
+          <!-- inner global_box Start -->
+          <div class="global_box video-content">
+            <p class="rtl-detail-describe">{{tokenDet?.description}}</p>
+            <div class="fox_trading_video">
+              <!-- [src]="tokenDet?.video_url" -->
+              <iframe src="" frameborder="0" allowfullscreen style="width: 100%;height: 400px;" *ngIf="newUrl != 'error'"></iframe>
+              <video [src]="tokenDet?.video_url" controls *ngIf="newUrl == 'error'">
+                Your browser does not support HTML5 video.
+              </video>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="rating_box">
+                  <h4>{{'digital-asset-information' | translate}}</h4>
+                  <ul class="rating_list">
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'project-startdate' | translate}}</span>
+                      <strong class="col-md-6">{{tokenDet?.project_start_date || 'n/a'}}</strong>
+                    </li>
+                    <!-- <li class="clearfix row">
+                      <span class="col-md-6">{{'enddate' | translate}}</span>
+                      <strong class="col-md-6">{{tokenDet?.end_date == '9999-12-31' ? 'Infinite' : tokenDet?.end_date}}</strong>
+                    </li> -->
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'ticker' | translate}}</span>
+                      <strong class="col-md-6">{{tokenDet?.ticker|| 'n/a'}}</strong>
+                    </li>
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'platform' | translate}}</span>
+                      <strong class="col-md-6">
+                        {{tokenDet?.platform_symbol|| 'n/a'}}
+                      </strong>
+                    </li>
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'country'| translate}}</span>
+                      <strong class="col-md-6">{{tokenDet?.country|| 'n/a'}}</strong>
+                    </li>
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'ceoname'| translate}}</span>
+                      <strong class="col-md-6">{{tokenDet?.ceo_name|| 'n/a'}}</strong>
+                    </li>
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'runningproduct'| translate}}</span>
+                      <strong class="col-md-6">{{tokenDet?.running_product|| 'n/a'}}
+                      </strong>
+                    </li>
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'invester'| translate}}</span>
+                      <strong class="col-md-6 invester">{{tokenDet?.known_investors|| 'n/a'}}
+                      </strong>
+                    </li>
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'whitepaperlink'| translate}}</span>
+                      <strong class="col-md-6">
+                        <a href="{{tokenDet?.whitepaper_link}}" target="_blank">link</a>
+                      </strong>
+                    </li>
+                    <li class="clearfix row">
+                      <span class="col-md-6">{{'Website Link'}}</span>
+                      <strong class="col-md-6">
+                        <a href="{{tokenDet?.website_link}}" target="_blank">link</a>
+                      </strong>
+                    </li>
+                    <!-- <li class="clearfix row">
+                      <span class="col-md-6">{{'investmentdecklink' | translate}}</span>
+                      <strong class="col-md-6">
+                        <a href="{{tokenDet?.investment_deck_link}} " target="_blank">link</a>
+                      </strong>
+                    </li> -->
+                  </ul>
+                </div>
+                <div class="item">
+                  <div class="item-content-block tags">
+                    <span class="single-tag" *ngFor="let item of keywords">{{item}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="rating_box">
+                  <h4>{{'investmentrating'| translate}}</h4>
+                  <p *ngIf="tokenDet?.investment_rating" class="invest-pera">{{tokenDet?.investment_rating}}</p>
+                  <p *ngIf="!tokenDet?.investment_rating">{{'no-investment-rating'| translate}}.</p>
+                </div>
+                <div class="what-token-do">
+                  <h4>{{'what-token-do'| translate}}</h4>
+                  <p *ngIf="tokenDet?.what_token_do" class="pera">{{tokenDet?.what_token_do}}</p>
+                  <p *ngIf="!tokenDet?.what_token_do" class="pera">{{'no-data-found'| translate}}</p>
+                  <!-- <textarea type="text" [(ngModel)]="tokenDet.what_token_do"></textarea> -->
+                </div>
+              </div>
+              <!-- </div> -->
+
+              <div class="col-md-12 galleries">
+                <h4>{{'gallery'| translate}}</h4>
+                <ngx-carousel [inputs]="carouselTile" *ngIf="gallerydata.length">
+                  <ngx-tile NgxCarouselItem *ngFor="let item of _album; let i=index" class="slider-images">
+                    <img [src]="item.src" class="slider-img" (click)="openGallery(i)">
+                  </ngx-tile>
+                  <button NgxCarouselPrev class='leftRs'>&lt;</button>
+                  <button NgxCarouselNext class='rightRs'>&gt;</button>
+                </ngx-carousel>
+                <div *ngIf="!gallerydata.length">{{'no-images'| translate}}</div>
+              </div>
+
+            </div>
+
+            <!-- <div class="text-right">
+              <button class="btn btn-default  btnBack" (click)="buyToken()" *ngIf="tokenDet?.remTime == 'Ongoing' && tokenDet?.token_for_sale > 0">
+                <i class="fas fa-cart-plus icon"></i>{{'buytoken'| translate}}</button>
+            </div> -->
+          </div>
+          <div class="" *ngIf="iswebApp">
+            <!-- <div class="col-md-12 col-lg-8"></div> -->
+            <!-- <div class="col-md-12 col-lg-12"> -->
+            <!-- Comments part-->
+            <div class="global_box comment-position">
+              <div class="dist_head padd10 orange_color comments-title">
+                <strong>{{'comments' | translate}}</strong>
+              </div>
+              <div class="comments">
+                <div class="comment-wrap" *ngIf="isLoggedin">
+                  <!-- <div class="photo">
+                      <div class="avatar" style="background-image: url('https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015')"></div>
+                    </div> -->
+                  <div class="comment-block add-block">
+                    <div class="add-comment-title">
+                      <input type="text" class="form-control comment-data-title" [attr.maxLength]="60" placeholder="Title" [(ngModel)]="commentData.title"
+                      />
+                    </div>
+                    <textarea class="comment-area" [(ngModel)]="commentData.comment" name="comment" cols="30" rows="2" placeholder="Add comment..."
+                      [attr.maxLength]="256" (keyup)="textCounts($event)"></textarea>
+                    <span class="text-count" *ngIf="256-textCountDisplay==0">
+                      {{'total-characters' | translate}}:256
+                    </span>
+                    <span class="text-count" *ngIf="256-textCountDisplay>0">
+                      {{'total-characters' | translate}}:{{textCountDisplay}}/256
+                    </span>
+                    <div class="captcha comment-captcha">
+                      <re-captcha class="re-captcha-media" site_key="6LfvDF0UAAAAAIkOZrhJ6KKGs9HbMR857IGuLspj" data-size="Normal" (captchaResponse)="handleCorrectCaptcha($event)"
+                        (captchaExpired)="handleExpiredCaptcha()"></re-captcha>
+                    </div>
+                    <div style="margin-top: 15px;">
+                      <button style="cursor:pointer" type="button" class="btns btn-orange comment-sendbtn" (click)="addComment()">
+                        {{'send' | translate}} </button>
+                    </div>
+
+                    <span class="text-count" *ngIf="linkValidation">
+                      {{'link_na' | translate}}
+                    </span>
+                  </div>
+                </div>
+                <div class="no-comment" *ngIf="comments?.length==0 && !isLoggedin">
+                  <div class="text-center">
+                    {{'no-comments' | translate}}
+                  </div>
+                </div>
+                <div class="comment-wrap" *ngFor="let comment of comments">
+                  <!-- <div class="photo">
+                      <div class="avatar" style="background-image: url('https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015')"></div>
+                    </div> -->
+                  <div class="comment-block">
+
+                    <div class="row comment-header">
+                      <span class="col-md-12">
+                        <a class="author">
+                          <strong class="author">{{comment.title}}</strong>
+                        </a>
+
+                        <ul class="comment-actions">
+                          <li class="complain" (click)="upVote(comment.id)">
+                            <i class="far fa-thumbs-up"></i> {{comment.upvotes}}</li>
+                          <li class="reply" (click)="downVote(comment.id)">
+                            <i class="far fa-thumbs-down"></i> {{comment.downvotes}}</li>
+                        </ul>
+                      </span>
+                      <span class="col-md-12 bottom-comment">
+                        by: {{comment.user_name}}
+                      </span>
+                    </div>
+
+                    <p class="comment-text">{{comment.comment}}</p>
+                    <div class="comment-time">
+                      <span class="commented-date">{{bindTime(comment.created_at)}} ago</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" *ngIf="totalComments>commentLimit">
+                <div class="col-md-12">
+                  <div class="pagination comment-pagination">
+                    <div class="pagination_block mt0 mb0 text-center pagin">
+                      <pagination [itemsPerPage]='commentLimit' [totalItems]="totalComments" (pageChanged)="commentPaginationChanged($event)"></pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+          </div>
+          <!-- inner global_box End -->
+        </div>
+        <!-- Left Col End -->
+        <!-- Right Col Start -->
+        <div class="col-md-5 col-lg-4">
+          <!-- right_aside_box Start -->
+          <div class="right_aside_box">
+            <div class="dist_box shadow_border text-center mb30">
+              <div class="dist_body padd10">
+                <span class="rating_no" *ngIf="tokenDet?.rating == 'NaN'">
+                  0.0
+                </span>
+                <span class="rating_no" *ngIf="tokenDet?.rating != 'NaN'">
+                  {{tokenDet?.rating | number:'.1'}}
+                </span>
+              </div>
+              <div class="dist_foot padd10">{{'vertex_rating' | translate}}</div>
+            </div>
+            <div class="dist_box shadow_border clearfix mb30 ">
+              <div class="dist_detail clearfix" *ngIf="tokenDet?.remTime !== 'Ongoing' " style="height: 40px;">
+                <strong class="detail-left-col w-38">{{'salestart'| translate}}</strong>
+                <span class="detail-right-col w-55">
+                  <div class="timer8">
+                    {{tokenDet?.remTime}}
+                  </div>
+                </span>
+              </div>
+              <div class="dist_detail clearfix" *ngIf="tokenDet?.remTime === 'Ongoing'" style="height: 40px;">
+                <strong class="detail-left-col w-45">{{'salestart'| translate}}</strong>
+                <span class="detail-right-col w-45 lignTxt"> {{ tokenDet.start_date ? 'Ongoing' : '- - -' }}</span>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'offerrange'| translate}}</strong>
+                <span class="detail-right-col w-45" *ngIf="tokenDet?.start_date">{{tokenDet?.start_date}} - {{tokenDet?.end_date == '9999-12-31' ? "Infinite" : tokenDet?.end_date }} </span>
+                <span class="detail-right-col w-45" *ngIf="!tokenDet?.start_date">- - -</span>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'availablesupply' | translate}}</strong>
+                <span class="detail-right-col w-45">{{tokenDet?.available_supply | number : '1.0-10'|| 0}}</span>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'initialsupply' | translate}}</strong>
+                <span class="detail-right-col w-45">{{tokenDet?.initial_supply | number : '1.0-10' || 0}}</span>
+              </div>
+            </div>
+            <!-- dist_box End -->
+            <div class="dist_box shadow_border">
+              <div class="dist_head padd10 orange_color" style="text-align: center;">
+                <strong>{{'tokeninfo'| translate}}</strong>
+              </div>
+              <div class="dist_head padd10">
+                <div class="mt5 clearfix font13">
+                  <strong class="detail-left-col w-45">{{'token' | translate}}</strong>
+                  <span class="detail-right-col w-45">{{tokenDet?.token_name}}</span>
+                </div>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'platform' | translate}} </strong>
+                <span class="detail-right-col w-45">
+                  {{tokenDet?.platform_symbol || 'n/a'}}
+                </span>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'circulation_supply' | translate}}</strong>
+                <span class="detail-right-col w-45">{{tokenDet?.circulation_supply | number : '1.0-10'|| 0}}</span>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'funds-raised' | translate}}</strong>
+                <span class="detail-right-col w-45" *ngIf="tokenDet?.fund_raised">{{tokenDet?.fund_raised | number : '1.0-10'|| 0}}</span>
+                <span class="detail-right-col w-45" *ngIf="!tokenDet?.fund_raised">0</span>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'ticker'| translate}}</strong>
+                <span class="detail-right-col w-45">{{tokenDet?.ticker || 'n/a' }}</span>
+              </div>
+              <div class="dist_detail clearfix">
+                <strong class="detail-left-col w-45">{{'token-type'| translate}}</strong>
+                <span class="detail-right-col w-45">{{tokenDet?.token_type || 'n/a' }}</span>
+              </div>
+              <div class="dist_detail clearfix">
+                <div class="mt5 clearfix font13">
+                  <strong class="detail-left-col w-45">{{'smart_contract' | translate}}</strong>
+                  <span class="detail-right-col w-45">
+                    <span class="wrap">{{tokenDet?.contract_address || 'n/a'}}</span>
+                  </span>
+                </div>
+              </div>
+              <div class="dist_detail clearfix">
+                <div class="mt5 clearfix font13">
+                  <strong class="detail-left-col w-45">{{'decimal' | translate}}</strong>
+                  <span class="detail-right-col w-45">{{tokenDet?.decimals || 'n/a'}}</span>
+                </div>
+              </div>
+            </div>
+            <!-- dist_box End -->
+            <div class="dist_box shadow_border text-center" style="margin-top: 30px;">
+              <div class="dist_head padd10 orange_color" style="text-align: center;">
+                <strong>{{'social-media'| translate}}</strong>
+              </div>
+              <div class="dist_body padd10">
+                <div class="get_connect_social_box">
+                  <!-- <p></p> -->
+                  <div class="row">
+                    <ul class="socialList">
+                      <li>
+                        <a *ngIf="tokenDet.bitcointalk_link!==null" href="{{tokenDet.bitcointalk_link}}" target="_blank" class="bitcoin">
+                          <i class="fab fa-btc"></i>
+                        </a>
+                        <span *ngIf="tokenDet.bitcointalk_link==null" class="no-hover">
+                          <i class="fab fa-btc"></i>
+                        </span>
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.facebook_link!==null" href="{{tokenDet.facebook_link}}" target="_blank" class="facebook">
+                          <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <span *ngIf="tokenDet.facebook_link==null" class="no-hover">
+                          <i class="fab fa-facebook-f"></i>
+                        </span>
+
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.twitter_link!==null" href="{{tokenDet.twitter_link}}" target="_blank" class="twitter">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <span *ngIf="tokenDet.twitter_link==null" class="no-hover">
+                          <i class="fab fa-twitter"></i>
+                        </span>
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.medium_link!==null" href="{{tokenDet.medium_link}}" target="_blank" class="medium">
+                          <i class="fab fa-medium"></i>
+                        </a>
+                        <span *ngIf="tokenDet.medium_link==null" class="no-hover">
+                          <i class="fab fa-medium"></i>
+                        </span>
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.github_link!==null" href="{{tokenDet.github_link}}" target="_blank" class="github">
+                          <i class="fab fa-github-alt"></i>
+                        </a>
+                        <span *ngIf="tokenDet.github_link==null" class="no-hover">
+                          <i class="fab fa-github-alt"></i>
+                        </span>
+                      </li>
+
+                    </ul>
+                  </div>
+                  <div class="row">
+                    <ul class="socialList">
+                      <li>
+                        <a *ngIf="tokenDet.youtube_link!==null" href="{{tokenDet.youtube_link}}" target="_blank" class="youtube">
+                          <i class="fab fa-youtube"></i>
+                        </a>
+                        <span *ngIf="tokenDet.youtube_link==null" class="no-hover">
+                          <i class="fab fa-youtube"></i>
+                        </span>
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.instagram_link!==null" href="{{tokenDet.instagram_link}}" target="_blank" class="instagram">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                        <span *ngIf="tokenDet.instagram_link==null" class="no-hover">
+                          <i class="fab fa-instagram"></i>
+                        </span>
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.twitter_link!==null" href="{{tokenDet.linkedin_link}}" target="_blank" class="linkedin">
+                          <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <span *ngIf="tokenDet.twitter_link==null" class="no-hover">
+                          <i class="fab fa-linkedin-in"></i>
+                        </span>
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.reddit_link!==null" href="{{tokenDet.reddit_link}}" target="_blank" class="reddit">
+                          <i class="fab fa-reddit-alien"></i>
+                        </a>
+                        <span *ngIf="tokenDet.reddit_link==null" class="no-hover">
+                          <i class="fab fa-reddit-alien"></i>
+                        </span>
+                      </li>
+                      <li>
+                        <a *ngIf="tokenDet.telegram_link!==null" href="{{tokenDet.telegram_link}}" target="_blank" class="tele">
+                          <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <span *ngIf="tokenDet.telegram_link==null" class="no-hover">
+                          <i class="fab fa-telegram-plane"></i>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- <div class="dist_foot padd10">Social Media</div> -->
+              </div>
+            </div>
+            <div *ngIf="news.length==0">
+              <div class="dist_box shadow_border" style="margin-top: 30px;">
+                <div class="dist_head padd10 orange_color news-feed">
+                  <strong>{{'news-feed' | translate}}</strong>
+                </div>
+                <div class="news-list center">
+                  <span>{{'no-news-feed' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="news.length>0">
+              <!-- <div class="global_box newsFeedAbs" style="margin-top: 30px; height:400px;">
+                <div class="dist_head space-margin orange_color" style="text-align: center;font-size: 17px"> -->
+              <div class="dist_box shadow_border" style="margin-top: 30px; height:400px;">
+                <div class="dist_head padd10 orange_color news-feed">
+                  <strong>{{'news-feed' | translate}}</strong>
+                </div>
+                <div class="news-list padd10" style="height:300px">
+                  <ul>
+                    <li class="news-item" *ngFor="let item of news">
+                      <div class="title">
+                        <span>{{item.title}}</span>
+                      </div>
+                      <br>
+                      <span class="meta">
+                        <div class="time">
+                          {{bindTime(item.created_at)}} ago
+                        </div>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- right_aside_box End -->
+        </div>
+        <!-- Right Col Start End-->
+      </div>
+      <!-- Row End-->
+      <div class="row" *ngIf="!iswebApp">
+        <!-- <div class="col-md-12 col-lg-8"></div> -->
+        <div class="col-md-12 col-lg-8">
+          <!-- Comments part-->
+          <div class="global_box comment-position">
+            <div class="dist_head padd10 orange_color" style="text-align: left;">
+              <strong>{{'comments' | translate}}</strong>
+            </div>
+            <div class="comments">
+              <div class="comment-wrap" *ngIf="isLoggedin">
+                <!-- <div class="photo">
+                  <div class="avatar" style="background-image: url('https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015')"></div>
+                </div> -->
+                <div class="comment-block add-block">
+                  <div class="add-comment-title">
+                    <input type="text" class="form-control comment-data-title" [attr.maxLength]="60" placeholder="Title" [(ngModel)]="commentData.title"
+                    />
+                  </div>
+                  <textarea class="comment-area" [(ngModel)]="commentData.comment" name="comment" cols="30" rows="2" placeholder="Add comment..."
+                    [attr.maxLength]="256" (keyup)="textCounts($event)"></textarea>
+                  <span class="text-count" *ngIf="256-textCountDisplay==0">
+                    {{'total-characters' | translate}}:256
+                  </span>
+                  <span class="text-count" *ngIf="256-textCountDisplay>0">
+                    {{'total-characters' | translate}}:{{textCountDisplay}}/256
+                  </span>
+                  <div class="captcha comment-captcha">
+                    <re-captcha class="re-captcha-media" site_key="6LfvDF0UAAAAAIkOZrhJ6KKGs9HbMR857IGuLspj" data-size="Normal" (captchaResponse)="handleCorrectCaptcha($event)"
+                      (captchaExpired)="handleExpiredCaptcha()"></re-captcha>
+                  </div>
+                  <!-- <div class="g-recaptcha" data-theme="light" data-sitekey="XXXXXXXXXXXXX" style="transform:scale(0.77);-webkit-transform:scale(0.77);transform-origin:0 0;-webkit-transform-origin:0 0;"></div> -->
+                  <!-- <div *ngIf="!captcha.getResponse()" style="margin-top: 15px;">
+                        <button disabled style="cursor:pointer" type="button" class="btns btn-orange" (click)="addComment()">
+                          <i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+                    </div> -->
+
+                  <div style="margin-top: 15px;">
+                    <button type="button" class="btns btn-orange comment-sendbtn" (click)="addComment()">
+                      {{'send' | translate}} </button>
+                  </div>
+
+                  <span class="text-count" *ngIf="linkValidation">
+                    {{'link_na' | translate}}
+                  </span>
+                </div>
+              </div>
+              <div class="no-comment" *ngIf="comments?.length==0 && !isLoggedin">
+                <div class="text-center">
+                  {{'no-comments' | translate}}
+                </div>
+              </div>
+              <div class="comment-wrap" *ngFor="let comment of comments">
+                <!-- <div class="photo">
+                  <div class="avatar" style="background-image: url('https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015')"></div>
+                </div> -->
+                <div class="comment-block">
+
+                  <div class="row comment-header">
+                    <span class="col-md-12">
+                      <a class="author">
+                        <strong class="author">{{comment.title}}</strong>
+                      </a>
+
+                      <!-- <span class="commented-date">{{comment.created_at | date: 'MM-dd-yyyy hh:mm a'}}</span> -->
+
+                      <ul class="comment-actions">
+                        <li class="complain" (click)="upVote(comment.id)">
+                          <i class="far fa-thumbs-up"></i> {{comment.upvotes}}</li>
+                        <li class="reply" (click)="downVote(comment.id)">
+                          <i class="far fa-thumbs-down"></i> {{comment.downvotes}}</li>
+                      </ul>
+                    </span>
+                    <span class="col-md-12 bottom-comment">
+                      by: {{comment.user_name}}
+                    </span>
+                  </div>
+
+                  <p class="comment-text">{{comment.comment}}</p>
+                  <div class="comment-time">
+                    <span class="commented-date">{{bindTime(comment.created_at)}} ago</span>
+                    <!-- {{comment.user_name}} -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="totalComments>commentLimit">
+              <div class="col-md-12">
+                <div class="pagination comment-pagination">
+                  <div class="pagination_block mt0 mb0 text-center pagin">
+                    <pagination [itemsPerPage]='commentLimit' [totalItems]="totalComments" (pageChanged)="commentPaginationChanged($event)"></pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- main End -->
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="buyTokenModal">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <div class="modal-body" style="max-height: 307px;margin-top: -98px;">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col">
+              <div class="head_box2 text-center">
+                <h4>{{'sure_to_buy' | translate}}</h4>
+              </div>
+              <div class="form-group">
+              </div>
+              <div class="form-group mb20"></div>
+              <div class="action-btn text-center">
+                <button type="button" class="btn btn-gray max-WT-150 buyTokenCancelbtn" data-dismiss="modal">{{'no'| translate}}</button>
+                <button type="button" class="btn btn-orange max-WT-150 buyTokenOkbtn" (click)="confirmBuy()">{{'yes'| translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+<div id="blockUser" class="modal fade" role="dialog" style="margin-top: 145px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'buy-token-alert' | translate}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <p class="block">{{blockError}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- <div id="calculation" class="modal fade" role="dialog" style="margin-top: 145px;"> -->
+<div class="modal fade" id="calculation" role="dialog" style="margin-top: 145px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'project-calculation' | translate}}</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!isLoggedin">
+          <p class="block" class="modalTxt" style="color: red;">Calculate the cost if you buy right now</p>
+          <div class="row">
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <label>{{'buy-token' | translate}} : </label>
+              <input type="number" class="form-control " [(ngModel)]="tokenValue" min="1" max="999" (ngModelChange)="changeCalculatorValue($event)">
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <label>{{'token-price' | translate}} : </label>
+              <input type="text" class="form-control" placeholder="token price" value="{{tokenValue * tokenPrice + calculatorprice?.fee | number:'1.7-7' }} {{(currencyOfName)}}"
+                readonly />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <!-- <div>Fees : {{calculatorprice?.fee | number:'1.2-2' || '0'}}</div>
+                  <div>Percent : {{calculatorprice?.percent | number:'1.2-2' || '0'}}</div> -->
+              <div>USD {{'amount' | translate}} : {{calculatorprice?.usd_amount | number:'1.2-2' || 0}}</div>
+              <!-- <div *ngIf="calculationOffer?.payment_type ==2">{{currencyOfName}} Amount : {{tokenValue * tokenPrice + calculatorprice?.fee | number:'1.2-2' || 0}}</div> -->
+
+            </div>
+          </div>
+        </div>
+        <div *ngIf="isLoggedin">
+          <!-- <p class="block" class="modalTxt">current staking</p> -->
+          <div class="row">
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <label>{{'buy-token' | translate}} : </label>
+              <input type="number" class="form-control " [(ngModel)]="tokenValue" min="1" max="999" (ngModelChange)="changeCalculatorValue($event)">
+            </div>
+            <div class="col-md-6" style="margin-bottom: 15px;">
+              <label>{{'token-price' | translate}} : </label>
+              <input type="text" class="form-control" value="{{tokenValue * tokenPrice + calculatorprice?.fee | number: '1.7-7' }} {{(currencyOfName)}}"
+                readonly />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- <li>Fees : {{calculatorprice?.fee | number:'1.2-2' || '0'}}</li>
+                <li>Percent : {{calculatorprice?.percent | number:'1.2-2' || '0'}}</li> -->
+              <li>USD {{'amount' | translate}} : {{calculatorprice?.usd_amount | number:'1.2-2' || 0}}</li>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

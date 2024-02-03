@@ -1,0 +1,541 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="6"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Add Project'" *ngIf="currId == 'add'" ></app-in-header>
+        <app-in-header [headerName]="'Edit Project'" *ngIf="currId != 'add'" ></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary projHeader">
+                        <h4 class="card-title font-weight-bold">{{currId == 'add' ? ('add_project' | translate) : ('edit_project' | translate)}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box" novalidate autocomplete="off" [formGroup]="addProjectForm" >
+                            <div class="row">
+                                <div class="col-md-12" >
+                                    
+                                    <div class="uploadImgDiv">
+                                            <div class="uploadFileDiv">
+                                                    <input class="dispNone1" type="file" accept="image/*" (change)="fileChangeEvent($event, 1)">
+                                                    <!-- <label style="width: 34px;height: 34px;border-radius: 100%"><i class="fas fa-upload"></i></label> -->
+                                                    <label class="uploadFileDivLabel" ></label>
+                                                    
+                                                </div>
+                                            <img src="{{form.image.value || 'assets/images/placeholder.jpg'}}">
+                                            <!-- <div style="background-image: url('https://i.ytimg.com/vi/hwqLyJofcIQ/maxresdefault.jpg')"></div> -->
+                                        </div>                                   
+                                </div>
+                            <div class="requiredColum">   
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter Token Name" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'tokenname' | translate}} <span class="color-red">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Token name" maxlength="30" [formControl]="form.tokenName"  >
+                                        <div class="errMsg " *ngIf="form.tokenName.dirty && form.tokenName.invalid">
+                                            <span *ngIf="form.tokenName.hasError('required')">{{'token_name_req' | translate}}</span>
+                                            <span *ngIf="form.tokenName.hasError('pattern')">{{'token_name_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Select the token type from dropdown" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'token-type' | translate}} </label>
+                                        <ng-select class="inNgSelect margtop" [items]="tokenTypeArr"
+                                        bindLabel="item"
+                                        bindValue="item"
+                                        placeholder="Select Token Type"
+                                        [formControl]="form.tokenType">
+                                        </ng-select>
+                                        <!-- <div class="errMsg " *ngIf="form.tokenType.dirty && form.tokenType.invalid">
+                                            <span *ngIf="form.tokenType.hasError('required')">{{'select_token_type' | translate}}</span>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                            <label class="control-label" tooltip="Enter the contract address of token" theme="light" placement="left" tooltip-class="addOffTooltip">{{'contract-address' | translate}} <span class="color-red">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Contract address" maxlength="50" [formControl]="form.contractAdd"  >
+                                            <!-- (blur)="form.contractAdd.value ? checkCAddress(form.contractAdd.value) : ''" -->
+                                            <div class="errMsg " *ngIf="form.contractAdd.dirty && form.contractAdd.invalid">
+                                                <span *ngIf="form.contractAdd.hasError('required')">{{'contract_add_req' | translate}}</span>
+                                                <span *ngIf="form.contractAdd.hasError('pattern')">{{'contract_add_valid' | translate}}</span>
+                                            </div>
+                                        </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the decimals of token" theme="light" placement="left" tooltip-class="addOffTooltip">{{'decimals' | translate}} </label>
+                                        <input type="text" class="form-control" placeholder="Decimals" maxlength="10" [formControl]="form.decimals"  >
+                                        <div class="errMsg" *ngIf="form.decimals.dirty && form.decimals.invalid">
+                                            <!-- <span *ngIf="form.decimals.hasError('required')">{{'decimals_req' | translate}}</span> -->
+                                            <span *ngIf="form.decimals.hasError('pattern')">{{'decimals_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter ticker" theme="light" placement="left" tooltip-class="addOffTooltip">{{'ticker' | translate}} <span class="color-red">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Ticker" maxlength="30" [formControl]="form.ticker" (keyup)="setUpperCaseValue(form.ticker.value)" value="{{form.ticker.value|uppercase}}">
+                                        <div class="errMsg" *ngIf="form.ticker.dirty && form.ticker.invalid">
+                                            <span *ngIf="form.ticker.hasError('required')">{{'ticker_enter' | translate}}</span>
+                                            <span *ngIf="form.ticker.hasError('pattern')">{{'ticker_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Select the platform from dropdown" theme="light" placement="left" tooltip-class="addOffTooltip">{{'platform' | translate}} <span class="color-red">*</span></label>
+                                        <!-- <select class="form-control custom_select" [formControl]="form.platform">
+                                            <option value="">{{'platforms' | translate}}</option>
+                                            <option *ngFor="let item of platformArr" [value]="item.id" >{{item?.acceptable_token_symbol}}</option>
+                                        </select> -->
+                                        <ng-select class="inNgSelect margtop" [items]="platformArr"
+                                        bindLabel="acceptable_token_symbol"
+                                        bindValue="id"
+                                        placeholder="Select Platform"
+                                        [formControl]="form.platform">
+                                        </ng-select>
+                                        <div class="errMsg " *ngIf="form.platform.dirty && form.platform.invalid">
+                                            <span *ngIf="form.platform.hasError('required')">{{'select_platform_req' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for website" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'website_link' | translate}}{{'link' | translate}} <span class="color-red">*</span></label>
+                                        <input type="text" class="form-control" placeholder="Website link" maxlength="100" [formControl]="form.websiteLink" >
+                                        <div class="errMsg" *ngIf="form.websiteLink.dirty && form.websiteLink.invalid">
+                                            <span *ngIf="form.websiteLink.hasError('required')">{{'website_link_req' | translate}}</span>
+                                            <span *ngIf="form.websiteLink.hasError('pattern')">{{'website_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+
+                            </div>
+
+                                <!----------------------optional----------------------->
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Select the market type from dropdown" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'market_type' | translate}}</label>
+                                        <!-- <select class="form-control custom_select" [formControl]="form.marketType">
+                                            <option value="">Select Market Type</option>
+                                            <option value="Initial">Initial</option>
+                                            <option value="Secondary">Secondary</option>
+                                            <option value="Third">Third</option>
+                                            <option value="Future">Future</option>
+                                        </select> -->
+                                        <ng-select class="inNgSelect margtop" [items]="marketArr"
+                                        bindLabel="item"
+                                        bindValue="item"
+                                        placeholder="Select Market Type"
+                                        [formControl]="form.marketType">
+                                        </ng-select>
+                                        <!-- <div class="errMsg " *ngIf="form.marketType.dirty && form.marketType.invalid">
+                                            <span *ngIf="form.marketType.hasError('required')">*Please select market type.</span>
+                                        </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the circulation supply of token" theme="light" placement="left" tooltip-class="addOffTooltip">{{'circulation_supply' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Circulation supply" maxlength="10" [formControl]="form.circulationSupply"  >
+                                        <div class="errMsg" *ngIf="form.circulationSupply.dirty && form.circulationSupply.invalid">
+                                            <!-- <span *ngIf="form.circulationSupply.hasError('required')">*Please enter circulation supply.</span> -->
+                                            <span *ngIf="form.circulationSupply.hasError('pattern')">{{'circulation_supply_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter video url" theme="light" placement="left" tooltip-class="addOffTooltip">{{'video-url' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Video url" maxlength="100" [formControl]="form.video"  >
+                                        <div class="errMsg" *ngIf="form.video.dirty && form.video.invalid">
+                                            <!-- <span *ngIf="form.video.hasError('required')">*Please enter video url.</span> -->
+                                            <span *ngIf="form.video.hasError('pattern')">{{'video_url_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Write the description about token" theme="light" placement="left" tooltip-class="addOffTooltip">{{'description' | translate}}</label>
+                                        <textarea class="form-control" rows="3" placeholder="Description" maxlength="1000" [formControl]="form.description" ></textarea>
+                                        <div class="errMsg" *ngIf="form.description.dirty && form.description.invalid">
+                                            <!-- <span *ngIf="form.description.hasError('required')">*Please enter description.</span> -->
+                                            <span *ngIf="form.description.hasError('pattern')">{{'description_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter rating (0-5)" theme="light" placement="left" tooltip-class="addOffTooltip">{{'rating' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Rating" maxlength="4" [formControl]="form.rating"  (keyup)="ratingValChange(form.rating.value)">
+                                        <div class="errMsg" *ngIf="form.rating.dirty && form.rating.invalid">
+                                            <!-- <span *ngIf="form.rating.hasError('required')">*Please enter rating.</span> -->
+                                            <span *ngIf="form.rating.hasError('pattern')">{{'rating_valid' | translate}}</span>
+                                        </div>
+                                        <div class="errMsg" *ngIf="ratingErr && form.rating.valid">{{ratingErr}}</div>
+                                    </div>                                    
+                                </div>
+
+                         
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Select the country from dropdown" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'country' | translate}}</label>
+                                        <!-- <select class="form-control custom_select" [formControl]="form.country">
+                                            <option value="">{{'selectcountry' | translate}}</option>
+                                            <option *ngFor="let item of countryListArr" [value]="item.name" >{{item?.name}}</option>
+                                        </select> -->
+                                        <ng-select class="inNgSelect margtop" [items]="countryListArr"
+                                        bindLabel="name"
+                                        bindValue="name"
+                                        placeholder="Select Country"
+                                        [formControl]="form.country">
+                                        </ng-select>
+                                        <!-- <div class="errMsg " *ngIf="form.platform.dirty && form.platform.invalid">
+                                            <span *ngIf="form.country.hasError('required')">*Please select country.</span>
+                                        </div> -->
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter CEO Name" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'ceoname' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="CEO name" maxlength="50" [formControl]="form.ceo" >
+                                        <div class="errMsg " *ngIf="form.ceo.dirty && form.ceo.invalid">
+                                            <!-- <span *ngIf="form.ceo.hasError('required')">*Please enter ceo name.</span> -->
+                                            <span *ngIf="form.ceo.hasError('pattern')">{{'ceo_name_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Select the running product from dropdown" theme="light" placement="left" tooltip-class="addOffTooltip">{{'runningproduct' | translate}}</label>
+                                        <!-- <select class="form-control custom_select" [formControl]="form.runProduct">
+                                            <option value="">{{'select-running-product' | translate}}</option>
+                                            <option value="Yes">{{'yes' | translate}}</option>
+                                            <option value="No">{{'no' | translate}}</option>
+                                        </select> -->
+                                        <ng-select class="inNgSelect margtop" [items]="yesnoArr"
+                                        bindLabel="item"
+                                        bindValue="item"
+                                        placeholder="Select Running Product"
+                                        [formControl]="form.runProduct">
+                                        </ng-select>
+                                        <!-- <div class="errMsg" *ngIf="form.runProduct.dirty && form.runProduct.invalid">
+                                            <span *ngIf="form.runProduct.hasError('required')">*Please select running product.</span>
+                                        </div> -->
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the name of known investors" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'invester' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Known investors" maxlength="50" [formControl]="form.investor" >
+                                        <div class="errMsg" *ngIf="form.investor.dirty && form.investor.invalid">
+                                            <!-- <span *ngIf="form.investor.hasError('required')">*Please enter known investors.</span> -->
+                                            <span *ngIf="form.investor.hasError('pattern')">{{'investors_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for whitepaper" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'whitepaperlink' | translate}}{{'link' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Whitepaper link" maxlength="100" [formControl]="form.whitepaper" >
+                                        <div class="errMsg" *ngIf="form.whitepaper.dirty && form.whitepaper.invalid">
+                                            <!-- <span *ngIf="form.whitepaper.hasError('required')">*Please enter whitepaper link.</span> -->
+                                            <span *ngIf="form.whitepaper.hasError('pattern')">{{'whitepaper_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+ 
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for investment deck " theme="light" placement="left" tooltip-class="addOffTooltip">{{'investmentdecklink' | translate}} (Link)</label>
+                                        <input type="text" class="form-control" placeholder="Investment deck link" maxlength="100" [formControl]="form.invdeck" >
+                                        <div class="errMsg" *ngIf="form.invdeck.dirty && form.invdeck.invalid">
+                                            <span *ngIf="form.invdeck.hasError('required')">*Please enter investment deck link.</span>
+                                            <span *ngIf="form.invdeck.hasError('pattern')">*Please enter valid investment deck link.</span>
+                                        </div>
+                                    </div>                                    
+                                </div>  -->
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter fund raised" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'fund_raised' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Fund raised" maxlength="10" [formControl]="form.fundRaised" >
+                                        <div class="errMsg" *ngIf="form.fundRaised.dirty && form.fundRaised.invalid">
+                                            <!-- <span *ngIf="form.fundRaised.hasError('required')">*Please enter fund raised.</span> -->
+                                            <span *ngIf="form.fundRaised.hasError('pattern')">{{'fund_raised_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the investment rating" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'investmentrating' | translate}}</label>
+                                        <!-- <input type="text" class="form-control" placeholder="Investment rating" maxlength="4" [formControl]="form.invRating"  (keyup)="invRatingValChange(form.invRating.value)">
+                                        <div class="errMsg" *ngIf="form.invRating.dirty && form.invRating.invalid">
+                                            <span *ngIf="form.invRating.hasError('required')">*Please enter rating.</span>
+                                            <span *ngIf="form.invRating.hasError('pattern')">*Please enter valid rating.</span>
+                                        </div>
+                                        <div class="errMsg" *ngIf="invRatingErr && form.invRating.valid">{{invRatingErr}}</div>
+                                      -->
+                                        <textarea class="form-control" rows="3" placeholder="Investment rating" maxlength="1000" [formControl]="form.invRating"  ></textarea>
+                                        <div class="errMsg" *ngIf="form.invRating.dirty && form.invRating.invalid">
+                                            <!-- <span *ngIf="form.invRating.hasError('required')">*Please enter investment rating.</span> -->
+                                            <span *ngIf="form.invRating.hasError('pattern')">{{'investment_rating_valid' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter what the token can be used for" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'what-token-do' | translate}}</label>
+                                        <textarea class="form-control" rows="3" placeholder="What does the token do" maxlength="1000" [formControl]="form.whatDo"  ></textarea>
+                                        <div class="errMsg" *ngIf="form.whatDo.dirty && form.whatDo.invalid">
+                                            <!-- <span *ngIf="form.whatDo.hasError('required')">*Please enter description of what the token do.</span> -->
+                                            <span *ngIf="form.whatDo.hasError('pattern')">{{'what_token_do_req' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Start Date of Token" placement="left" theme="light" tooltip-class="addOffTooltip">{{'project-startdate' | translate}}</label>
+                                        <input type="text" class="form-control calendarReadCss" style="float:none" placeholder="Select a date" ngx-mydatepicker [formControl]="form.startDate" [options]="startDateOptions"  #dp3="ngx-mydatepicker" (click)="dp3.toggleCalendar()" readonly="true" >
+                                        <div class="dateIcon">
+                                            <span class="input-group-text material-icons p-0 " (click)="dp3.toggleCalendar()">{{'daterange' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for facebook" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'fb_link' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Facebook link" maxlength="100" [formControl]="form.fbLink" >
+                                        <div class="errMsg" *ngIf="form.fbLink.dirty && form.fbLink.invalid">
+                                            <span *ngIf="form.fbLink.hasError('pattern')">{{'fb_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Instagram" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'Instagram '}}{{'link_only' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Instagram link" maxlength="100" [formControl]="form.instaLink" >
+                                        <div class="errMsg" *ngIf="form.instaLink.dirty && form.instaLink.invalid">
+                                            <span *ngIf="form.instaLink.hasError('pattern')">{{'insta_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Twitter" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'Twitter '}}{{'link_only' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Twitter link" maxlength="100" [formControl]="form.twitterLink" >
+                                        <div class="errMsg" *ngIf="form.twitterLink.dirty && form.twitterLink.invalid">
+                                            <span *ngIf="form.twitterLink.hasError('pattern')">{{'twitter_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Telegram" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'tele_link' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Telegram link" maxlength="100" [formControl]="form.teleLink" >
+                                        <div class="errMsg" *ngIf="form.teleLink.dirty && form.teleLink.invalid">
+                                            <span *ngIf="form.teleLink.hasError('pattern')">{{'telegram_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Medium" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'medium_link' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Medium link" maxlength="100" [formControl]="form.mediumLink" >
+                                        <div class="errMsg" *ngIf="form.mediumLink.dirty && form.mediumLink.invalid">
+                                            <span *ngIf="form.mediumLink.hasError('pattern')">{{'medium_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Bitcointalk" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'Bitcointalk '}}{{'link_only' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Bitcointalk link" maxlength="100" [formControl]="form.bitcoinLink" >
+                                        <div class="errMsg" *ngIf="form.bitcoinLink.dirty && form.bitcoinLink.invalid">
+                                            <span *ngIf="form.bitcoinLink.hasError('pattern')">{{'bitcoin_link_valid' | translate}}.</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Youtube" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'Youtube '}}{{'link_only' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Youtube link" maxlength="100" [formControl]="form.youtubeLink" >
+                                        <div class="errMsg" *ngIf="form.youtubeLink.dirty && form.youtubeLink.invalid">
+                                            <span *ngIf="form.youtubeLink.hasError('pattern')">{{'youtube_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Reddit" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'Reddit '}}{{'link_only' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Reddit link" maxlength="100" [formControl]="form.redditLink" >
+                                        <div class="errMsg" *ngIf="form.redditLink.dirty && form.redditLink.invalid">
+                                            <span *ngIf="form.redditLink.hasError('pattern')">{{'reddit_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for Github" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'Github '}}{{'link_only' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="Github link" maxlength="100" [formControl]="form.githubLink" >
+                                        <div class="errMsg" *ngIf="form.githubLink.dirty && form.githubLink.invalid">
+                                            <span *ngIf="form.githubLink.hasError('pattern')">{{'github_link_valid' | translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter the link for linkedin" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'linkedin_link' | translate}}</label>
+                                        <input type="text" class="form-control" placeholder="linkedin link" maxlength="100" [formControl]="form.linkedinLink" >
+                                        <div class="errMsg" *ngIf="form.linkedinLink.dirty && form.linkedinLink.invalid">
+                                            <span *ngIf="form.linkedinLink.hasError('pattern')">{{'linkedin_link_valid'| translate}}</span>
+                                        </div>
+                                    </div>                                    
+                                </div>
+
+                               
+                                
+                                
+                                
+                                
+                                <div class="col-md-12" >
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Select images for project" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'gallery' | translate}}</label>
+                                        <!-- <span class="" > -->
+                                            <div class="containAllImg">
+                                                <div class="addMultImagesDiv mt5" *ngFor="let image of imagesArr;let i = index">
+                                                    <span class="crossIconMult" (click)="removeImg(image, i)">
+                                                        <i class="fa fa-remove"></i>
+                                                    </span>
+                                                    <img src="{{image.image}}" *ngIf="image.id">
+                                                    <img src="{{image}}" *ngIf="!image.id">
+                                                </div>
+                                            <!-- </div> -->
+                                        
+                                        <div class="addMultImgDiv mt5">
+                                            
+                                                <input type="file" accept="image/*" (change)="fileChangeEvent($event, 2)">
+                                                <span class="spanMultIcon"><i class="fa fa-plus"></i></span>
+                                            
+                                        </div>
+                                    </div>
+                                        
+                                    </div>                                    
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label"  >{{''}}</label>
+                                        <div class="input-group">
+                                            <re-captcha style="margin: auto;" site_key="6LfvDF0UAAAAAIkOZrhJ6KKGs9HbMR857IGuLspj" ></re-captcha>
+                                        </div>
+                                        
+                                    </div>                                    
+                                </div>
+
+                                
+                                <!-- <div class="col-md-12" *ngIf="currId != 'add'">
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label" tooltip="Select images for project" theme="light" placement="left" tooltip-class="addOffTooltip" >{{'Gallery'}}</label>
+                                            <span class="" >
+                                                    <div class="addMultImagesDiv" *ngFor="let image of imagesArr;let i = index">
+                                                        <span class="crossIconMult" (click)="removeImgUpd(image)">
+                                                            <i class="fa fa-remove"></i>
+                                                        </span>
+                                                        <img src="{{image.image}}" *ngIf="image.id">
+                                                        <img src="{{image}}" *ngIf="!image.id">
+                                                    </div>
+                                            
+                                            <div class="addMultImgDiv">
+                                                <input type="file" accept="image/*" (change)="fileChangeEvent($event, 2)">
+                                                <span class="spanMultIcon"><i class="fa fa-plus"></i></span>
+                                            </div>
+                                        </span>
+                                            
+                                        </div>                                    
+                                    </div>  -->
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Click on the checkbox if you want to enable the third market for this token
+                                        " theme="light" placement="left" tooltip-class="addOffTooltip" > Third Market</label>
+                                    
+                                    <div class="form-check  mt-0">
+                                            <label class="form-check-label t-6" >
+                                                <input class="form-check-input" type="checkbox"  [formControl]="form.thirdMarket" >
+                                                
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                        </div>
+                                </div> -->
+  
+                                <div class="col-md-12 text-md-right">
+                                  <div class="form-group horizontalGroup ">
+                                      <label class="control-label"></label>
+                                      <div class="form-control text-left border0 padd0 formActionBtn">
+                                            <button type="submit" class="btn btn-vertex minWidth100" [disabled]="addProjectForm.invalid || ratingErr" (click)="(addProjectForm.invalid || ratingErr ) ? '' : onAddProject()" >{{currId=='add' ? ('add' | translate) : ('update' | translate) }} </button>
+                                            <button type="button" class="btn btn-default minWidth100" (click)="goBack()">{{'cancel' | translate}} </button>
+                                      </div>
+                                  </div>
+                              </div>
+  
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  <div class="modal fade global-modal reset-modal" id="in_add_project">
+        <div class="modal-dialog max-WT-500">
+          <form class="pin_code_form">
+            <div class="modal-content">
+              <!--<div class="modal-header ">
+                           <h4 class="modal-title text-center">Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div> -->
+              <div class="modal-body">
+                <div class="row align-items-center minHeight180">
+                  <div class="col">
+                    <!-- <form class="common-form" autocomplete="off"> -->
+                      <div class="head_box2 text-center mb15">
+                        <h5 class="font-weight-bold">{{currId == 'add' ? ('project_added_message'|translate) : ('project_update_message'|translate)}}</h5>
+                        <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                      </div>
+                    
+                      <div class="modalActionBtn text-center">
+                        <!-- <button type="button" class="btn btn-gray max-WT-150" (click)="goToFund()" >CANCEL</button> -->
+                        <button type="button" class="btn btn-orange max-WT-150" (click)="goToProject()" >{{'ok'|translate}}</button>
+                      </div>
+                    <!-- </form> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    

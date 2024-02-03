@@ -1,0 +1,43 @@
+<app-loading *ngIf="isLoading">
+</app-loading>
+<main class="main-container">
+  <section class="static_page_section common_section">
+    <div class="container-1280">
+      <div class="container">
+        <div class="row media-tiles-row row-margin-bottom">
+          <div class="col-md-12 no-padding lib-item" data-category="view" *ngFor="let items of news;let i = index ">
+              <div class="lib-panel">
+                <div class="row box-shadow">
+                  <div class="col-lg-5">
+                    <img class="lib-img-show" src="{{items.picture}}">
+                  </div>
+                  <div class="col-lg-7">
+                    <div class="lib-row lib-header">
+                      {{items.title}}
+                      <div class="lib-header-seperator"></div>
+                    </div>
+                    <div class="lib-row lib-desc">
+                        <p #textContent [attr.id]="'items' + i">  
+                            {{items.text}}    
+                        </p>
+    
+                    </div>
+                    <div class="read-more-link">
+                        <a readMore [readMore-length]="500" [readMore-element]="textContent" [attr.href]="'#items' + i">
+                          <span class="less">Read Less ...</span>
+                          <span class="more">Read More ...</span>
+                         </a>
+                      </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-md-12" *ngIf="!news.length">
+              <div class="text-center fs20">{{'no-data-found' | translate}}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

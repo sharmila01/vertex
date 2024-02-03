@@ -1,0 +1,16 @@
+.socialList li {
+    display: inline-block;
+    width: 33px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 1.5px;
+}
+.socialUL{
+    margin-right: 160px;
+}
+
+@media (max-width: 767px) {
+    .socialUL{
+        margin-right: auto;
+    }
+}

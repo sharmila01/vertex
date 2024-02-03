@@ -1,0 +1,31 @@
+<footer class="footer-inner footerAdmin">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="footer-content">
+          <div class="footer-text">
+            <ul class="footmenu">
+              <li><a [routerLink]="['/about-us']">{{'f-aboutus' | translate}}</a></li>
+              <li><a [routerLink]="['/contact-us']">{{'f-contactus' | translate }}</a></li>
+              <li><a [routerLink]="['/privacy-policy']">{{'f-privacy' | translate}}</a></li>
+              <li><a [routerLink]="['/terms']">{{'f-terms' | translate}}</a></li>
+              <li><a [routerLink]="['/faq']">{{'f-faq' | translate}}</a></li>
+            </ul>
+            <p class="copyright">{{'copyright' | translate}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <ul class="socialList socialUL">
+          <li><a (click)="openSocialLink('bitcoin')" class="bitcoin"><i class="fab fa-btc"></i></a></li>
+          <li><a (click)="openSocialLink('fb')" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a (click)="openSocialLink('twitter')" class="twitter"><i class="fab fa-twitter"></i></a></li>
+          <li><a (click)="openSocialLink('medium')" class="medium"><i class="fab fa-medium"></i></a></li>
+          <li><a class="Octocat" (click)="openSocialLink('github')" class="github"><i class="fab fa-github-alt"></i></a></li>
+          <li><a (click)="openSocialLink('youtube')" class="youtube"><i class="fab fa-youtube"></i></a></li>
+          <li><a (click)="openSocialLink('telegram')" class="telegram"><i class="fab fa-telegram"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

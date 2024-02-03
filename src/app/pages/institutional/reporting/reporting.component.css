@@ -1,0 +1,78 @@
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+
+
+/* <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> */
+.steel {
+    height: 20px;
+    width: 20px;
+    margin-right: 8px;
+  }
+.panel-group{
+  width: 100%;
+  width: 100%;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.badge {
+  padding: 4px 7px;
+  background: #f36e47;
+  color: #fff;
+}
+
+.table thead th {
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  font-size: 14px !important;
+}
+
+td{
+  font-size: 13px !important;
+}
+
+.panel-group .panel-title > a{
+  display: block;
+  padding: 10px !important;
+  /* text-decoration: none; */
+}
+
+.panel-group .panel-default > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #EEEEEE;
+  margin-right: 15px !important;
+}
+
+.panel-group .panel-default > .panel-heading {
+  padding: 0;
+  border-radius: 0;
+  color: #212121;
+  background-color: #e7e8e9 !important;
+  border-color: #EEEEEE;
+}
+
+[data-toggle="collapse"]:after {
+  display: inline-block;
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    content: "\f054";
+    transform: rotate(90deg) ;
+    transition: all linear 0.25s;
+    float: right;
+    }   
+  [data-toggle="collapse"].collapsed:after {
+    transform: rotate(0deg) ;
+  }

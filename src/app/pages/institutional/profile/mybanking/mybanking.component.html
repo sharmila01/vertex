@@ -1,0 +1,110 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+  <app-in-sidebar [activeTab]="23"></app-in-sidebar>
+  <div class="main-panel">
+    <app-in-header [headerName]="'My Banking'"></app-in-header>
+    <div class="content">
+      <div class="container-fluid pt-4">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary profileHeader">
+            <h4 class="card-title font-weight-bold inrtl-title">{{'my-banking' | translate}}</h4>
+          </div>
+          <div class="card-body">
+
+
+            <form class="formBox max-WT-600 center-box" novalidate autocomplete="off" [formGroup]="bankForm">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group horizontalGroup">
+                    <label class="control-label">{{'Account Holder Name' | translate}}</label>
+                    <input type="text" class="form-control" placeholder="Enter the bank holder" [formControl]="bankForm.controls['account_holder_name']"
+                     />
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group horizontalGroup">
+                      <label class="control-label">{{'Account Holder Address' | translate}} </label>
+                      <input type="text" class="form-control" placeholder="Enter the account holder address"
+                        [formControl]="bankForm.controls['account_holder_address']"  />
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="form-group horizontalGroup">
+                      <label class="control-label">{{'Account Number' | translate}} </label>
+                      <input #accountNo type="text" class="form-control"  placeholder="Account Number" [formControl]="bankForm.controls['account_number']"
+                         />
+                    </div>
+                   
+                  </div>
+                  <div class="col-md-12">
+                      <div class="form-group horizontalGroup display-property">
+                        <label class="control-label">{{'Accepted Fiat Currency' | translate}} </label>
+                        <ng-select class="inNgSelect margtop" [items]="fiatCurrency" bindLabel="currency_name" bindValue="id"
+                          placeholder="Select Accept Fiat Currency" [formControl]="bankForm.controls['accepting_fiat_currency']">
+                        </ng-select>
+                      </div>
+                    </div>
+                <div class="col-md-12">
+                  <div class="form-group horizontalGroup">
+                    <label class="control-label">{{'IBAN' | translate}} </label>
+                    <input type="text" class="form-control" maxlength="34" placeholder="IBAN" #iban [formControl]="bankForm.controls['iban']"
+                       />
+                  </div>
+                </div>
+
+                
+                <div class="col-md-12">
+                  <div class="form-group horizontalGroup">
+                    <label class="control-label">{{'Bank Name' | translate}} </label>
+                    <input type="text" class="form-control" placeholder="Enter the bank name" [formControl]="bankForm.controls['bank_name']"
+                       />
+                  </div>
+                </div>
+
+
+                <div class="col-md-12">
+                  <div class="form-group horizontalGroup">
+                    <label class="control-label">{{'Bank Address' | translate}} </label>
+                    <input type="text" class="form-control" placeholder="Enter the bank address" [formControl]="bankForm.controls['bank_address']"
+                       />
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group horizontalGroup">
+                    <label class="control-label">{{'Bank Swift' | translate}}</label>
+                    <input type="text" class="form-control" placeholder="Enter the bank swift" [formControl]="bankForm.controls['swift_bic_code']"
+                      maxlength="11" />
+                  </div>
+                </div>
+
+               
+
+              
+                <!-- <div class="col-md-12">
+                  <p style="color:red;">Note : Settlements are always done on weekly on Mondays, 5PM CET</p>
+                </div> -->
+                <div class="col-md-12 text-md-right">
+                  <div class="form-group horizontalGroup">
+                    <label class="control-label"></label>
+                    <div class="form-control rtl-text-right border0 padd0 formActionBtn">
+                      <div *ngIf="!bankUser">
+                        <button type="button" class="btn btn-vertex minWidth100" [disabled]="bankForm.invalid" (click)="onAddBankDetail(bankForm.controls['account_number'].disabled)" > {{bankForm.controls['account_number'].disabled ? 'EDIT' : 'SAVE'}} </button>
+                      </div>
+                      <div *ngIf="bankUser">
+                          <button type="button" class="btn btn-vertex minWidth100" [disabled]="bankForm.invalid" (click)="onUpdateBankDetail(bankForm.controls['bank_address'].disabled)" > {{bankForm.controls['bank_address'].disabled ? 'EDIT' : 'SAVE'}} </button>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-in-footer></app-in-footer>
+  </div>
+</div>

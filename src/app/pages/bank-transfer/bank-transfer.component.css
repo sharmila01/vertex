@@ -1,0 +1,102 @@
+.bank_info_note {
+    color: #f36e47;
+    margin-bottom:15px; 
+    margin-top:15px; 
+    text-align: left;
+}
+/* layout.css Style */
+.upload-drop-zone {
+    height: 200px;
+    border-width: 2px;
+    margin-bottom: 20px;
+  }
+  
+  /* skin.css Style*/
+  .upload-drop-zone {
+    color: #ccc;
+    border-style: dashed;
+    border-color: #ccc;
+    line-height: 200px;
+    text-align: center
+  }
+  .upload-drop-zone.drop {
+    color: #222;
+    border-color: #222;
+  }
+  
+  
+  
+  .image-preview-input {
+      position: relative;
+      overflow: hidden;
+      margin: 0px;    
+      color: #333;
+      background-color: #fff;
+      border-color: #ccc;    
+  }
+  .image-preview-input input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      filter: alpha(opacity=0);
+  }
+  .image-preview-input-title {
+      margin-left:2px;
+  }
+.fund-box.active{display:block;}
+.fund-box {
+    display:none;
+    margin-top: 20px
+}
+.upload_file {
+    background-color: #aaa;
+}
+.paySymbolBox {
+    padding: .1rem .75rem;
+    /* height: 73px; */
+    line-height: 1.5;
+    font-size: 25px;
+    color: white;
+    border-bottom: 1px solid white;
+    overflow: hidden;
+}
+.tdtitle{
+    text-align: right;
+    width: 271px;
+}
+.fs25 {
+    font-size: 25px !important;
+}
+@media (max-width: 767px){
+.color-red {
+    font-size: 11px;
+}
+}
+@media screen and (device-aspect-ratio: 40/71) {
+    .color-red {
+        font-size: 10px;
+    }
+    #tokensent {
+        margin-left: auto;
+    }
+}
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) 
+and (orientation : landscape) {
+#tokensent {
+    margin-left: 88px;
+}
+}
+.copy {
+    margin-left: 50px !important;
+}
+@media (max-width: 1024px) and (min-width: 768px) {
+    .copy {
+        margin-top: 15px;
+        margin-left: 15px !important;
+    }
+}

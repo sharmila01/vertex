@@ -1,0 +1,335 @@
+<app-loading *ngIf="isLoading"></app-loading>
+    <app-in-sidebar [activeTab]="1"></app-in-sidebar>
+  <div class="main-panel" >
+    <!-- Navbar -->
+    <app-in-header [headerName]="'Dashboard'" ></app-in-header>
+    <!-- End Navbar -->
+    <div class="content customContent">
+        <div class="container-fluid pt-4">
+          <!--  Small Tables of Count -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 mb50 makeLink" [routerLink]="['/institutional/offerings']">
+                <div class="card card-stats">
+                  <div class="card-header card-header-warning card-header-icon dashSize">
+                    <div class="card-icon">
+                      <i class="material-icons">{{'money' | translate}}</i>
+                    </div>
+                    <p class="card-category fs17" >{{'offerings' | translate}}</p>
+                    <h3 class="card-title">{{countData?.offering_count ? (countData?.offering_count |separator:5) : '0' }}</h3>
+                  </div>
+                  <div class="card-footer">
+                    <div class="stats">
+                      {{'offerings' | translate}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6 col-sm-6 mb50 makeLink" [routerLink]="['/institutional/transaction-history']">
+                  <div class="card card-stats">
+                    <div class="card-header card-header-success card-header-icon dashSize">
+                      <div class="card-icon">
+                        <i class="material-icons">{{'history' | translate}}</i>
+                      </div>
+                      <p class="card-category fs17">{{'nav-transaction' | translate}}</p>
+                      <h3 class="card-title">{{countData?.txns_count ? (countData?.txns_count | separator:5) : '0' }}</h3>
+                    </div>
+                    <div class="card-footer">
+                      <div class="stats">
+                          {{'nav-transaction' | translate}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mb50 makeLink" [routerLink]="['/institutional/fund-transfer']">
+                    <div class="card card-stats">
+                      <div class="card-header card-header-danger card-header-icon dashSize">
+                        <div class="card-icon">
+                          <i class="material-icons">{{'account_balance_wallet' | translate}}</i>
+                        </div>
+                        <p class="card-category fs17">{{'deposit-transfer' | translate}}</p>
+                        <h3 class="card-title">{{countData?.fund_count ? (countData?.fund_count | separator:5) : '0' }}</h3>
+                      </div>
+                      <div class="card-footer">
+                        <div class="stats">
+                            {{'deposit-transfer' | translate}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 mb50 makeLink" [routerLink]="['/institutional/profile-stake']" >
+                      <div class="card card-stats">
+                        <div class="card-header card-header-info card-header-icon dashSize">
+                          <div class="card-icon">
+                            <i class="material-icons">{{'chrome_reader_mode' | translate}}</i>
+                          </div>
+                          <p class="card-category fs17">{{'stake-quantity' | translate}}</p>
+                          <h3 class="card-title">{{countData?.stake ? (countData?.stake | separator:5) : '0'}}</h3>
+                        </div>
+                        <div class="card-footer">
+                          <div class="stats">
+                              {{'stake-quantity' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6 my-4" >
+            <div class="card card-stats h-100 makeLink" [routerLink]="['/institutional/offerings']">
+              <div class="card-header card-header-warning card-header-icon " >
+                <div class="card-icon "  >
+                  <i class="material-icons">money</i>
+                </div>
+                <h3 class="card-title">
+                  <small>Offerings</small>
+                </h3>
+                <h3 class="card-title">{{countData?.offering_count}}</h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <a href="javascript:;" class="font-weight-bold">Offerings</a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6 my-4" >
+            <div class="card card-stats h-100 makeLink" [routerLink]="['/institutional/transaction-history']">
+              <div class="card-header card-header-success card-header-icon " >
+                <div class="card-icon">
+                  <i class="material-icons">history</i>
+                </div>
+                <h3 class="card-title">
+                  <small>Transaction History</small>
+                </h3>
+                <h3 class="card-title">{{countData?.txns_count}}</h3>
+              </div>
+              <div class="card-footer" >
+                <div class="stats">
+                  <a href="javascript:;" class="font-weight-bold">Transaction History</a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6 my-4">
+            <div class="card card-stats h-100">
+              <div class="card-header card-header-danger card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">settings</i>
+                </div>
+                <h3 class="card-title">
+                  <small>Settings</small>
+                </h3>
+              </div>
+              <div class="card-footer">
+                <div class="stats">
+                  <a href="javascript:void(0);" class="font-weight-bold">Settings</a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+          <!-- <div class="col-lg-6 col-md-6 col-sm-6 my-4">
+            <div class="card card-stats h-100">
+              <div class="card-header card-header-info card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">library_books</i>
+                </div>
+                <h3 class="card-title">
+                  <small>Static Content</small>
+                </h3>
+              </div>
+              <div class="card-footer">
+                  <div class="stats">
+                    <a href="javascript:void(0);" class="font-weight-bold">Static Content</a>
+                  </div>
+                </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 mb50">
+                <button type="button" class="btn btn-hot btn-teal text-uppercase btn-lg" [routerLink]="['/institutional/add-offering/add']">Create Offering (Sell)</button>
+  
+            </div>  
+          <div class="col-lg-3 col-md-6 col-sm-6 mb50 quickbtn">
+              <button type="button" class="btn btn-hot btn-purple text-uppercase btn-lg" [routerLink]="['/institutional/add-project/add']">Suggest Project</button>
+
+          </div>  
+        
+          <div class="col-lg-3 col-md-6 col-sm-6 mb50">
+              <button type="button" class="btn btn-hot text-uppercase btn-lime btn-lg" [routerLink]="['/institutional/reporting']">See Balance</button>
+
+          </div>  
+          <div class="col-lg-3 col-md-6 col-sm-6 mb50">
+              <button type="button" class="btn btn-hot text-uppercase btn-navy btn-lg" [routerLink]="['/institutional/fund-transfer']">See Deposits</button>
+
+          </div>  
+          </div>
+        <!-- End Small Tables of Count -->
+        <!-- Transaction History  -->
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card my-3">
+                <div class="card-header card-header-primary dashHeader p4">
+                    <div class="row align-items-center pl20">
+                        <div class="col-md-4 col-lg-6 ">
+                            <h4 class="card-title font-weight-bold inrtl-title">{{'nav-transaction' | translate}}</h4>
+                        </div>
+                        <div class="col-md-4 col-lg-4">
+                            <!-- <div class="form-check mt-0 d-flex align-items-center justify-content-end">
+                                <label class="form-check-label t-6 checkWhiteBg" >
+                                    <input class="form-check-input" type="checkbox"  [(ngModel)]="incompleteTrans" name="incompleteTrans" (change)="onSearch()" >
+                                    
+                                    <span class="form-check-sign">
+                                        <span class="check "></span>
+                                    </span>
+                                </label>
+                                <span style="color:#fff;margin-top: 5px;">{{'incomp_trans' | translate}}</span>
+                            </div> -->
+                        </div>
+                        <div class="col-md-4 col-lg-2 text-md-right">
+                            <form class="navbar-form d-inline-flex ml-md-auto" autocomplete="off" novalidate>
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control text-white" placeholder="Search" [(ngModel)]="filter.search" name="search" maxlength="50" (keyup)="!filter.search ? onSearch() :  '' ">
+                                    <button type="submit" class="btn btn-white btn-round btn-just-icon pStatic" (click)="filter.search ? onSearch(): ''" >
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  
+                  <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive mt-3">
+                      <table class="table table-bordered tableWidth800">
+                          <thead class=" text-primary border-top">
+                              <tr>
+                                  <th></th>
+                                  <th>{{'date' | translate}}</th>
+                                  <th>{{'orderid' | translate}}</th>
+                                  <th>{{'payout-transactionid' | translate}}</th>
+                                  <th>{{'transactionstatus' | translate}}</th>
+                                  <!-- <th>{{'payout-fund' | translate}}</th> -->
+                                  <th>{{'received-fund' | translate}}</th>
+                                  <th>{{'paid-quantity' | translate}}</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let item of txnArr | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total } " (click)="selectedRow(item)">
+                                  <td><div *ngIf="item?.transaction_status!='Awaiting Payment'">Token Payment</div>
+                                  <button *ngIf="item?.transaction_status=='Awaiting Payment'" class="btn btn-sm btn-danger payment-btn" (click)="confirmPayment(item)">Confirm Payment</button></td>
+                                <td>{{getUTC(item?.order_created_at) | date: 'MM/dd/yyyy hh:mm a'}}</td>
+                                  <td class="link-make1" (click)="viewOrder(item)">{{item?.order_id}}</td>
+                                  <td [ngClass]="isInlcudeTokenBurning(item?.payout_transfer_transcation) ? 'link-make1' : '' " (click)="isInlcudeTokenBurning(item?.payout_transfer_transcation) ? openEther(item.payout_transfer_transcation, item?.fund_symbol): ''">{{item?.payout_transfer_transcation  ? (item?.payout_transfer_transcation| truncate : 25 : '..') : '- - -'}}</td>
+                                  <td class="text-nowrap">{{item?.transaction_status}}</td>
+                                  <!-- <td>{{item?.payout_fund ? (item?.payout_fund | separator: 5)  : '0'}} {{item?.fund_symbol}}</td> -->
+                                  <td *ngIf="item?.payment_type==1">{{item?.payout_fund}}</td>
+                                  <td *ngIf="item?.transaction_status!='Awaiting Payment' && item?.payment_type==2" >--</td>
+                                  <td *ngIf="item?.transaction_status=='Awaiting Payment' && item?.payment_type==2">{{item?.fund_received ? (item?.fund_received | separator: 5) : '0'}} {{item?.fund_symbol}}</td>                                                
+                                  <td>{{item?.token_quantity ? (item?.token_quantity | separator: 5)  : '0'}} {{item?.token_name}}</td>
+                              </tr>
+                              <tr *ngIf="!txnArr.length">
+                                  <td colspan="7" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                              </tr>
+
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class="tbl_footer">
+                    <div class="row align-items-center flex-wrap flR">
+                        <div class="text-md-right" *ngIf="paginationData?.total > paginationData?.limit" >
+                            <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <!-- End Transaction History  -->
+
+
+      </div>
+    </div>
+    <!-- <footer class="footer">
+        <div class="container-fluid">
+            <div class="copyright text-left">
+                Copyright &copy; 2018, Vertex
+            </div>
+
+        </div>
+    </footer> -->
+    <app-in-footer></app-in-footer>
+  </div>
+
+
+<div class="modal fade" id="confirm_payment" role="dialog" style="margin-top: 145px;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm Payment</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row" *ngIf="!showSecurity && !getStatus">
+                    <div class="col-md-6 modal-feilds">
+                        <label>Received Amount : </label>
+                        <input type="number" [(ngModel)]="receive_amount" class="form-control custom-form-feild">
+                    </div>
+                    <div class="col-md-6 modal-feilds">
+                        <label>Currency : </label>
+                        <input type="text" class="form-control custom-form-feild" [(ngModel)]="currency" placeholder="token symbol" value="0" readonly
+                        />
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <div>
+                            <label>File Upload : </label>
+                        </div>
+                        <div class="input-group">
+                            <input readonly type="text" [(ngModel)]="paymentProf" class="form-control input-sm custom-form-feild">
+                            <span class="input-group-prepend file-upload">
+                                <label class="input-group-text upload-label">
+                                    <i class="fa fa-upload"></i>
+                                    <input type="file" name="attachment" (change)="fileChangeEvent($event)" style="display: none;">
+                                </label>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="row" *ngIf="showSecurity && !getStatus">
+                    <div class="col-12" style="text-align: center; margin: auto">
+                        You confirm to have received {{receive_amount}} {{currency}}
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="getStatus && !showSecurity">
+                    <div class="col-12" style="text-align: center; margin: auto">
+                        Funds Received
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div *ngIf="!showSecurity && !getStatus">
+                    <button type="button" class="btn btn-success" style="float: left;" (click)="showSecure()">Confirm</button>
+                    <button type="button" class="btn btn-default" style="float: right;" data-dismiss="modal">Close</button>
+                </div>
+                <div *ngIf="showSecurity && !getStatus">
+                    <button type="button" class="btn btn-success" style="float: left;" data-dismiss="modal" (click)="showStatus()">Yes</button>
+                    <button type="button" class="btn btn-default" style="float: right;" data-dismiss="modal">No</button>
+                </div>
+                <div *ngIf="getStatus && !showSecurity">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="confirmTransaction()">Ok</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

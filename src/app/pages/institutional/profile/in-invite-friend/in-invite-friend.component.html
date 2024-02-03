@@ -1,0 +1,60 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="17"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Invite A Friend'" ></app-in-header>
+        <!-- <app-in-header [headerName]="'Edit Project'" *ngIf="currId != 'add'" ></app-in-header> -->
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary profileHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'invite-friend' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box" novalidate autocomplete="off" [formGroup]="inviteForm" >
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group horizontalGroup">
+                                      <label class="control-label">{{'email' | translate}}</label>
+                                      <input type="text" class="form-control" placeholder="Email id"  [formControl]="inviteForm.controls['email']" maxlength="64" />
+                                      <div class="errMsg" *ngIf="inviteForm.controls['email'].dirty && inviteForm.controls['email'].invalid">
+                                          <span *ngIf="inviteForm.controls['email'].hasError('required')">{{'enter_email_req' | translate}}</span>
+                                          <!-- <span *ngIf="inviteForm.email.hasError('minlength')">*First name must be between 2 to 50 characters.</span> -->
+                                          <span *ngIf="inviteForm.controls['email'].hasError('pattern')">{{'enter_email_valid' | translate}}</span>
+                                      </div>
+                                  </div> 
+                              </div>
+
+                              <div class="col-md-12 text-md-right">
+                                  <div class="form-group horizontalGroup ">
+                                      <label class="control-label"></label>
+                                      <div class="form-control rtl-text-right border0 padd0 formActionBtn">
+                                              <button type="button" class="btn btn-vertex minWidth100" [disabled]="inviteForm.invalid" (click)="inviteFriend()" > {{'invite' | translate}} </button>
+                                      </div>
+                                  </div>
+                              </div>
+                                
+
+                            </div>
+                        </form>
+                    
+                      </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  
+    

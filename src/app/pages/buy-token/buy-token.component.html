@@ -1,0 +1,8 @@
+
+<div *ngIf="paymentType === cryptoCurrencyID">
+<app-crypto-token></app-crypto-token>
+</div>
+
+<div *ngIf="paymentType === bankTransferID">
+    <app-bank-transfer></app-bank-transfer>
+</div>

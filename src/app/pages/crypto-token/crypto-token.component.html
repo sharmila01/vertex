@@ -1,0 +1,291 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container bg_gray">
+  <section class="inner_section common_section">
+    <div class="container-1280">
+      <!-- global_box 1Start -->
+      <div class="token_detail_head_box shadow_border">
+        <!-- Row Start -->
+        <div class="row">
+          <div class="col-md-9 rtl-text-right">
+            <div class="content_image_center">
+              <div class="d-cell v-middle w-15">
+                <span class="token_img buytoken_img">
+                  <img src="{{tokenDet?.token?.token_symbol || 'assets/images/diamond-icon.png' }}" alt="icon" />
+                </span>
+              </div>
+              <div class="d-cell v-middle pl15Mobile">
+                <h2 class="token_head">{{tokenDet?.token?.token_name}}
+                  <span></span>
+                </h2>
+                <p [ngClass]="(currStatus == 'Not Confirmed' || currStatus == 'no') ? 'newClass' : 'oldClass' ">{{tokenDet?.token?.description}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- Col left End -->
+          <div class="col-md-3 ">
+            <div class="lefttime-grp">
+              <div class="lefttime-buy" style="font-weight: bold;" *ngIf="currBal.showTimer">
+                {{'timelefttobuytoken' | translate}} &nbsp;
+                <i class="far fa-clock"></i> {{currBal.time | date: 'mm:ss'}}
+              </div>
+              <div>
+                <button type="button" class="btn btn-header active mb10 mglft " *ngIf="isCancel" (click)="cancelOrder()">{{'cancelorder' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- global_box 1 End -->
+      <!-- global_box 2 Start -->
+      <div class="global_box">
+        <!-- buying_step Start -->
+        <div class="buying_step">
+          <h3 class="head3 ">{{'step-1' | translate}}</h3>
+          <h4 class="head4">{{'plan_your' | translate}} {{tokenDet?.token?.token_name}} {{'tokens_purchase' | translate}}</h4>
+          <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
+          <span class="rew">{{'your_staking_quant' | translate}}:
+            <label class="color-black pl25">{{tokenDet?.staking_quantity || '0'}}&nbsp;({{percent ? (percent | separator : 4) : '0'}}% Discount)</label>
+          </span>
+          <br>
+          <br>
+          <div class="token_purchase_box clearfix">
+            <div class="purchase_field purchase_field_first" style="background: #ddd">
+              <span class="textbuy">{{'you_order' | translate}}</span>
+              <span class="field_divider">
+                <img src="../../../assets/images/circle-arrow.png" alt="icon" />
+              </span>
+              <input type="text" class="form-control " [disabled]="tog==1" [(ngModel)]="tokenVal" *ngIf="currStatus == 'Tokens Received' || currStatus == 'Order Completed' || currStatus == 'Cancelled' || currStatus == 'Closed' || currBal.showScan "
+                readonly />
+              <!-- <input type="text" class="form-control" [(ngModel)]="tokenVal" (keyup)="tokenValChange()" maxlength="10" *ngIf="!(currStatus == 'Tokens Received' || currStatus == 'Order Completed' || currStatus == 'Cancelled' || currStatus == 'Closed' )" onlyNumber/> -->
+
+              <input type="text" class="form-control " [(ngModel)]="tokenVal" (keyup)="searchVal.next(tokenVal)" maxlength="10" *ngIf="!(currStatus == 'Tokens Received' || currStatus == 'Order Completed' || currStatus == 'Cancelled' || currStatus == 'Closed' || currBal.showScan )"
+                onlyNumber/>
+              <label>{{tokenDet?.token?.token_name}}</label>
+              <div class="color-red">{{error?.errMsg}}</div>
+
+
+
+            </div>
+            <div class="purchase_field">
+              <span class="textbuy">{{'you_pay' | translate}}</span>
+              <input type="text" class="form-control" value="{{(vertexVal + transactionFee )| separator: 10 }}" readonly />
+              <!-- <input type="text" class="form-control" value="{{(vertexVal + transactionFee )| separator: 10 }}" readonly *ngIf="currStatus != 'Order Completed' && currStatus != 'Fund Received'" /> -->
+              <!-- <input type="text" class="form-control" value="{{(vertexVal)| separator: 10 }}" readonly *ngIf="currStatus == 'Order Completed' || currStatus == 'Fund Received' " /> -->
+              <label>{{tokenDet?.token?.symbol_name}}(${{usdAmount}})</label>
+              <!-- <div class="paySymbolBox"><label>{{vertexVal | number:'1.0-10' }}</label> + {{transactionFee}} =  <label>{{vertexVal + transactionFee}}</label></div> -->
+              <!-- <div><label class="pl20">{{tokenDet?.token?.symbol_name}}</label><span class="">+</span>  <label class="pl20">{{'FEE'}}  </label> = <label class="pl20"> {{'TOTAL'}}</label></div> -->
+              <div class="h20 color-red" *ngIf="currStatus == 'no' || currStatus == 'Not Confirmed'">{{ (usdAmount
+                < 5) ? '*The minimum transfer amount should be $ 5' : '' }} </div>
+              </div>
+            </div>
+            <br>
+            <span class="rew">{{'your_trans_fee' | translate}}:
+              <label class="color-black pl25">{{ transactionFee ? (transactionFee| number:'1.0-10') : '0'}} {{tokenDet?.token?.symbol_name}}</label>
+            </span>
+            <p *ngIf="currStatus == 'Not Confirmed' || currStatus == 'no'">{{'msg_buy_order_t_fee' | translate}}</p>
+          </div>
+          <!-- buying_step End -->
+          <!-- buying_step Start -->
+          <div class="text-center">
+            <button class="btn btn-dark-gray max-WT-500" [disabled]="tog==1 || !allowContinue" style="background-color:#4CAF50"
+              id="tokensent" (click)="toggle()" *ngIf="(currStatus == 'Not Confirmed')|| (currStatus == 'no')">{{'continue' | translate}}</button>
+          </div>
+          <!-- <div class="buying_step" *ngIf="(tog == 1)||((currStatus != 'Not Confirmed')&&(currStatus != 'no'))"> -->
+          <div class="buying_step">
+            <br>
+            <h3 class="head3">{{'step-2' | translate}}</h3>
+            <!-- <p *ngIf="currStatus != 'Cancelled' && currStatus!= 'Order Completed' && currStatus!= 'Fund Received' && currStatus != 'Closed' ">{{'sendaddress' | translate}}</p> -->
+
+            <!-- <p *ngIf="currStatus == 'Not Confirmed' || currStatus == 'no'">{{'makeadeposit' | translate }}</p> -->
+            <p>{{'makeadeposit' | translate }}</p>
+            <p *ngIf="currStatus == 'Cancelled'">{{'ordercancelled' | translate}}</p>
+            <p *ngIf="currStatus == 'Order Completed'">{{'ordercompleted' | translate}}</p>
+            <p *ngIf="currStatus == 'Fund Received'">{{'fund_received' | translate}}</p>
+            <p *ngIf="currStatus == 'Closed'">{{'order-closed' | translate}}</p>
+            <!-- <p>Please enter ETH wallet in your profile</p> -->
+            <!-- <p class="orange_color mb20" *ngIf="currStatus == 'Not Confirmed' || currStatus == 'no' ">{{'depositfundmsg' | translate}}</p> -->
+            <p class="orange_color mb20">{{'depositfundmsg' | translate}}</p>
+            <!-- <div class="row align-items-center mb20" *ngIf="currStatus != 'Cancelled' && currStatus!= 'Order Completed' && currStatus!= 'Fund Received' && currStatus != 'Closed' "> -->
+            <div class="row align-items-center mb20">
+              <div class="col-md-3"></div>
+              <div class="col-md-6">
+                <div class="qrcodescan scan_qr_img">
+                  <qrcode [qrdata]="angularxQrCode" [size]="256" [level]="'M'"></qrcode>
+                </div>
+                <!-- <div class="row copy ml-0 col-12"> -->
+                <!-- <div class="col-md-10 col-sm-6 col-8">
+                    <label>Address</label>
+                    <input type="text" class="form-control qraddress" placeholder="Qr code" value="{{angularxQrCode}}" #inputTarget />
+                    
+                  </div>
+                  <div class="col-md-1 col-sm-6 col-4">
+                    <button type="button" class="copybtn" style="margin-left: -30px;margin-top: 30px;" (click)="copyToClipboard(angularxQrCode)">
+                      <i class="fa fa-copy" style="color:#fff;"></i>
+                    </button>
+                  </div> -->
+                <div class="form-group mb20">
+                  <div class="row col-11 m-auto">
+                    <label>{{'address'|translate}}</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control qraddress" placeholder="Qr code" value="{{angularxQrCode}}" #inputTarget />
+                      <span class="input-group-prepend" (click)="copyToClipboard(angularxQrCode)">
+                        <label class="input-group-text copy_icon">
+                          <i class="fa fa-copy"></i>
+                        </label>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="row copy ml-0" *ngIf="tokenDet?.token?.symbol_name == 'XLM'"> -->
+                <!-- <div class="row copy ml-0">
+                  <div class="col-md-10 col-sm-6 col-8">
+                    <label>Memo</label>
+                    <input type="text" class="form-control qraddress" placeholder="Qr code" value="{{tokenDet['order-data'].memo}}" #inputTarget
+                    />                   
+                  </div>
+                  <div class="col-md-1 col-sm-6 col-4">
+                    <button type="button" class="copybtn" style="margin-left: -30px;margin-top: 30px;" (click)="copyToClipboard(tokenDet['order-data'].memo)">
+                      <i class="fa fa-copy" style="color:#fff;"></i>
+                    </button>
+                  </div>
+                </div> -->
+                <!-- <div class="form-group mb20" *ngIf="tokenDet?.token?.symbol_name == 'XLM'">                   -->
+                <div class="form-group mb20">
+
+                  <div class="row col-11 m-auto">
+                    <label>{{'memo'|translate}}</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control qraddress" placeholder="Qr code" value="{{tokenDet['order-data'].memo}}" #inputTarget
+                      />
+                      <span class="input-group-prepend" (click)="copyToClipboard(tokenDet['order-data'].memo)">
+                        <label class="input-group-text copy_icon">
+                          <i class="fa fa-copy"></i>
+                        </label>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- <span class="" *ngIf="tokenDet?.token?.symbol_name == 'XLM'"> -->
+                <p class="">
+                  *Please pay the amount using this memo and address. Paying without memo will lead to unsuccessful transaction.
+                </p>
+                <!-- <input type="text" class="form-control qraddress" placeholder="Qr code"  value="{{tokenDet['order-data'].memo}}" #inputTarget /> -->
+
+              </div>
+              <div class="col-md-3"></div>
+            </div>
+
+          </div>
+          <!-- buying_step End -->
+          <!-- <button class="btn btn-dark-gray max-WT-250 " (click)="checkBalance()">CHECK BALANCE</button> -->
+          <div class="text-center">
+            <!-- <button id="tokensent" [disabled]="!istoken" class="btn btn-dark-gray max-WT-500 " style="background-color:#4CAF50"
+              (click)="changeTokenSent()" *ngIf="!isTokenSent && tog == 1">{{'tokenssent'| translate}}</button> -->
+            <button id="tokensent" [disabled]="!istoken" class="btn btn-dark-gray max-WT-500 " style="background-color:#4CAF50"
+              (click)="changeTokenSent()">{{'tokenssent'| translate}}</button>
+          </div>
+
+          <!-- <div style="color: red; text-align: center;" *ngIf="errormsg">{{'min_50_msg' | translate}}</div> -->
+          <div style="color: red; text-align: center;">{{'min_50_msg' | translate}}</div>
+          <!-- <label style="padding-left: 10%;" *ngIf="currBal.show">{{currBal?.val}} {{tokenDet?.token?.symbol_name}}</label> -->
+          <label style="padding-left: 10%;">{{currBal?.val}} {{tokenDet?.token?.symbol_name}}</label>
+          <!-- <h4 *ngIf="currBal.show" style="padding: 17px;">{{currBal?.val}} VTX</h4> -->
+          <!-- <button class="btn btn-dark-gray max-WT-250 ">GENERATE TRANSACTION</button> -->
+          <!-- buying_step Start -->
+          <!-- <div class="buying_step buying_step_hide mb0" *ngIf="currBal.showScan"> -->
+          <div class="buying_step buying_step_hide mb0">
+            <h3 class="head3 mb20">{{'step3' | translate}}</h3>
+            <div class="text-center">
+              <button id="tokensent" class="btn btn-dark-gray max-WT-500  scan_btn" (click)="scan()" [disabled]="currBal.isScan">{{'scan' | translate}}</button>
+              <!-- <button id="tokensent" class="btn btn-dark-gray max-WT-500  scan_btn" (click)="scan()" [disabled]="currBal.isScan"
+                *ngIf="currStatus != 'Order Completed'">{{'scan' | translate}}</button> -->
+            </div>
+
+            <!-- <div class="fund_box  not_received_fund" [ngClass]="{'active': (trans.isDone == 1)}" >
+            <div class="fund_box_inner clearfix">
+              <div class="fund_box_inner clearfix">
+                  <label>{{'nofundsent' | translate }}</label><span> {{'processing' | translate}}</span>
+                </div>
+              <label>{{'notokenreceive' | translate}}</label><span> {{'processing' | translate}}</span>
+            </div>
+          </div>
+          <div class="fund_box received_fund" [ngClass]="{'active': (trans.isDone == 3)}">
+            <div class="fund_box_inner clearfix">
+              <label>{{'fundsend' | translate}}</label><span class="w200">{{(transFinal.fund_received | number:'1.0-10')}} {{tokenDet?.token?.symbol_name}} </span><strong>Tx id: </strong><strong class="link-make1" (click)="openEther(transFinal.incoming_transcation, tokenDet?.token?.symbol_name)">{{transFinal?.incoming_transcation}}</strong>
+            </div>
+            <div class="fund_box_inner clearfix">
+              <label>{{'tokenrecived' | translate}}</label><span class="w200">{{(transFinal.token_quantity| number:'1.0-10')}} {{transFinal?.token_ticker || 'Null'}}</span><strong> Tx id: </strong><strong  [ngClass]="transFinal.outgoing_transcation != 'Processing' ? 'link-make1': '' " (click)="openEther(transFinal.outgoing_transcation, transFinal?.token_ticker)">{{transFinal?.outgoing_transcation}}</strong>
+            </div>
+          </div> -->
+            <!-- <div class="row fund-box" [ngClass]="{'active': (trans?.isDone == 1)}"> -->
+            <div class="row fund-box active">
+              <!-- <div class="col-12" > -->
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-7 col-md-2 rtl-text-left">
+                  <label>{{'nofundsent' | translate }} :</label>
+                </div>
+                <div class="col-5 col-md-2">
+                  {{'processing' | translate}}
+                </div>
+                <div class="col-md-4"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-7 col-md-2 rtl-text-left">
+                  <label>{{'notokenreceive' | translate}} :</label>
+                </div>
+                <div class="col-5 col-md-2">{{'processing' | translate}}</div>
+                <div class="col-md-4"></div>
+              </div>
+              <!-- </div> -->
+            </div>
+            <!-- <div class="row fund-box" [ngClass]="{'active': (trans?.isDone == 3)}"> -->
+            <div class="row fund-box active">
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-7 col-md-2 rtl-text-left">
+                  <label>{{'fundsend' | translate}}:</label>
+                </div>
+                <div class="col-5 col-md-2">
+                  <span class="w200">{{(transFinal?.fund_received | number:'1.0-10')}} {{tokenDet?.token?.symbol_name}} </span>
+                  <strong>Tx id: </strong>
+                  <strong class="link-make1" (click)="openEther(transFinal.incoming_transcation, tokenDet?.token?.symbol_name)">{{transFinal?.incoming_transcation}}</strong>
+                </div>
+                <div class="col-md-4"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-7 col-md-2 rtl-text-left">
+                  <label>{{'tokenrecived' | translate}}</label>
+                </div>
+                <div class="col-5 col-md-2">
+                  <span class="w200">{{(transFinal?.token_quantity| number:'1.0-10')}} {{transFinal?.token_ticker || '---'}}</span>
+                  <strong>
+                    Tx id: </strong>
+                  <strong [ngClass]="transFinal?.outgoing_transcation != 'Processing' ? 'link-make1': '' " (click)="openEther(transFinal?.outgoing_transcation, transFinal?.token_ticker)">{{transFinal?.outgoing_transcation}}</strong>
+                </div>
+                <div class="col-md-4"></div>
+              </div>
+            </div>
+            <!-- <div class="scan_loader active" [ngClass]="{'active': (trans.isDone == 2)}"> -->
+            <div class="scan_loader active">
+              <img src="assets/images/loader.gif" alt="icon" />
+            </div>
+          </div>
+          <!-- buying_step Start -->
+        </div>
+
+        <!-- <div class="global_box">
+          <h3 class="head3 mb20">Fee</h3>
+      </div> -->
+        <!-- <div class="global_box">
+          <h3 class="head3 mb20">Staking Quantity</h3>
+          
+      </div> -->
+      </div>
+
+  </section>
+</main>
+<!-- main End -->

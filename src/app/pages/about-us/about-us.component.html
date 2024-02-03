@@ -1,0 +1,285 @@
+<app-loading *ngIf="isLoading">
+</app-loading>
+<main class="main-container" style="margin-top: -8px;">
+  <div class="container">
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true">
+          <h4 class="panel-title">
+            <a>
+              <i class="fa fa-chevron-down aboutus-collapse-icon"></i>
+              <span class="black aboutus-collapse-title">{{'f-aboutus' | translate}}</span>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in show">
+          <div class="panel-body aboutus-panel-content">
+            <p [innerHTML]="aboutData"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          <h4 class="panel-title">
+            <a class="">
+              <i class="fa fa-chevron-up aboutus-collapse-icon"></i>
+              <span class="black aboutus-collapse-title">{{'team' | translate}}</span>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <div class="panel-body aboutus-panel-content">
+            <p>{{'team_detail_msg'| translate}}</p>
+            <div class="team" style="padding-bottom: 10px">
+              <div class="container">
+                <div class="row text-center">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let team of teams">
+                    <span class="team-imgs">
+                      <img class="img-rounded" alt="team-photo" src="{{team.image}}">
+                    </span>
+                    <div class="team-member mt10">
+                      <h3>{{team.full_name}}</h3>
+                      <h4>{{team.rank}}</h4>
+                      <p>{{team.description}}</p>
+                    </div>
+                    <p class="social">
+                      <a href="{{team.link}}" target="_blank">
+                        <i class="fab fa-linkedin" style="font-size:24px; color:rgb(8, 75, 129);cursor: pointer;"></i>
+                      </a>
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <h2>
+              <span class="black aboutus-collapse-title">{{'advisores' | translate}}</span>
+            </h2>
+            <hr>
+            <p>{{'team_detail_msg' | translate}}</p>
+            <div class="team">
+              <div class="container">
+                <div class="row text-center">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let advisor of advisors">
+                    <span class="team-imgs">
+                      <img class="img-rounded" alt="team-photo" src="{{advisor.image}}">
+                    </span>
+                    <div class="team-member mt10">
+                      <h3>{{advisor.full_name}}</h3>
+                      <h4>{{advisor.rank}}</h4>
+                      <p>{{advisor.description}}</p>
+                    </div>
+                    <p class="social">
+                      <a href="{{advisor.link}}" target="_blank">
+                        <i class="fab fa-linkedin" style="font-size:24px; color:rgb(8, 75, 129);cursor: pointer;"></i>
+                      </a>
+                    </p>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+          <h4 class="panel-title">
+            <a class="">
+              <i class="fa fa-chevron-up aboutus-collapse-icon"></i>
+              <span class="black aboutus-collapse-title">
+                {{'howto' | translate }}</span>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+          <div class="panel-body aboutus-panel-content">
+            <h5>{{'how_to_reg' | translate}}</h5>
+            <p>{{'reg_details' | translate}} </p>
+            <p>
+              {{'email_sent' | translate}}
+            </p>
+            <p>Next step is becoming a user Tier level B1.</p>
+            <p>For B1, fill in the requested data and click save.</p>
+            <p>Upgrades to B2 can be done, once B1 user level is granted.</p>
+            <p>(for more details regarding tier levels, see tab “tier levels”)</p>
+            <br>
+
+            <p>Make sure to save pay-out addresses for each blockchain you intend to buy digital assets from. If you plan to buy an ERC20 token, such as TrueUSD, you must store in your profile an ERC20 pay-out address. Best practice is to store for each available blockchain a pay-out address.</p>
+            <h5>How to buy</h5>
+            <p style="color: red;">It is mandatory to store a pay-out address before conducting a purchase.</p>
+            <p>Visit the detail page of the project/token and click on “buy now” on which offering you want to buy from. Confirm the intention to buy in the safety popup.</p>
+            <p>
+              You enter the number of tokens you want to buy, while Vertex Market will calculate you the total cost for this order.
+            </p>
+            <p>Vertex Market will prompt you an address where you must send the payment to. Depending on your offering you chose
+              to buy from, the currency can vary. Make sure you are sending the payment on the right blockchain that is displayed
+              to you. </p>
+            <p>
+              You must now confirm by clicking the button “payment sent” that you have conducted the payment.
+            </p>
+            <p>
+              Vertex Market will wait until we have detected your transaction. Once the transaction is detected, we will release the digital
+              assets you have purchased and send them to your pay-out address.
+            </p>
+            <p>
+              You can follow the transaction live on vertex market and we show you the transaction ID.
+            </p>
+            <p style="color: red;">Note: If you do not send out the exact amount as stated in the buy form, we will not send you the full number
+              of tokens. If you violate the terms & Conditions by not sending the minimum amount requested for that offering,
+              we will issue a penalty point. 3 penalty points result in account being locked and support must be contacted
+              to unlock the account, if applicable.</p>
+
+            <h5>How to stake</h5>
+            <p>Visit your profile page and open the tab “my staking”. Copy the ETHEREUM address where you hold the VTEX tokens.
+            </p>
+            <p>Vertex Market will then display an address to which you must send 1 VTEX token from the address you have saved
+              as staking address to prove ownership. </p>
+            <p>Once we detect the transaction, the staking is active, and discounts are applied to your account.</p>
+            <p style="color: red">Note: 1 Ethereum address can only be used for 1 account (lifetime) and staking amount is checked before each
+              transaction. Transferring VTEX tokens away will result in losing the staking discounts. </p>
+            <p>(for more details regarding staking, see tab “Staking”)</p>
+
+            <h5>How to sell</h5>
+            <p>Selling is only available for Tier S1 and S2 users. To become an S1 or S2 user, you must apply for B2 account and then apply for a conversion to a S1 account.</p>
+            <p>More details about how selling works are available in the “S1 and S2” institutional dashboard portal, that is only available for those user types.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+          <h4 class="panel-title">
+            <a class="">
+              <i class="fa fa-chevron-up aboutus-collapse-icon"></i>
+              <span class="black aboutus-collapse-title">
+                {{'status-levels' | translate }}</span>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+          <div class="panel-body aboutus-panel-content">
+            <div>
+              <p>Climb the Vertex Status levels by being active.</p>
+              <p>Each user gets 100 points per “buy transaction” and 10 points for each USD spent. Points are only accredited
+                once the transaction is completed.</p>
+              <p>Sellers get 10% of the points per transaction.</p>
+              <p>Points will never be reset.</p>
+              <p style="color: red">Note: The benefits for all user levels is not yet fully available but every user can start collecting points.</p>
+              <p style="color: red;">Note: Status levels have no interference with Tier levels and are not linked with each other.</p>
+              <h5>Steel</h5>
+              <p>User entry level</p>
+              <p>Requirement: 0 Points</p>
+              <h5>Silver</h5>
+              <p>Special deals for Silver members & access to additional information</p>
+              <p>Requirement: 10’000 Points </p>
+              <h5>Gold</h5>
+              <p>Special deals for Gold members</p>
+              <p>Access to live streams with projects and investors</p>
+              <p>Pre-notification on upcoming sales</p>
+              <p>Requirement: 200’000 Points</p>
+              <h5>Diamond</h5>
+              <p>Special deals for Diamond members</p>
+              <p>Direct support channel to management of Vertex</p>
+              <p>Requirement: 2’000’000 Points</p>
+              <h5>Plutonium</h5>
+              <p>The high rollers of Vertex.Market.</p>
+              <p>Exclusive deals</p>
+              <p>Invitation to annual meetings of Vertex and voting right within company internal decisions</p>
+              <p>Requirement: manual, on invitation only</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+          <h4 class="panel-title">
+            <a class="">
+              <i class="fa fa-chevron-up aboutus-collapse-icon"></i>
+              <span class="black aboutus-collapse-title">
+                {{'tier-levels' | translate }}</span>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse">
+          <div class="panel-body aboutus-panel-content">
+
+            <p> Vertex.Market works with different tier levels to ensure compliance within our jurisdiction and to prevent Money
+              Laundering. </p>
+            <p style="color: red;">Note: No matter if a user has passed KYC and AML checks, if Vertex suspects the user of money laundering activities,
+              the account will be closed.</p>
+            <h5> Tier B1</h5>
+            <p>User can Buy UTILITY tokens up to 1000 USD equivalent per day. User cannot sell digital assets.</p>
+            <p>B1 users can request upgrade to B2.</p>
+            <p>Requirement: Basic Information and email verification</p>
+            <h5>Tier B2</h5>
+            <p>User can buy UTILITY tokens without any limitations. User cannot sell digital assets.</p>
+            <p>B2 users can request an upgrade to S1 or/and B3.</p>
+            <p>Requirement: B1 + pass KYC/AML</p>
+            <h5>Tier B3</h5>
+            <p>User can buy UTILITY tokens as well as Security tokens without any limitations. User cannot sell digital assets.</p>
+            <p>B3 users can request upgrade to S1.</p>
+            <p>Requirement: B2 + Proof of residency + Bank statement/letter</p>
+            <h5>Tier S1</h5>
+            <p>User can buy and sell Utility tokens without any limitations. User cannot sell Security Tokens.</p>
+            <p>S1 users can request upgrade to S2.</p>
+            <p>Requirement: B2 or B3 + Proof of Residence + Declaration of Funds + Proof of ownership of digital assets worth
+              10’000 USD or more</p>
+            <h5>Tier S2</h5>
+            <p>Only for companies!</p>
+            <p>Users can buy and sell Utility tokens and security tokens without any limitations.</p>
+            <p>S2 Users have the highest Tier possible.</p>
+            <p>Requirement: S1 + Company registration + Country of Incorporation + Company related information + Bank reference
+              letter
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="panel panel-default">
+      <div class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+        <h4 class="panel-title">
+          <a class="">
+              <i class="fa fa-chevron-up aboutus-collapse-icon"></i>
+            <span class="black aboutus-collapse-title">{{'advisores' | translate}}</span>
+          </a>
+        </h4>
+      </div>
+      <div id="collapseFour" class="panel-collapse collapse">
+        <div class="panel-body aboutus-panel-content">
+          <p>Vertex consists of a team, that is dedicated to make this business work and investors, who are funding and injecting
+            FIAT into the ecosystem. Both, team and investors work hand in hand in the evaluation of projects and making Vertex
+            become another success story.</p>
+          <div class="team">
+            <div class="container">
+              <div class="row text-center">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" *ngFor="let advisor of advisors">
+                    <span class="team-imgs">
+                        <img class="img-rounded" alt="team-photo" src="{{advisor.image}}">
+                    </span>
+                  <div class="team-member">
+                    <h3>{{advisor.full_name}}</h3>
+                    <h4>{{advisor.rank}}</h4>
+                    <p>{{advisor.description}}</p>
+                  </div>
+                  <p class="social">
+                   <a href="{{advisor.link}}" target="_blank" >
+                    <i class="fab fa-linkedin" style="font-size:24px; color:rgb(8, 75, 129);cursor: pointer;"></i>
+                   </a>
+                  </p>
+  
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    </div>
+  </div>
+</main>

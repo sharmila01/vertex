@@ -1,0 +1,194 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container">
+  <section class="login_section common_section">
+    <div class="container">
+      <div class="loginRegister">
+        <div class="login_panel_body">
+          <div class="row align-items-center Height-300">
+            <div class="col-md-12">
+              <div class="form-box center-box max-WT-500">
+                  <form class="common-form" >
+                  <div class="head_box2 text-center">
+                    <h4>{{'apply_selling' | translate}}</h4>
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
+                  </div>
+                  <div class="form-group">
+                    <label class="">{{'register_as'  | translate }}</label>
+                    <select class="form-control select_style1"  name="regType" [(ngModel)]="regType" (change)="changeRegType()" [disabled]="isRegDisableFun()">
+                      <option value="">{{'select_type' | translate}}</option>
+                      <option value="Company">{{'company' | translate}}</option>
+                      <option value="Individual">{{'private_individual' | translate}}</option>
+                    </select>
+
+                    <!-- <ng-select  [items]="allCountryListArr"
+                    bindLabel="code"
+                    bindValue="code"
+                    placeholder="Select Code"
+                    [(ngModel)]="regType" name="regType" (change)="changeRegType()" [disabled]="isRegDisableFun()">
+                    </ng-select> -->
+                    
+                  </div>
+
+                  <!--    Private  Form       -->
+                  <form [formGroup]="privateForm" *ngIf="regType == 'Individual'" autocomplete="off" >
+                    <div class="form-group">
+                      <label>{{'residence_address' | translate}}</label>
+                      <input type="text" class="form-control" placeholder="Residence address" maxlength="100" [formControl]="pForm.address" />
+                      <div class="error" *ngIf="pForm.address.dirty && pForm.address.invalid">
+                        <span *ngIf="pForm.address.hasError('required')">{{'residence_address_required' | translate}}</span>
+                        <span *ngIf="pForm.address.hasError('pattern')">{{'residence_address_pattern' | translate }}</span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>{{'proof_of_residence' | translate}}</label>
+                      <input type="file" #proofOfResidence class="form-control" (change)="fileChangeEvent($event)" accept="image/*" [disabled]="isRegDisableFun()"/>
+                      <!-- <input type="text" class="form-control" *ngIf="applicationData" [formControl]="pForm.image" > -->
+                      <!-- <input type="hidden" name="fileHidden" [formControl]="pForm.image"/> -->
+                      <!-- <button type="button" class="btn btn-gray">Upload</button> -->
+                    </div>
+                    <div class="form-group">
+                      <label>{{ 'token_platform' | translate }}</label>
+                      <select class="form-control select_style1" [formControl]="pForm.platform" >
+                        <option value="">{{'platforms' | translate}}</option>
+                        <option *ngFor="let item of platformArr" [value]="item.id" >{{item?.acceptable_token_symbol}}</option>
+                      </select>
+                      <!-- <ng-select  [items]="platformArr"
+                      bindLabel="acceptable_token_symbol"
+                      bindValue="id"
+                      placeholder="Select Platform"
+                      [formControl]="pForm.platform">
+                      </ng-select> -->
+                      <div class="error" *ngIf="pForm.platform.dirty && pForm.platform.invalid">
+                        <span *ngIf="pForm.platform.hasError('required')">{{'token_platform_select' | translate}}</span>
+                      </div>
+                      
+                    </div>
+                    <!-- <div class="form-group">
+                      <label>{{'token_address' | translate}}</label>
+                      <input type="text" class="form-control" maxlength="50" placeholder="Token address" [formControl]="pForm.tokenAdd" />
+                      <div class="error" *ngIf="pForm.tokenAdd.dirty && pForm.tokenAdd.invalid">
+                        <span *ngIf="pForm.tokenAdd.hasError('required')">{{'token_address_required'| translate}}</span>
+                        <span *ngIf="pForm.tokenAdd.hasError('pattern')">{{'token_address_pattern' | translate}}</span>
+                      </div>
+                    </div> -->
+                    <div class="form-group">
+                      <label class="checkbox-design agreeTerms">
+                        <input type="checkbox" name="remember" [formControl]="pForm.terms" >
+                        <span></span>{{'agree' | translate}}<a target="_blank" [routerLink]="['/terms']"> {{'termandservices'| translate}}</a>
+                      </label>
+                    </div>
+                  </form>
+                  <!--     End Private  Form       -->
+
+                  <!--     Company Form       -->
+                  <form [formGroup]="companyForm" *ngIf="regType == 'Company'" novalidate autocomplete="off">
+                      <div class="form-group">
+                        <label>{{'registration_no' | translate}}</label>
+                        <input type="text" class="form-control" placeholder="Registration no" maxlength="30" [formControl]="cForm.regNo" />
+                        <div class="error" *ngIf="cForm.regNo.dirty && cForm.regNo.invalid">
+                            <span *ngIf="cForm.regNo.hasError('required')">{{'reg_no_required' | translate}}</span>
+                            <span *ngIf="cForm.regNo.hasError('pattern')">{{'reg_no_pattern' | translate}}</span>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label>{{'country_of_registration' | translate }}</label>
+                        <!-- <select class="form-control select_style1" [formControl]="cForm.country">
+                            <option value="">{{'selectcountry' | translate}}</option>
+                            <option *ngFor="let country of countryListArr" [value]="country.name">{{country.name}}</option>
+                        </select> -->
+                        <ng-select  [items]="countryListArr" bindLabel="name" bindValue="name" placeholder="Select Country" [formControl]="cForm.country">
+                        </ng-select>
+                        <div class="error" *ngIf="cForm.country.dirty && cForm.country.invalid">
+                          <span *ngIf="cForm.country.hasError('required')">{{'select_country_of_residence' | translate}}</span>
+                        </div>
+                      </div> 
+                      <div class="form-group">
+                        <label>{{'scan_company_reg' | translate}}</label>
+                        <input type="file" class="form-control" id="scan_company_reg" accept="image/*"  (change)="fileChangeEvent($event)" [disabled]="isRegDisableFun()" />
+                        <!-- <button type="button" class="btn btn-gray">Upload</button> -->
+                        <!-- <input type="text" class="form-control" *ngIf="applicationData" [formControl]="cForm.image" /> -->
+                      </div>
+                      <div class="form-group">
+                        <label>{{'name_of_company' | translate}}</label>
+                        <input type="text" class="form-control" maxlength="30" [formControl]="cForm.companyName" placeholder="Name of company" />
+                        <div class="error" *ngIf="cForm.companyName.dirty && cForm.companyName.invalid">
+                          <span *ngIf="cForm.companyName.hasError('required')">{{'comp_name_req' | translate}}</span>
+                          <span *ngIf="cForm.companyName.hasError('pattern')">{{'comp_name_pattern' | translate}}</span>
+                        </div>
+
+                          <!-- <div class="error" *ngIf="contactusForm.controls['name'].dirty && contactusForm.controls['name'].invalid">
+                              <span *ngIf="contactusForm.controls['name'].hasError('required')">{{'entername' | translate}}</span>
+                              <span *ngIf="contactusForm.controls['name'].hasError('minlength')">{{'validationname1' | translate}}</span>
+                              <span *ngIf="contactusForm.controls['name'].hasError('pattern') && !contactusForm.controls['name'].hasError('minlength')">{{'validname'}}.</span>
+                            </div> -->
+
+                      </div>
+
+                      <div class="form-group">
+                        <label>{{'incorporation_year' | translate}}</label>
+                        <input type="text" class="form-control" maxlength="4"  [formControl]="cForm.startYear" placeholder="Incorporation year" />
+                        <div class="error" *ngIf="cForm.startYear.dirty && cForm.startYear.invalid">
+                            <span *ngIf="cForm.startYear.hasError('required')">{{'inc_year_req' | translate}}</span>
+                            <span *ngIf="cForm.startYear.hasError('pattern')">{{'inc_year_pattern' | translate}}</span>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label>{{'managing_director' | translate}}</label>
+                        <input type="text" class="form-control" placeholder="Managing director name" maxlength="30"  [formControl]="cForm.director" placeholder="Managing director name" />
+                        <div class="error" *ngIf="cForm.director.dirty && cForm.director.invalid">
+                          <span *ngIf="cForm.director.hasError('required')">{{'validation_director_required' | translate}}</span>
+                          <span *ngIf="cForm.director.hasError('pattern')">{{'validation_director_valid' | translate}}</span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                          <label>{{'online_reg_link' | translate}}</label>
+                          <input type="text" class="form-control" placeholder="Online registry link" maxlength="200"  [formControl]="cForm.registryLink" placeholder="Online registry link" />
+                          <div class="error" *ngIf="cForm.registryLink.dirty && cForm.registryLink.invalid">
+                            <span *ngIf="cForm.registryLink.hasError('required')">{{'reg_link_req' | translate}}</span>
+                            <span *ngIf="cForm.registryLink.hasError('pattern')">{{'reg_link_valid' | translate}}</span>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label>{{'token_platform' | translate}}</label>
+                          <select class="form-control select_style1" [formControl]="cForm.platform" >
+                            <option value="">Select Platform</option>
+                            <option *ngFor="let item of platformArr" [value]="item.id" >{{item?.acceptable_token_symbol}}</option>
+                          </select>
+                          <div class="error" *ngIf="cForm.platform.dirty && cForm.platform.invalid">
+                            <span *ngIf="cForm.platform.hasError('required')">{{'token_platform_select' | translate}}</span>
+                          </div>
+                          
+                        </div>
+                        <!-- <div class="form-group">
+                          <label>{{'token_address' | translate}}</label>
+                          <input type="text" class="form-control" maxlength="50" placeholder="Token address" [formControl]="cForm.tokenAdd" />
+                          <div class="error" *ngIf="cForm.tokenAdd.dirty && cForm.tokenAdd.invalid">
+                            <span *ngIf="cForm.tokenAdd.hasError('required')">{{'token_address_required' | translate}}</span>
+                            <span *ngIf="cForm.tokenAdd.hasError('pattern')">{{'token_address_pattern' | translate}}</span>
+                          </div>
+                        </div> -->
+                        <div class="form-group">
+                          <label class="checkbox-design agreeTerms">
+                            <input type="checkbox" name="remember" [formControl]="cForm.terms" >
+                            <span></span>{{'agree' | translate}}<a target="_blank" [routerLink]="['/terms']"> {{'termandservices'| translate}}</a>
+                          </label>
+                        </div>
+                    </form>
+                    <!--     End Company Form       -->
+
+                  <div class="form-group mb0">
+                    <button type="button" class="btn btn-block btn-submit" [disabled]="isDisableFun()" (click)="registerSelling()">{{'submit' | translate}}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- main End -->

@@ -1,0 +1,52 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+  <app-in-sidebar [activeTab]="16"></app-in-sidebar>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <app-in-header [headerName]="'My Ranking'"></app-in-header>
+    <!-- <app-in-header [headerName]="'Edit Project'" *ngIf="currId != 'add'" ></app-in-header> -->
+    <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid pt-4">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary profileHeader">
+            <h4 class="card-title font-weight-bold inrtl-title">{{'my-ranking' | translate}}</h4>
+          </div>
+          <div class="card-body">
+            <div class="mt30 text-center">
+                <h4>
+              <span class="media-level text-center">
+                
+                    <span *ngIf="ranking == 'Diamond'">
+                        <img src="../../../../../assets/images/svg/diamond-img.svg" class="steel">
+                      </span>
+                      <span *ngIf="ranking == 'Steel'">
+                        <img src="../../../../../assets/images/svg/beam.svg" class="steel">
+                      </span>
+                      <span *ngIf="ranking == 'Silver'">
+                        <img src="../../../../../assets/images/svg/silver-medal.svg" class="steel">
+                      </span>
+                      <span *ngIf="ranking == 'Plutonium'">
+                        <img src="../../../../../assets/images/svg/gold.svg" class="steel">
+                      </span>
+                      <span *ngIf="ranking == 'Gold'">
+                        <img src="../../../../../assets/images/svg/gold.svg" class="steel">
+                      </span>
+                      <span *ngIf="ranking == 'Gold'">
+                          <img src="../../../../../assets/images/svg/gold.svg" class="steel">
+                        </span>
+                      {{'your-current-status' | translate}} 
+                      
+                      <span class="color-orange" *ngIf="ranking">{{ranking}}</span>
+                      <span class="color-orange" *ngIf="!ranking">---</span>
+                
+              </span>
+            </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-in-footer></app-in-footer>
+  </div>
+</div>

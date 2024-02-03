@@ -1,0 +1,6 @@
+projectKey=c63b85d7e05303136ce81bce833fa4a2d1f6cff6
+serverUrl=http://172.16.21.13:9001
+serverVersion=7.4.0.18908
+dashboardUrl=http://172.16.21.13:9001/dashboard?id=c63b85d7e05303136ce81bce833fa4a2d1f6cff6
+ceTaskId=AWiic7PKyoekIF6QZ3TA
+ceTaskUrl=http://172.16.21.13:9001/api/ce/task?id=AWiic7PKyoekIF6QZ3TA

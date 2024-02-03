@@ -1,0 +1,315 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="6"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'View Project'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary projHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'view-project' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box">
+                            <div class="row">
+                                <div class="col-md-12 uploadDiv" *ngIf="projectDet.token_symbol">
+                                    <div class="uploadImgDiv">
+                                        <img src="{{projectDet.token_symbol || 'assets/images/placeholder.jpg'}}">
+                                    </div>                                   
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'projectid' | translate}} </label>
+                                        <div class="viewField">{{projectDet?.project_order_id || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'market_type' | translate}}</label>
+                                        <div class="viewField">{{projectDet?.market_type || '- - -' }} </div>
+                                    </div>
+                                </div> 
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'tokenname' | translate}} </label>
+                                        <div class="viewField">{{projectDet?.token_name || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-type' | translate}}	</label>
+                                        <div class="viewField">{{projectDet?.token_type || '- - -'}} </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="form-group horizontalGroup">
+                                      <label class="control-label">{{'contract-address' | translate}}	</label>
+                                      <div class="viewField">{{projectDet?.contract_address || '- - -'}} </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'decimals' | translate}}</label>
+                                         <div class="viewField">{{projectDet?.decimals ? (projectDet?.decimals | separator: 5) : '- - -' }} </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'circulation_supply' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.circulation_supply ? (projectDet?.circulation_supply) : '- - -' }} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                      <label class="control-label">{{'video-url' | translate}}</label>
+                                       <div class="viewField" [ngClass]="{'link-make1': projectDet?.video_url}" (click)="projectDet?.video_url ? openWindow(projectDet?.video_url) : ''">{{projectDet?.video_url || '- - -' }} </div>
+                                  </div>
+                              
+                          </div>
+                              <div class="col-md-12">
+                                  <div class="form-group horizontalGroup">
+                                      <label class="control-label">{{'description' | translate}}</label>
+                                      <div class="viewField">{{projectDet?.description || '- - -'}} </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'rating' | translate}} </label>
+                                        <div class="viewField">{{projectDet?.rating|| '- - -'}} </div>
+                                    </div>
+                                
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'ticker' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.ticker|| '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'platform' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.platform_symbol|| '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                      <label class="control-label">{{'country' | translate}} </label>
+                                      <div class="viewField">{{projectDet?.country || '- - -'}} </div>
+                                  </div>
+                          </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'ceoname' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.ceo_name || '- - -'}} </div>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'runningproduct' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.running_product|| '- - -'}} </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'invester' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.known_investors|| '- - -'}}  </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'whitepaperlink' | translate}} {{'link' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.whitepaper_link}" (click)="projectDet?.whitepaper_link ? openWindow(projectDet?.whitepaper_link) : ''">{{projectDet?.whitepaper_link|| '- - -' }} </div>
+                                </div>
+                            </div>  
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'website_link' | translate}} {{'link' | translate}}</label>
+                                    <div class="viewField " [ngClass]="{'link-make1': projectDet?.website_link}" (click)="projectDet?.website_link ? openWindow(projectDet?.website_link) : ''">{{projectDet?.website_link || '- - -' }} </div>
+                                </div>
+                            </div>  
+                            <!-- <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'investmentdecklink' | translate}} (Link)</label>
+                                    <div class="viewField"  [ngClass]="{'link-make1': projectDet?.investment_deck_link}" (click)="projectDet?.investment_deck_link ? openWindow(projectDet?.investment_deck_link) : ''">{{projectDet?.investment_deck_link || '- - -' }} </div>
+                                </div>
+                            </div>   -->
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'fund_raised' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.fund_raised || '- - -' }} </div>
+                                </div>
+                            </div>  
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'investmentrating' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.investment_rating || '- - -' }} </div>
+                                </div>
+                            </div>  
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'what_token_do' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.what_token_do || '- - -' }} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'project-startdate'  | translate}}</label>
+                                    <div class="viewField">{{projectDet?.project_start_date || '- - -' }} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'fb_link' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.facebook_link}" (click)="projectDet?.facebook_link ? openWindow(projectDet?.facebook_link) : ''" >{{projectDet?.facebook_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'Instagram '}}{{'link_only' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.instagram_link}" (click)="projectDet?.instagram_link ? openWindow(projectDet?.instagram_link) : ''">{{projectDet?.instagram_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'Twitter '}}{{'link_only' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.twitter_link}" (click)="projectDet?.twitter_link ? openWindow(projectDet?.twitter_link) : ''" >{{projectDet?.twitter_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'tele_link' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.telegram_link}" (click)="projectDet?.telegram_link ? openWindow(projectDet?.telegram_link) : ''" >{{projectDet?.telegram_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'medium_link' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.medium_link}" (click)="projectDet?.medium_link ? openWindow(projectDet?.medium_link) : ''" >{{projectDet?.medium_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'Bitcointalk '}}{{'link_only' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.bitcointalk_link}" (click)="projectDet?.bitcointalk_link ? openWindow(projectDet?.bitcointalk_link) : ''" >{{projectDet?.bitcointalk_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'Youtube '}}{{'link_only' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.youtube_link}" (click)="projectDet?.youtube_link ? openWindow(projectDet?.youtube_link) : ''" >{{projectDet?.youtube_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'Reddit '}}{{'link_only' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.reddit_link}" (click)="projectDet?.reddit_link ? openWindow(projectDet?.reddit_link) : ''" >{{projectDet?.reddit_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'Github '}}{{'link_only' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.github_link}" (click)="projectDet?.github_link ? openWindow(projectDet?.github_link) : ''" >{{projectDet?.github_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'linkedin_link' | translate}}</label>
+                                    <div class="viewField" [ngClass]="{'link-make1': projectDet?.linkedin_link}" (click)="projectDet?.linkedin_link ? openWindow(projectDet?.linkedin_link) : ''"  >{{projectDet?.linkedin_link || '- - -'}} </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'third-market' | translate}}</label>
+                                    <div class="viewField">{{projectDet?.third_market ? 'Yes' : 'No' }} </div>
+                                </div>
+                            </div>  -->
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'isapproved' | translate}}</label>
+                                    <div class="viewField" >{{projectDet?.is_approved ? 'Yes' : 'No' }} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'Gallery'}}</label>
+                                    <!-- <div class="viewField">{{projectDet?.bitcointalk_link || '- - -'}} </div> -->
+                                    <!-- <div style="width: 800px; height: 400px">
+                                        <carousel [sources]="projectDet?.gallery" [config]="config"></carousel>
+                                    </div> -->
+                                    <div class="viewField" *ngIf="!galleryData.length">- - -</div>
+                                     <ngb-carousel *ngIf="galleryData.length" style="width: 225px;" >
+                                        <ng-template ngbSlide *ngFor="let image of galleryData">
+                                            <img [src]="image.image" alt="Random slide">
+                                            <div class="carousel-caption">
+                                            </div>
+                                        </ng-template>
+                                        </ngb-carousel>
+                                        <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+
+                                </div>
+                            </div>
+                                <div class="col-md-12 ">
+                                  <div class="form-group horizontalGroup ">
+                                      <label class="control-label"></label>
+                                      <div class="form-control  border0 padd0 formActionBtn">
+                                              <!-- <button type="button" class="btn btn-primary minWidth100" (click)="onEdit(orderDet)">Edit </button> -->
+                                              <button type="button" class="btn btn-default minWidth100" (click)="goBack()" >{{'back' | translate}} </button>
+                                      </div>
+                                  </div>
+                              </div>
+  
+                            </div>
+                           
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  <div class="modal fade global-modal reset-modal" id="view_gallery_modal">
+    <div class="modal-dialog galleryModal">
+      <form class="pin_code_form">
+        <div class="modal-content">
+          <div class="modal-header ">
+                       <!-- <h4 class="modal-title text-center">Heading</h4> -->
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div> 
+          <div class="modal-body">
+            <div class="row align-items-center minHeight180">
+              <div class="col">
+                  <div class="head_box2 text-center mb15">
+                    <!-- <h4>You have to tansfer</h4> -->
+                    <img src="http://michaelsoriano.com/wp-content/uploads/2014/01/bootstrap-gallery-1.gif">
+                    <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                  </div>
+                
+                  <div class="modalActionBtn text-center">
+                    <button type="button" class="btn btn-orange max-WT-150"  >DELETE</button>
+                  </div>
+                <!-- </form> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>

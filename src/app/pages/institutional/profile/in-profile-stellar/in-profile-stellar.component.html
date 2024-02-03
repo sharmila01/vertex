@@ -1,0 +1,63 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="18"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Profile'" ></app-in-header>
+        <!-- <app-in-header [headerName]="'Edit Project'" *ngIf="currId != 'add'" ></app-in-header> -->
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary profileHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'my-stellar' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box" novalidate autocomplete="off" [formGroup]="profileForm" >
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group horizontalGroup">
+                                      <label class="control-label">{{'stellar-wallet' | translate}}</label>
+                                      <input type="text" class="form-control" placeholder="Stellar Address"  [formControl]="profileForm.controls['stellar']" maxlength="50" />
+                                      <button class="copybtn" type="button" (click)="copyToClipboard(profileForm.controls['stellar'].value)" *ngIf="profileForm.controls['stellar'].value" >
+                                        <i class="fa fa-copy" style="color:#fff"></i>
+                                      </button>
+                                      <!-- <div class="errMsg" *ngIf="form.firstName.dirty && form.firstName.invalid">
+                                          <span *ngIf="form.firstName.hasError('required')">*Please enter first name.</span>
+                                          <span *ngIf="form.firstName.hasError('minlength')">*First name must be between 2 to 50 characters.</span>
+                                          <span *ngIf="form.firstName.hasError('pattern') && !form.firstName.hasError('minlength')">*Please enter valid first name.</span>
+                                      </div> -->
+                                  </div> 
+                              </div>
+
+                              <div class="col-md-12 text-md-right">
+                                  <div class="form-group horizontalGroup ">
+                                      <label class="control-label"></label>
+                                      <div class="form-control text-left border0 padd0 formActionBtn">
+                                              <button type="button" class="btn btn-vertex minWidth100" [disabled]="profileForm.invalid" (click)="changeAddress(profileForm.controls['stellar'].disabled)" > {{profileForm.controls['stellar'].disabled ? 'EDIT' : 'SAVE ADDRESS'}} </button>
+                                      </div>
+                                  </div>
+                              </div>
+                                
+
+                            </div>
+                        </form>
+                    
+                      </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  
+    

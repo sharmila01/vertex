@@ -1,0 +1,125 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="14"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'View Withdraw Transfer'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary fundHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'view_withdraw_transfer' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'offeringid' | translate}} </label>
+                                        <div class="viewField">{{withdrawTxnDet?.offering_order || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'ticker' | translate}} </label>
+                                        <div class="viewField">{{withdrawTxnDet?.ticker}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'payment-status' | translate}} </label>
+                                            <div class="viewField">{{withdrawTxnDet?.transaction_status}} </div>
+                                        </div>
+                                    
+                                </div>
+                                
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token_refund_quantity' | translate}}</label>
+                                        <div class="viewField">{{withdrawTxnDet?.refund_fund_quantity ? (withdrawTxnDet?.refund_fund_quantity|separator:5) : '' }} {{withdrawTxnDet?.refund_fund_symbol || '- - -'}}</div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token_refund_quantity' | translate}}</label>
+                                        <div class="viewField" *ngIf="withdrawTxnDet.ticker == 'ETH' || withdrawTxnDet.ticker == 'BTC'" >{{withdrawTxnDet?.refund_currency ? (withdrawTxnDet?.refund_currency|separator:5) : '- - -'}} {{withdrawTxnDet?.refund_currency ? withdrawTxnDet?.ticker : ''}}</div>
+                                        <div class="viewField" *ngIf="withdrawTxnDet.ticker != 'ETH' && withdrawTxnDet.ticker != 'BTC'" >{{withdrawTxnDet?.refund_fund_quantity ? (withdrawTxnDet?.refund_fund_quantity|separator:5) : '' }} {{withdrawTxnDet?.refund_fund_quantity ? withdrawTxnDet?.refund_fund_symbol : ''}}</div>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'token_refund_time' | translate}}</label>
+                                            <div class="viewField" *ngIf="withdrawTxnDet.ticker == 'ETH' || withdrawTxnDet.ticker == 'BTC'">{{withdrawTxnDet?.currency_refund_at ? (withdrawTxnDet?.currency_refund_at | utcTime| date: 'MM/dd/yyyy hh:mm a')  : '- - -'}} </div>
+                                            <div class="viewField" *ngIf="withdrawTxnDet.ticker != 'ETH' && withdrawTxnDet.ticker != 'BTC'">{{withdrawTxnDet?.fund_refund_at ? (withdrawTxnDet?.fund_refund_at | utcTime| date: 'MM/dd/yyyy hh:mm a')  : '- - -'}} </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                        <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'token_refund_txn_id' | translate}}</label>
+                                            <div class="viewField" *ngIf="withdrawTxnDet.ticker == 'ETH' || withdrawTxnDet.ticker == 'BTC'" [ngClass]="withdrawTxnDet.refund_currency_transcation_id ? 'link-make1': '' " (click)="withdrawTxnDet?.refund_currency_transcation_id ? openEther(withdrawTxnDet?.refund_currency_transcation_id, withdrawTxnDet.ticker) : ''" >{{withdrawTxnDet?.refund_currency_transcation_id || '- - -'}} </div>
+                                            <div class="viewField"  *ngIf="withdrawTxnDet.ticker != 'ETH' && withdrawTxnDet.ticker != 'BTC'" [ngClass]="withdrawTxnDet.transcation_id ? 'link-make1': '' " (click)="withdrawTxnDet?.transcation_id ? openEther(withdrawTxnDet?.transcation_id, withdrawTxnDet?.ticker) : ''">{{withdrawTxnDet?.transcation_id || '- - -'}} </div>
+                                        </div>
+                                    </div>
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'curr_refund_quantity' | translate }}</label>
+                                        <div class="viewField">{{withdrawTxnDet?.refund_currency ? (withdrawTxnDet?.refund_currency|separator:5) : '- - -'}} {{withdrawTxnDet?.refund_currency_symbol ? withdrawTxnDet?.refund_currency_symbol : ''}}</div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'curr_ref_addr' | translate}} </label>
+                                             <div class="viewField">{{withdrawTxnDet?.refund_address || '- - -'}} </div>
+                                        </div>
+                                    
+                                </div>
+                                
+                              <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                          <label class="control-label">{{'curr_ref_send_time' | translate}}</label>
+                                          <div class="viewField">{{withdrawTxnDet?.currency_refund_at ? (withdrawTxnDet?.currency_refund_at | utcTime| date: 'MM/dd/yyyy hh:mm a')  : '- - -'}} </div>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'curr_ref_txnid' | translate}}</label>
+                                        <div class="viewField" [ngClass]="withdrawTxnDet.refund_currency_transcation_id ? 'link-make1': '' " (click)="withdrawTxnDet?.refund_currency_transcation_id ? openEther(withdrawTxnDet?.refund_currency_transcation_id, withdrawTxnDet.refund_currency_symbol) : ''" >{{withdrawTxnDet?.refund_currency_transcation_id || '- - -'}} </div>
+                                    </div>
+                                </div> -->
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'curr_ref_create_at' | translate}}</label>
+                                    <div class="viewField">{{withdrawTxnDet?.created_at | utcTime | date: 'MM/dd/yyyy hh:mm a' }} </div>
+                                </div>
+                                
+                              </div>
+                                <div class="col-md-12 ">
+                                  <div class="form-group horizontalGroup ">
+                                      <label class="control-label"></label>
+                                      <div class="form-control  border0 padd0 formActionBtn">
+                                          <button type="button" class="btn btn-default minWidth100" (click)="goBack()" >{{'back' | translate}} </button>
+                                      </div>
+                                  </div>
+                              </div>
+  
+                            </div>
+                           <!-- </div> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>

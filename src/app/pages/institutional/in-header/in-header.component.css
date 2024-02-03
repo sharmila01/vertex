@@ -1,0 +1,245 @@
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+.nav-link:hover, .nav-link:focus {
+    text-decoration: none;
+    background-color: #53535533;
+}
+.bitcoin-menu {
+    display: flex; 
+    /* text-align: center; */
+    margin: 0 auto;
+}
+.btnGroup{
+    padding-left: 10px;
+  }
+  .navBtnLink{
+    margin-top: 10px;  
+    cursor: default;
+  }
+  .coin{
+    font-size: 12px;
+    color: #000;
+    
+  }
+  .amounts{
+    font-size: 14px;
+    color: #000;
+  }
+  .no-notifi-menu {
+    margin-left: 30px;
+    height: auto;
+}
+
+.nav-link1{
+    background-color: #e7e8e9  !important;
+}
+.flags_s{
+    height: 21px;
+    width: 30px;
+    /* margin-right: 12px; */
+    /* margin-left: 5px; */
+}
+.flag-item {
+    /* margin-left: -15px; */
+}
+.flag-items:active {
+    background: #f36e47 !important;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+.nav-link1:active {
+    background: #f36e47 !important;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+.flag-items:focus {
+    background: #f36e47 !important;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+.nav-link1:focus {
+    background: #f36e47 !important;
+    box-sizing: border-box;
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 0.5rem;
+}
+
+/* iPhone 6, 7, & 8 */
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) 
+and (orientation : landscape) { 
+    .insti-notifi{
+        left: 140px !important;
+    }
+    .insti-notifi .notifi-dropdown {
+        background-color: white !important;
+    }
+}
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) 
+and (orientation : landscape) { 
+    .insti-notifi{
+        left: 165px !important;
+    }
+    .insti-notifi .notifi-dropdown {
+        background-color: white !important;
+    }
+}
+@media (max-width: 767px) { 
+    .mobileheader {
+        display: none;
+    }
+    .no-notifi-menu {
+        margin-left: 98px;
+    }
+    .bitcoin-menu{padding:10px 0 0;}
+    .wt-50 {
+        width: 50px;
+    }
+    .overflow-wrap {
+        overflow-wrap: break-word;
+      }
+    .navbar .navbar-brand {        
+        font-size: 14px;        
+    
+        margin-left: -12px;
+        padding: 0.800rem 0;
+    }
+    .dropdown-toggle{
+        position: relative;
+        margin-left: -10px;
+        margin-right: -18px;
+        top: 3px;
+    }
+    .notifi-dropdown {
+        height: auto !important;
+        /* left: -96px !important; */
+        background-color: white !important;
+        top: 50px !important;
+        margin-left: -23px;
+    }
+    .amounts {
+        font-size:12px !important;
+    }
+    .coin {
+        font-size:10px !important;
+    }
+    .bitcoin-menu {
+        margin-right: 19px;
+        margin-top: 10px;
+    }
+    .btnGroup {
+        padding-left: 2px;
+    }
+    .notifi-dropdown-hover {
+        width: 68px !important;
+        text-align: center;
+       }
+       .notifi-dropdown-hover:hover {
+           width: 68px !important;
+           /* height: 48px; */
+           background-color: unset;
+       }
+}
+
+.flagdrop:hover {
+    width: 106px;
+    background-color: #53535533;
+}
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #16181b !important;
+    text-decoration: none !important;
+    background-color: #f8f9fa !important;
+    box-shadow: none !important;
+}
+
+.notifi-dropdown-hover {
+    width: 80px;
+    text-align: center;
+   }
+   .notifi-dropdown-hover:hover {
+       width: 80px;
+       /* height: 48px; */
+       background-color: #53535533;
+   }
+.notifi-no {
+    display: block !important;
+    margin: auto !important;
+    text-align: center;
+}
+.notifi-no:hover {
+    background-color: unset !important;
+    box-shadow: unset !important;
+    cursor: default;
+}
+
+.view-all {
+    margin-left: 50px !important;
+    height: 51px;
+}
+.view-all:hover {
+    background-color: unset !important;
+    box-shadow: unset !important;
+}
+.view-all{
+    text-align: center;
+    position: relative;
+    /* padding-top: 10px;
+    padding-bottom: 6px; */
+}
+.view-all a:hover {
+    background-color: unset !important;
+    box-shadow: unset !important;
+}
+.view-hover{
+    color: black;
+    text-align: center;
+}
+.view-hover:hover {
+    height: 51px;
+    text-decoration: unset;
+    background-color: unset;
+    box-shadow: unset !important;
+}
+.check-hover:hover {
+    color: #056305 !important;
+    transform: scale(1.5);
+}
+
+.cross-hover:hover {
+    color: #8c0707 !important;
+    transform: scale(1.5);
+}
+/* .dropdown-toggle:hover {
+    transform: scale(1.2);
+} */
+.bell-hover:hover {
+    color: #f36e47;
+    transform: scale(1.1);
+}
+.bell-hover {
+    font-size: 20px;
+}
+@media (max-width: 640px) and (min-width: 320px){
+/* .copybtn[_ngcontent-c8] {
+    margin-left: 0px;
+    margin-top: 3px;
+    margin-bottom: 0; */
+    .no-notifi-menu {
+        margin-left: 98px;
+    }
+}
+@media screen and (device-aspect-ratio: 3/4) {
+    .no-notifi-menu {
+        margin-left: 120px;
+        height: auto !important;
+    }
+    .notifi-dropdown {      
+        margin-left: -13px;
+        height: auto !important;
+    }
+}

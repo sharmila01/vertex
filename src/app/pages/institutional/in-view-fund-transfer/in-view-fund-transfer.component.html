@@ -1,0 +1,147 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="4"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'View Deposit Transfer'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary fundHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'view-deposit-transfer' | translate}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <!-- <label class="control-label">Offering ID </label>
+                                        <div class="viewField">{{fundDet?.offering_order || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">Ticker </label>
+                                        <div class="viewField">{{fundDet?.ticker}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">Payment Status </label>
+                                            <div class="viewField">{{fundDet?.transaction_status}} </div> -->
+                                        <label class="control-label">{{'offeringid' | translate}} </label>
+                                        <div class="viewField">{{fundDet?.offering_order || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'ticker' | translate}} </label>
+                                        <div class="viewField">{{fundDet?.ticker}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                      <div class="form-group horizontalGroup">
+                                            <label class="control-label">{{'payment-status' | translate}} </label>
+                                            <div class="viewField">{{fundDet?.transaction_status}} </div>
+                                        </div>
+                                    
+                                </div>
+                                
+                                <!-- <div class="col-md-12" >
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-quantity' | translate}}</label>
+                                        <div class="viewField">{{fundDet?.received_fund_quantity ? (fundDet?.received_fund_quantity|separator:5) : '' }} {{fundDet?.received_fund_symbol || '- - -'}}</div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-12" >
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-quantity' | translate}}</label>
+                                        <div class="viewField" *ngIf="fundDet?.ticker == 'ETH' || fundDet?.ticker == 'BTC'">{{fundDet?.received_eth ? (fundDet?.received_eth|separator:5) : '' }} {{ fundDet?.received_eth ? fundDet?.ticker : ''}}</div>
+                                        <div class="viewField" *ngIf="fundDet?.ticker != 'ETH' && fundDet?.ticker != 'BTC'">{{fundDet?.received_fund_quantity ? (fundDet?.received_fund_quantity|separator:5) : '' }} {{fundDet?.received_fund_quantity ? fundDet?.ticker : ''}}</div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-recived-time' | translate}}</label>
+                                        <div class="viewField">{{fundDet?.fund_received_at ? (fundDet?.fund_received_at | utcTime| date: 'MM/dd/yyyy hh:mm a')  : '- - -'}} </div>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-recived-time' | translate}}</label>
+                                        <div class="viewField" *ngIf="fundDet?.ticker == 'ETH' || fundDet?.ticker == 'BTC'" >{{fundDet?.eth_received_at ? (fundDet?.eth_received_at | utcTime| date: 'MM/dd/yyyy hh:mm a')  : '- - -'}} </div>
+                                        <div class="viewField" *ngIf="fundDet?.ticker != 'ETH' && fundDet?.ticker != 'BTC'">{{fundDet?.fund_received_at ? (fundDet?.fund_received_at | utcTime| date: 'MM/dd/yyyy hh:mm a')  : '- - -'}} </div>
+                                    </div>
+                                </div> 
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'token-txnid' | translate}}</label>
+                                        <div class="viewField" *ngIf="fundDet?.ticker == 'ETH' || fundDet?.ticker == 'BTC'" [ngClass]="fundDet.eth_transcation_id ? 'link-make1': '' " (click)="fundDet?.eth_transcation_id ? openEther(fundDet?.eth_transcation_id, fundDet?.ticker) : ''" >{{fundDet?.eth_transcation_id || '- - -'}} </div>
+                                        <div class="viewField" *ngIf="fundDet?.ticker != 'ETH' && fundDet?.ticker != 'BTC'" [ngClass]="fundDet.transcation_id ? 'link-make1': '' " (click)="fundDet?.transcation_id ? openEther(fundDet?.transcation_id, '') : ''">{{fundDet?.transcation_id || '- - -'}} </div>
+                                    </div>
+                                </div>
+                                
+                                
+                                <!-- <div class="col-md-12" >
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'send_fund' | translate}}</label>
+                                        <div class="viewField">{{fundDet?.received_eth ? (fundDet?.received_eth|separator:5) : '0'}} {{fundDet?.received_eth ? isBTCTransaction(fundDet) : ''}}</div>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'fund_add' | translate}} </label>
+                                            <div class="viewField">{{fundDet?.eth_address || '- - -'}} </div>
+                                    </div>
+                                </div>
+                                
+                              <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                          <label class="control-label">{{'fund_send_time' | translate}}</label>
+                                          <div class="viewField">{{fundDet?.eth_received_at ? (fundDet?.eth_received_at | utcTime| date: 'MM/dd/yyyy hh:mm a')  : '- - -'}} </div>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'send_fund_txn_id' | translate}}</label>
+                                        <div class="viewField" [ngClass]="fundDet.eth_transcation_id ? 'link-make1': '' " (click)="fundDet?.eth_transcation_id ? openEther(fundDet?.eth_transcation_id, isBTCTransaction(fundDet)) : ''" >{{fundDet?.eth_transcation_id || '- - -'}} </div>
+                                    </div>
+                                </div> -->
+                                
+                            <div class="col-md-12">
+                                <div class="form-group horizontalGroup">
+                                    <label class="control-label">{{'offering-createdat' | translate}}</label>
+                                    <div class="viewField">{{fundDet?.created_at | utcTime | date: 'MM/dd/yyyy hh:mm a' }} </div>
+                                </div>
+                                
+                              </div>
+  
+                                <div class="col-md-12 ">
+                                  <div class="form-group horizontalGroup ">
+                                      <label class="control-label"></label>
+                                      <div class="form-control  border0 padd0 formActionBtn">
+                                          <button type="button" class="btn btn-default minWidth100" (click)="goBack()" >{{'back' | translate}} </button>
+                                      </div>
+                                  </div>
+                              </div>
+  
+                            </div>
+                           <!-- </div> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>

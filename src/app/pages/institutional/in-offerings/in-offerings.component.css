@@ -1,0 +1,110 @@
+@import "../../../../assets/institutional/css/style1.css";
+@import "../../../../assets/institutional/css/material-dashboard.css";
+@import "../../../../assets/institutional/demo/demo.css";
+@import "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons";
+
+.input_range{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: calc(100% - 123px);
+}
+input[type=range]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    background: rgba(59,173,227,1);
+    /* background: -moz-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%); */
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgb(255,0,0)), color-stop(25%, rgba(152,68,183,1)), color-stop(51%, rgb(255,255,0)), color-stop(100%, rgb(0,128,0)));
+    background: -webkit-linear-gradient(45deg, rgb(255,0,0) 0%, rgba(152,68,183,1) 25%, rgb(255,255,0) 51%, rgb(0,128,0) 100%);
+  /* background: -o-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+  background: -ms-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+  background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%); */
+  /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3bade3 ', endColorstr='#ff357f ', GradientType=1 ); */
+  height: 2px;
+}
+input[type=range]:focus {
+    outline: none;
+  }
+  input[type=range]::-moz-range-track {
+    -moz-appearance: none;
+    background: rgba(59,173,227,1);
+    background: -moz-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, rgb(255,0,0)), color-stop(25%, rgba(152,68,183,1)), color-stop(51%, rgb(255,255,0)), color-stop(100%, rgb(0,128,0)));
+    background: -webkit-linear-gradient(45deg, rgb(255,0,0) 0%, rgba(152,68,183,1) 25%, rgb(255,255,0) 51%, rgb(0,128,0) 100%);
+    background: -o-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    background: -ms-linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    background: linear-gradient(45deg, rgba(59,173,227,1) 0%, rgba(87,111,230,1) 25%, rgba(152,68,183,1) 51%, rgba(255,53,127,1) 100%);
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3bade3 ', endColorstr='#ff357f ', GradientType=1 ); */
+    height: 2px;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 2px solid;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    max-width: 80px;
+    position: relative;
+    bottom: 11px;
+    background-color: #fff;
+    cursor: -webkit-grab;
+  
+    -webkit-transition: border 1000ms ease;
+    transition: border 1000ms ease;
+  }
+  
+  input[type=range]::-moz-range-thumb {
+    -moz-appearance: none;
+    border: 2px solid;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    max-width: 80px;
+    position: relative;
+    bottom: 11px;
+    background-color: #1d1c25;
+    cursor: -moz-grab;
+    -moz-transition: border 1000ms ease;
+    transition: border 1000ms ease;
+  }
+  .input_range::-webkit-slider-thumb::before {
+    content: 'adsa'
+  }
+  .outputVal {
+    position: absolute;
+    left: 49%;
+    top: -20px;
+  }
+.pendingModalHeight {
+    max-width: 1500px !important;
+}
+.crossIcon {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    padding: 0px !important;
+}
+.table .fa.fa-edit {
+    color: #e97442
+}
+
+.modal .price-div {
+    margin: 30px 57px 0;
+}
+.mt-50 {
+    margin-top: 50px !important;
+}
+.max-WT-430{
+    max-width: 430px !important;
+}
+.ml-30 {
+    margin-left: 30px;
+}
+.error-msg {
+    color: red;
+}
+.padd-top-5{
+    padding-top: 5px;
+}
+.qr-code-box {
+    height: 122px !important;
+    width: 122px !important;
+}

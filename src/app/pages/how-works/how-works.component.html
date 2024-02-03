@@ -1,0 +1,15 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<!---------------------------- main start ------------------------------>
+<main class="main-container">
+  <section class="static_page_section common_section">
+    <div class="container-1280">
+      <div class="head_box2 mb20">
+        <h4 class="rtl-text-right">{{'howiswork' | translate}}</h4>
+      </div>
+      <div [innerHTML]="howitsWorksData.description " class="rtl-text-right"></div>
+    </div>
+  </section>
+</main>
+<!------------------------------ main End --------------------------------->
+

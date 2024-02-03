@@ -1,0 +1,423 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<!-------------------------------------- Header Start ------------------------------------------------>
+<div [ngClass]="{'rtl': currentLanguage == 'ar-sa'}">
+<header class="landing_header header_fixed_menu" *ngIf="currUrl!='institutional'">
+  <nav class="navbar navbar-expand-md  align-items-center">
+    <a class="navbar-brand logo" [routerLink]="['/home']">
+      <img class="logo_large" src="assets/images/logo-light.png" alt="Logo" />
+      <!-- <img class="logo_small" src="assets/images/logo_small.png" alt="Logo" /> -->
+      <img class="logo_small" src="assets/images/mobile-logo.png" alt="Logo" />
+    </a>
+    <ul class="bitcoin-menu">
+      <li class="btnGroup">
+        <span class="navBtnLink">
+          <span class="coin">BTC/USD</span>
+          <br>
+          <span class="amounts">${{tickerusd.btc_price | number : '1.2-2'}}
+            <!-- <span *ngIf="tickerusd.btc_status == true" class="fa fa-chevron-up market_icon" style="color: forestgreen"></span> -->
+            <i *ngIf="tickerusd.btc_status == true" class="fa fa-caret-up" style="color: forestgreen"></i>
+            <i *ngIf="tickerusd.btc_status == false" class="fa fa-caret-down" style="color: red"></i>
+            <!-- <span *ngIf="tickerusd.btc_status == false" class="fa fa-chevron-down market_icon" style="color: red"></span> -->
+
+          </span>
+        </span>
+      </li>
+      <li class="btnGroup">
+        <span class="navBtnLink">
+          <span class="coin">ETH/USD</span>
+          <br>
+          <span class="amounts">${{tickerusd.eth_price | number : '1.2-2'}}
+            <!-- <span *ngIf="tickerusd.eth_status == true" class="fa fa-chevron-up market_icon" style="color: forestgreen"></span> -->
+            <i *ngIf="tickerusd.eth_status == true" class="fa fa-caret-up" style="color: forestgreen"></i>
+            <!-- <span *ngIf="tickerusd.eth_status == false" class="fa fa-chevron-down market_icon" style="color: red"></span> -->
+            <i *ngIf="tickerusd.eth_status == false" class="fa fa-caret-down" style="color: red"></i>
+          </span>
+        </span>
+      </li>
+      <li class="btnGroup">
+        <span class="navBtnLink">
+          <span class="coin">VTEX/USD</span>
+          <br>
+          <span class="amounts">${{tickerusd.vtexp_price}}
+            <i class="fa fa-caret-up" style="color: forestgreen"></i>
+          </span>
+        </span>
+      </li>
+    </ul>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon">
+        <i class="fas fa-bars"></i>
+      </span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav navbar-nav main-menu">
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': currUrl == 'home'}" [routerLink]="['/home']">{{'nav-home' | translate}}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': currUrl == 'token-sale'}" [routerLink]="['/token-sale/all']">{{'nav-tokens' | translate}}</a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': currUrl == 'news'}" [routerLink]="['/news']">{{'nav-news' | translate}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': currUrl == 'about-us'}" [routerLink]="['/about-us']">{{'f-aboutus' | translate}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'active': currUrl == 'white-paper'}" [routerLink]="['/white-paper']">{{'whitepaper' | translate}}</a>
+        </li>
+
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" [ngClass]="{'active': currUrl == 'profile'}" (click)="getProfileApi(2)">{{'nav-profile' | translate }}</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn">
+          <a class="nav-link" [routerLink]="['/transaction-history']">{{'transactions' | translate}}</a>
+          <!-- [routerLink]="/transaction-history" -->
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && (profile?.seller_tier === 'S1' || profile?.seller_tier === 'S2')">
+          <a class="nav-link" [routerLink]="['/institutional/dashboard']">
+            <span class="orange-color">{{'dashboard' | translate}}</span>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && (profile?.seller_tier == 'N/A')">
+            <a class="nav-link">
+              <span class="orange-color">{{'dashboard' | translate}}</span>
+            </a>
+          </li>
+  
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <span *ngIf="currentLanguage == 'en'">
+              <img src="../assets/images/union-jack.jpg" class="flags active-flag" alt="icon" style="margin-left: 16px;" />
+            </span>
+            <span *ngIf="currentLanguage == 'zh-Hans'">
+              <img src="../assets/images/chinese.jpg" class="flags active-flag" alt="icon" style="margin-left: 16px;" />
+            </span>
+            <span *ngIf="currentLanguage == 'ar-sa'">
+              <img src="../assets/images/saudi_Arabia.png" class="flags active-flag" alt="icon"/>
+            </span>
+          </a>
+          <div class="dropdown-menu z-index1" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" (click)="changeLang('en')">
+              <img src="../assets/images/union-jack.jpg" class="flags" alt="icon" /> {{'english' | translate}}
+            </a>
+            <a class="dropdown-item" (click)="changeLang('zh-Hans')">
+              <img src="../assets/images/chinese.jpg" class="flags" alt="icon" /> {{'chinese' | translate}}
+            </a>
+            <a class="dropdown-item" (click)="changeLang('ar-sa')">
+                <img src="../assets/images/saudi_Arabia.png" class="flags" alt="icon" /> {{'arabic' | translate}}
+              </a>
+          </div>
+        </li>
+        <li class="nav-item dropdown notify-bell" *ngIf="isLoggedIn">
+          <div href="javascript:void(0)" class="nav-link dropdown-toggle notifi-dropdown-hover" href="#" id="navbarDropdown1" role="button"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="noti-bubble">{{unSeenCount}}</span>
+            <i class="fa fa-bell bell-hover"></i>
+            <b class="caret"></b>
+            <span class="sr-only">(current)</span>
+          </div>
+          <div class="dropdown-menu notifi-dropdown z-index1" aria-labelledby="navbarDropdown1">
+            <li *ngIf="notifications.length===0" class="dropdown-item notifi-no">
+              <span class="view-hover">{{'no_notifications'| translate}}</span>
+            </li>
+            <li class="dropdown-item notifi-item" *ngFor="let notification of notifications | slice:0:5 ; index as i">
+              <!-- <span class="notifi-title">{{ notification.message.length>25 ? notification.message.substring(0,25) + '...' : notification.message}}
+              </span> -->
+              <span class="notifi-title" >{{notification?.messages}}</span>
+              <br>
+              <span class="notification_action">
+                <span class="small-text">{{bindTime(notification.created_at)}} ago </span> &nbsp; &nbsp;
+                <i (click)="seenNotification(notification.id)" *ngIf="!notification.is_seen" class="fa fa-check-circle check-hover" style="color:green"
+                  aria-hidden="true">
+                </i> &nbsp;
+                <i (click)="deleteNotification(notification.id)" class="fa fa-times-circle cross-hover" style="color:red" aria-hidden="true"></i>
+              </span>
+            </li>
+            <li *ngIf="notifications.length>5" class="dropdown-item view-all">
+              <hr>
+              <a class="view-hover" [routerLink]="['/notification-details']">{{'view_all'|translate}}</a>
+            </li>
+
+          </div>
+        </li>
+        <li class="menu-box nav-item menu-box1" *ngIf="!isLoggedIn">
+          <a class="btn btn-header btn-nav login-btn" [ngClass]="{'active': hoverActiveButton == 'login'}" (click)="loginFun()">{{'btn-signin' | translate}}</a>
+          <a class="btn btn-header btn-nav signup-btn" [ngClass]="{'active': hoverActiveButton == 'signup'}" (click)="registerFun()">{{'btn-signup' | translate}}</a>
+        </li>
+        <li class="menu-box nav-item" *ngIf="isLoggedIn">
+          <a class="btn btn-header btn-nav active login-btn" (click)="logoutModal()">{{'btn-logout' | translate}}</a>
+          <!-- <li class="nav-item dropdown ml-30">
+              <a class="nav-link dropdown-toggle user-hover" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <span class="user-icon">
+                  <i class="fa fa-user i-user"></i>
+                </span>
+              </a>
+              <div class="dropdown-menu ml-n-100" aria-labelledby="navbarDropdown2">
+                <a class="dropdown-item logout-dropdown">
+                  <a class="btn btn-header active" (click)="logoutModal()">{{'btn-logout' | translate}}</a>
+                </a>
+              </div>
+            </li> -->
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="ptrade-header checkSticker" *ngIf="isLoggedIn && currUrl!='institutional' && currUrl!='buy-token' && pendingTradeData.length" >You have a pending trade.Click <span class="click-here" (click)="navigateBuy()">here</span> to see it.</div> 
+
+</header>
+<!-- -------------------------------------Header End ------------------------------------------------>
+
+
+<router-outlet>
+  <!-- <div *ngIf="isLoggedIn">
+    <div *ngIf="iswebApp && (profile?.seller_tier == 'S1' || profile?.seller_tier == 'S2' || profile?.seller_tier == 'n/a')  && currUrl === 'home'">
+      <button type="button" class="btn-tg" [routerLink]="['/institutional/dashboard']">{{'dashboard' | translate}}
+      </button>
+    </div>
+    <div *ngIf="iswebApp &&  (profile?.seller_tier == 'N/A') && currUrl === 'home'">
+      <button type="button" class="btn-tg">{{'dashboard' | translate}}
+      </button>
+    </div>
+  </div> -->
+  <div *ngIf="isLoggedIn">
+    <div *ngIf="iswebApp  && currUrl !== 'institutional'" class="btnbuy-div">
+      <button type="button" class="btnbuy" (click)="goToTokensale()">Buy tokens</button>
+    </div>
+    <div *ngIf="iswebApp && (profile?.seller_tier == 'S1' || profile?.seller_tier == 'S2')  && currUrl !== 'institutional'" class="btnsell-div">
+      <button type="button" class="btnsell" [routerLink]="['/institutional/add-offering/add']">Sell tokens
+      </button>
+    </div>
+    <div *ngIf="iswebApp && profile?.seller_tier !== 'S1' && profile?.seller_tier != 'S2' && currUrl !== 'institutional'" class="btnsell-div">
+      <button type="button" class="btnsell" data-toggle="modal" data-target="#userAlert">Sell tokens
+      </button>
+    </div>
+  </div>
+  
+  <div *ngIf="!isLoggedIn">
+    <div *ngIf="iswebApp && currUrl !== 'institutional'" class="btnbuy-div">
+      <button type="button" class="btnbuy" (click)="goToTokensale()">Buy tokens</button>
+    </div>
+    <div *ngIf="iswebApp && currUrl !== 'institutional'" class="btnsell-div">
+      <button type="button" class="btnsell" data-toggle="modal" data-target="#userAlert">Sell tokens
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoggedIn">
+    <div *ngIf="!iswebApp && (currUrl === 'home'||currUrl === '')" class="btnbuy-div">
+      <button type="button" class="btnbuy-round" (click)="goToTokensale()">Buy</button>
+    </div>
+    <div *ngIf="!iswebApp &&  (profile?.seller_tier == 'S1' || profile?.seller_tier == 'S2') && (currUrl === 'home'||currUrl === '')"
+      class="btnsell-div">
+      <button type="button" class="btnsell-round" [routerLink]="['/institutional/add-offering/add']">Sell
+      </button>
+    </div>
+    <div *ngIf="!iswebApp && profile?.seller_tier !== 'S1' && profile?.seller_tier !== 'S2' && (currUrl === 'home'||currUrl === '')"
+      class="btnsell-div">
+      <button type="button" class="btnsell-round" data-toggle="modal" data-target="#userAlert">Sell
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoggedIn">
+    <div *ngIf="!iswebApp && (currUrl === 'home'||currUrl === '')" class="btnbuy-div">
+      <button type="button" class="btnbuy-round" (click)="goToTokensale()">Buy</button>
+    </div>
+    <div *ngIf="!iswebApp && (currUrl === 'home'||currUrl === '')" class="btnsell-div">
+      <button type="button" class="btnsell-round" data-toggle="modal" data-target="#userAlert">Sell
+      </button>
+    </div>
+  </div>
+
+</router-outlet>
+<!------------------------- Footer Start -------------------------------------------------------------->
+<footer class="footer-inner" *ngIf="currUrl!='institutional'">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="footer-content">
+          <div class="footer-text">
+            <ul class="footmenu">
+              <li>
+                <a [routerLink]="['/about-us']">{{'f-aboutus' | translate}}</a>
+              </li>
+              <li>
+                <a [routerLink]="['/contact-us']">{{'f-contactus' | translate}}</a>
+              </li>
+              <li>
+                <a [routerLink]="['/privacy-policy']">{{'f-privacy' | translate}}</a>
+              </li>
+              <li>
+                <a [routerLink]="['/terms']">{{'f-terms' | translate}}</a>
+              </li>
+              <li>
+                <a [routerLink]="['/faq']">{{'f-faq' | translate}}</a>
+              </li>
+            </ul>
+            <p class="copyright">{{'copyright' | translate}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <ul class="socialList socialUL">
+          <li>
+            <a (click)="openSocialLink('bitcoin')" class="bitcoin">
+              <i class="fab fa-btc"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('fb')" class="facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('twitter')" class="twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('medium')" class="medium">
+              <i class="fab fa-medium"></i>
+            </a>
+          </li>
+          <li>
+            <a class="Octocat" (click)="openSocialLink('github')" class="github">
+              <i class="fab fa-github-alt"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('youtube')" class="youtube">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </li>
+
+          <li>
+            <a (click)="openSocialLink('telegram')" class="telegram">
+              <i class="fab fa-telegram"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<!------------------------------- Footer End --------------------------------------------------------->
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="logoutModal">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <div class="modal-body" style="max-height: 307px;margin-top: -98px;">
+          <div class="row align-items-center modal_flax_height">
+            <div class="col">
+              <div class="head_box2 text-center">
+                <h4>{{'confirm-logout' | translate}}</h4>
+              </div>
+              <div class="form-group">
+              </div>
+              <div class="form-group mb20"></div>
+              <div class="action-btn text-center">
+                <button type="button" class="btn btn-gray max-WT-150" style="float: left;" data-dismiss="modal">{{'CANCEL' | translate}}</button>
+                <button type="button" class="btn btn-orange max-WT-150" style="float: right;" (click)="logoutFun()">{{'LOGOUT' | translate}}</button>
+              </div>
+              <!-- </form> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+<a style="display:none" id="downloadLink"></a>
+
+<!----------------------------------- Modal End -------------------------------------------------->
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="large" color="#e69d9d" type="line-spin-fade-rotating"></ngx-spinner>
+
+
+<!-- <link href="assets/css/datepicker.css" rel="stylesheet">
+	<link href="assets/css/fancySelect.css" rel="stylesheet">
+	<link href="assets/css/fontawesome-all.min.css" rel="stylesheet">
+	<link href="assets/css/fonts.css" rel="stylesheet">
+  <link href="assets/css/index.css" rel="stylesheet"> -->
+<!--   <script src="assets/js/datepicker.js"></script>
+  <script src="assets/js/datepickk.js"></script>
+  <script src="assets/js/fancySelect.js"></script>
+  <script src="assets/js/jquery.nicescroll.min.js"></script> -->
+
+
+<!-- Commented Part of Identity Mind KYC -->
+<!-- <script type="text/javascript" src="https://cd1st.identitymind.com/sandbox/idm.min.js"></script> -->
+<!-- <script type="text/javascript">
+    var _idm = {
+          container_id: "idm-container",
+          // styles:{"country-section-title":"color:red","dob-label":"font-size:30px"},
+          // form_labels:{"country-section-title":"HEY","dob-label":"HO"},
+          // styles: {"country-section-title": "color: red", "country-label": "height: 100px", "country-section-header": "height: 100px", "country-section-footer": "height: 100px"},
+          plugin_token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJrZXkiOiJzYTJwMXEwbnVjIn0.XyJQVXnSed_gSgyAGFpEDZUchIpyQ2J1npBptfJYWctR0KrcEY1pupaLarvc17T32PxKl6bKXME6yDXN59kkDhMDzndGmqWJ1htI4zGNgYTktyj8QIhYCGATAD7sKFGIgN4J79MTPP685lGpJ5HfgTsTzcKsM2--2LrKk0PbSg8BdamUBXeR3vYNacYRAOBvwG-bRYGfzpQt38pWtLOemMQzJgDR7s8KU2a6jUfvo_ZKH6WRNuLPx47nZ4lZbNNwuUmxuxAZxv8yHFnBRLZM3URtXvTE_Kg3FIS-MTsyByr7HAt_XRwKgFFpw1KSqT1lyntOVxLup-6mP-8Y4beUaw",
+          // plugin_token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJrZXkiOiIxNWI2N2pjYTBlIn0.ofji_jRCjMNiTjkcoPYlD0xCwqWB3GEb6m7DSYhyLtO3i0VokMl9c-gQrrHfUdRMaalCZtwDy0E3c7Dd2PAmV3krSUVyMQj1gaYLIgNwq57_USjRoTUYduOX7v9MZqdPIq7jTGaYT3qUeiLpPRsDMTE3JOL95IVJ0g4XTdmIT2FRJSIAPdAQwc1migQyU42LsEgXJeaDLXogqNxXe-m-f8Rr0Rn7kWFqqzVyDQx2t3JWRX0lAdVYzvo0_xmJWdXkVo2b46TcGf1003nKtGunQpnVVdA_XlJ0aSQKZ0l8db8O5p7rf-znJU7avuezTjvoG-yoiQlRLfXKfEHuYy_Ppw",
+          
+          required_address_country_list: ["US","GB","CA","ZA","SE","DK", "IN"] ,
+          required_id_country_list:['US::^(?!666|000|9\\d{2})\\d{3}[- ]{0,1}(?!00)\\d{2}[- ]{0,1}(?!0{4})\\d{4}$'],
+          dv_required_back_id_countries: ["US"],
+          dv_loading_text: "Verifying",
+          country_blacklist: ['AR','PR'],
+          user_id: Math.floor(Math.random() *10),
+          // accept_message: "KYC Done",
+          deny_message: "Denied",
+          on_response: function(jwtresponse){
+              //handle response jwtresponse here
+              //A simple example below:
+              console.log(jwtresponse)
+              const array = jwtresponse.split('.');
+              console.log(array)
+              const header = JSON.parse(atob(array[0]));
+              const response = JSON.parse(atob(array[1]));
+              const signature = array[2];
+              console.log('response => '+ JSON.stringify(response))
+              console.log(signature)
+              console.log("Result from Identitymind: " + response.kyc_result);
+              localStorage.setItem('kyc_result', response.kyc_result)
+              window['kyc_result']= response
+
+          }
+          // debug: true
+      }
+  </script> -->
+
+<!-- <script type="text/javascript">
+    setTimeout(() => {
+      window['kyc_result']= {'name': 'sameer'}
+      localStorage.setItem('kyc_result', 'sa')
+    },20000)
+  </script> -->
+<!-- Commented Part of Identity Mind KYC -->
+
+
+
+<div id="userAlert" class="modal fade" role="dialog" style="margin-top: 145px;">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sell Token Alert</h4>
+        <button type="button" class="close " id="close" style="background: none;" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <p class="block" class="modalTxt">You must apply for user tier S1 to be able to sell tokens. To become S1, create an account and upgrade to B2 first,
+          then apply for S1.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

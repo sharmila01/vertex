@@ -1,0 +1,218 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="3"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Transaction History'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid  pt-4">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card my-3">
+                            <div class="card-header card-header-primary dashHeader p4">
+                                <div class="row align-items-center pl20">
+                                    <div class="col-md-4 col-lg-6">
+                                        <h4 class="card-title font-weight-bold inrtl-title">{{'nav-transaction' | translate}}</h4>
+                                    </div>
+                                    <div class="col-md-4 col-lg-4">
+                                        <!-- <div class="form-check mt-0 d-flex align-items-center justify-content-end">
+                                            <label class="form-check-label t-6 checkWhiteBg">
+                                                <input class="form-check-input" type="checkbox" [(ngModel)]="incompleteTrans" name="incompleteTrans" (change)="onSearch()">
+
+                                                <span class="form-check-sign">
+                                                    <span class="check "></span>
+                                                </span>
+                                            </label>
+                                            <span style="color:#fff;margin-top: 5px;">{{'incomp_trans' | translate}}</span>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-4 col-lg-2 text-md-right">
+                                        <form class="navbar-form d-inline-flex ml-md-auto" autocomplete="off" novalidate>
+                                            <div class="input-group no-border">
+                                                <input type="text" value="" class="form-control text-white" placeholder="Search" [(ngModel)]="filter.search" name="search"
+                                                    maxlength="50" (keyup)="!filter.search ? onSearch() :  '' ">
+                                                <button type="submit" class="btn btn-white btn-round btn-just-icon pStatic" (click)="filter.search ? onSearch(): ''">
+                                                    <i class="material-icons">search</i>
+                                                    <div class="ripple-container"></div>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive mt-3">
+                                    <table class="table table-bordered tableWidth800">
+                                        <thead class="border-top text-primary">
+                                            <!-- <tr>
+                                <th>{{'date' | translate}}</th>
+                                <th>{{'orderid' | translate}}</th>
+                                <th>{{'transactionid' | translate}}</th>
+                                <th>{{'transactionstatus' | translate}}</th>
+                                <th>{{'fundsent' | translate}}</th>
+                                <th>{{'tokenrecived' | translate}}</th>
+                                <th>{{'action' | translate}}</th>
+                            </tr> -->
+                                            <tr>
+                                                <th></th>
+                                                <th>{{'date' | translate}}</th>
+                                                <th>{{'orderid' | translate}}</th>
+                                                <th>{{'payout-transactionid' | translate}}</th>
+                                                <th>{{'transactionstatus' | translate}}</th>
+                                                <!-- <th>{{'payout-fund' | translate}}</th> -->
+                                                <th>{{'received-fund' | translate}}</th>
+                                                <th>{{'paid-quantity' | translate}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of txnArr | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total } "
+                                                (click)="selectedRow(item)">
+                                                <td>
+                                                    <div *ngIf="item?.transaction_status!='Awaiting Payment'">Token Payment</div>
+                                                    <button *ngIf="item?.transaction_status=='Awaiting Payment'" class="btn btn-sm btn-danger payment-btn" (click)="confirmPayment(item)">Confirm Payment</button>
+                                                </td>
+                                                <td>{{getUTC(item?.order_created_at) | date: 'MM/dd/yyyy hh:mm a'}}</td>
+                                                <td class="link-make1" (click)="viewOrder(item)">{{item?.order_id}}</td>
+                                                <td [ngClass]="isInlcudeTokenBurning(item?.payout_transfer_transcation) ? 'link-make1' : '' " (click)="isInlcudeTokenBurning(item?.payout_transfer_transcation) ? openEther(item.payout_transfer_transcation, item?.fund_symbol): ''">{{item?.payout_transfer_transcation ? (item?.payout_transfer_transcation|
+                                                    truncate : 25 : '..') : '- - -'}}</td>
+                                                <td class="text-nowrap">{{item?.transaction_status}}</td>
+                                                <td *ngIf="item?.payment_type==1">{{item?.payout_fund}}</td>
+                                                <td *ngIf="item?.transaction_status!='Awaiting Payment' && item?.payment_type==2" >--</td>
+                                                <td *ngIf="item?.transaction_status=='Awaiting Payment' && item?.payment_type==2">{{item?.fund_received ? (item?.fund_received | separator: 5) : '0'}} {{item?.fund_symbol}}</td>                                                
+                                                <td>{{item?.token_quantity ? (item?.token_quantity | separator: 5) : '0'}} {{item?.token_name}}</td>
+                                            </tr>
+                                            <tr *ngIf="!txnArr.length">
+                                                <td colspan="7" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                                            </tr>
+                                            <!-- <tr *ngFor="let item of txnArr | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total } ">
+                                <td>{{getUTC(item?.order_created_at) | date: 'MM/dd/yyyy hh:mm a'}}</td>
+                                <td class="link-make1" (click)="viewOrder(item)" >{{item?.order_id}}</td>
+                                <td (click)="item.outgoing_transcation ? openEther(item.outgoing_transcation, item?.token_name): ''" [ngClass]="(item.outgoing_transcation) ? 'link-make1' : '' ">{{item?.outgoing_transcation ? (item?.outgoing_transcation| truncate : 25 : '..') :  '-    -    -'}}</td>
+                                <td class="text-nowrap">{{item?.transaction_status}}</td>
+                                <td>{{item?.fund_received  ? (item?.fund_received | separator:5) : '0'}} {{item?.fund_symbol}}</td>
+                                <td>{{item?.token_quantity ? (item?.token_quantity| separator:5) : '0'}} {{item?.token_name}}</td>
+                                <td>
+                                  <button class="btn btn-link btn-sm btn-default " (click)="viewOrder(item)"><i class="fa fa-eye"></i></button>
+                                </td>
+                            </tr> -->
+                                            <!-- <tr *ngIf="!txnArr.length">
+                                  <td colspan="7" class="text-center fs20">No data found.</td>
+                              </tr> -->
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tbl_footer">
+                                    <div class="row align-items-center flex-wrap flR">
+                                        <!-- <div class="col-md-7">
+                            <p class="small m-0">Showing results 7 of 14 out of 20</p>
+                        </div> -->
+                                        <!-- align-items-center -->
+                                        <div class="text-md-right" *ngIf="paginationData?.total > paginationData?.limit">
+                                            <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+          <div class="container-fluid">
+              <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+              </div>
+
+          </div>
+      </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+</div>
+
+<div class="modal fade" id="confirm_payment" role="dialog" style="margin-top: 145px;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm Payment</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row" *ngIf="!showSecurity && !getStatus">
+                    <div class="col-md-6 modal-feilds">
+                        <label>Received Amount : </label>
+                        <input type="number" [(ngModel)]="receive_amount" class="form-control custom-form-feild">
+                    </div>
+                    <div class="col-md-6 modal-feilds">
+                        <label>Currency : </label>
+                        <input type="text" class="form-control custom-form-feild" [(ngModel)]="currency" placeholder="token symbol" value="0" readonly
+                        />
+                    </div>
+                    <!-- <div class="col-sm-6">
+                        <input readonly type="text" [(ngModel)]="paymentProf" class="form-control input-sm custom-form-feild">
+                    </div>
+                    <label class="btn btn-primary  btn-sm upload-label">
+                        <i class="fa fa-upload"></i>
+                        <input type="file" name="attachment" id="attachment" (change)="readAttachment($event)" style="display: none;">
+                    </label> -->
+                    <div class="col-sm-6">
+                        <div>
+                            <label>File Upload : </label>
+                        </div>
+                        <div class="input-group">
+                            <input readonly type="text" [(ngModel)]="paymentProf" class="form-control input-sm custom-form-feild">
+                            <span class="input-group-prepend file-upload">
+                                <label class="input-group-text upload-label">
+                                    <i class="fa fa-upload"></i>
+                                    <input type="file" name="attachment" (change)="fileChangeEvent($event)" style="display: none;">
+                                </label>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- <div class="row" style="margin-top:25px;">
+                  <div class="col-md-12">
+                    <div>USD Amount : {{calculatorprice?.usd_amount | number:'1.2-2' || 0}}</div>
+      
+                  </div>
+                </div> -->
+                <div class="row" *ngIf="showSecurity && !getStatus">
+                    <div class="col-12" style="text-align: center; margin: auto">
+                        You confirm to have received {{receive_amount}} {{currency}}
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="getStatus && !showSecurity">
+                    <div class="col-12" style="text-align: center; margin: auto">
+                        Funds Received
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div *ngIf="!showSecurity && !getStatus">
+                    <button type="button" class="btn btn-success" style="float: left;" (click)="showSecure()">Confirm</button>
+                    <button type="button" class="btn btn-default" style="float: right;" data-dismiss="modal">Close</button>
+                </div>
+                <div *ngIf="showSecurity && !getStatus">
+                    <button type="button" class="btn btn-success" style="float: left;" data-dismiss="modal" (click)="showStatus()">Yes</button>
+                    <button type="button" class="btn btn-default" style="float: right;" data-dismiss="modal">No</button>
+                </div>
+                <div *ngIf="getStatus && !showSecurity">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="confirmTransaction()">Ok</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

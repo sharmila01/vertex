@@ -1,0 +1,24 @@
+.borderBlack {
+    border: 1px solid #ddd !important;
+}
+.uploadBtnKyc {
+    margin-left: 6px;
+    height: 48px;
+    margin-top: 15px;
+    overflow: visible !important;
+}
+.w-250 {
+    width: 250px !important;
+}
+.max-WT-900 {
+    max-width: 900px!important;
+    width: 100% !important;
+}
+.calendar-icon[readonly] {
+    background-color: #fff !important;
+}
+/* @media (max-width: 767px) {
+.global-modal.modal.fade .modal-dialog {
+    margin: 42px 6px 0 !important;
+}
+} */

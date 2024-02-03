@@ -1,0 +1,349 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+  <app-in-sidebar [activeTab]="15"></app-in-sidebar>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <app-in-header [headerName]="'Reporting'"></app-in-header>
+    <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid  pt-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card my-3">
+              <div class="card-header card-header-primary fundHeader p4">
+                <div class="row align-items-center pl20 p-tb-10">
+                  <div class="col-xs-6 col-md-8 ">
+                    <h4 class="card-title font-weight-bold inrtl-title">{{'Reporting List' | translate}}</h4>
+                  </div>
+                  <div class="col-xs-6 col-md-4 rtl-text-left">
+                    <img class="pdffile f-right" src="../assets/images/svg/pdffile.svg" (click)="reportArr.length ? getAllReportApi() : ''">
+                    <!-- <form class="navbar-form d-inline-flex ml-md-auto" autocomplete="off" novalidate>
+                                 <div class="input-group no-border">
+                                   <button type="button" class="btn btn-white btnPdf" (click)="getAllReportApi()">{{'download_as_pdf' | translate}}</button>  -->
+                    <!-- <input type="text" class="form-control text-white" placeholder="Search">
+                                    <button type="submit" class="btn btn-white btn-round btn-just-icon pStatic">
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                    </button> -->
+                    <!-- </div> 
+                            </form>  -->
+                  </div>
+                </div>
+                <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+              </div>
+              <!-- <div class="card-body">
+                <div class="row">
+                  <div class="panel-group" id="accordion" 
+                  *ngFor="let token of reportArr  | paginate: { itemsPerPage: paginationData?.limit,currentPage: paginationData?.page, totalItems: paginationData?.total } ; let i = index ">
+                    <div class="panel panel-default" >
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="collapse" data-parent="#accordion" [attr.href]="'#token' + i">
+                            {{token.token_name}} <span class="badge badge-pill badge-warning">
+                              {{token.total_supply}}
+                            </span></a>
+                        </h4>
+                      </div>
+                      <div [attr.id]="'token' + i" class="panel-collapse collapse in">
+                        <div class="panel-body panbody">
+                          <div class="panel-group" id="accordion2" *ngFor="let token of reportArr[i].offerings; let j = index">
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a data-toggle="collapse" data-parent="#accordion2" [attr.href]="'#token' + j + i">
+                                    Offering {{j + 1}} <span class="badge badge1 badge-pill badge-secondary">
+                                      {{token.initial_supply}}
+                                    </span></a>
+                                </h4>
+                              </div>
+                              <div [attr.id]="'token' + j + i" class="panel-collapse collapse in table-responsive">
+                                <div class="panel-body">
+                                  <table class="table">
+                                    <thead>
+                                      <th>{{'Offering Code' | translate}}</th>
+                                      <th>{{'Offering start date' | translate}}</th>
+                                      <th>{{'Nr of tokens initially' | translate}}</th>
+                                      <th>{{'Nr of tokens left' | translate}}</th>
+                                      <th>{{'ticker' | translate}}</th>
+                                      <th>{{'usd-remaining' | translate}}</th>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>{{token.offering}}</td>
+                                        <td>{{token.start_date}}</td>
+                                        <td>{{token.initial_supply }}</td>
+                                        <td>{{token.token_for_sale }}</td>
+                                        <td>{{token.ticker}}</td>
+                                        <td>{{token.usd_remaining }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="!reportArr.length">
+                    <div class="text-center fs20">{{'no-data-found' | translate}}</div>
+                  </div>
+                </div>
+                
+             </div> -->
+             <div class="card-body">
+              <div class="table-responsive" id="table_new">
+                <table class="table table-bordered tableWidth800">
+                    <thead class="text-primary border-top">
+                      <th></th>
+                      <th>{{'asset' | translate}}</th>
+                      <th>{{'ticker' | translate}}</th>
+                      <th>{{'amount_initially' | translate}}</th>
+                      <th>{{'amount-remaining' | translate}}</th>
+                      <th>{{'usd_equivalent' | translate}}</th>
+                      <th>{{'no_of_offering' | translate}}</th>
+                    </thead>
+                  <tbody>
+                   
+                          <ng-container *ngFor="let report of reportArr" >
+                          <tr >
+                            <td (click)="expandTable(report.ticker)"><i [ngClass]="(show == report.ticker) ? 'fa fa-minus': 'fa fa-plus'"></i></td>
+                            <td>{{report?.token_name}}</td>
+                            <td>{{report?.ticker}}</td>
+                            <td>{{report?.total_supply ? (report?.total_supply | separator:5) : '- - -'}}</td>
+                            <td>{{report?.remaining_supply ? (report?.remaining_supply | separator:5) : '- - -'}}</td>
+                            <td>{{report?.usd_equivalent ? (report?.usd_equivalent | separator: 5) : '- - -'}}</td>
+                            <td>{{report?.offerings.length}}</td>                              
+                          </tr>
+                          <ng-container  *ngIf="show == report?.ticker">
+                            <tr id="demo" class="managerow" *ngFor="let item of report.offerings" >
+                              <td></td>
+                              <td colspan="2" class="text-center">{{item?.offering_order_id}}</td>
+                              <td >{{item?.initial_supply ? (item?.initial_supply | separator:5) : '- - -'}}</td>
+                              <td >{{item?.token_for_sale ? (item?.token_for_sale | separator:5) : '- - -'}}</td>
+                              <td >{{item?.usd_remaining ? (item?.usd_remaining|separator:5) : '- - -'}}</td>
+                              <td></td>
+                            </tr>
+                        </ng-container>
+                      </ng-container>
+                      <tr *ngIf="!reportArr.length">
+                        <td colspan="6" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                      </tr>
+                  </tbody>
+                </table>
+                <!-- <table class="table table-bordered tableWidth800 mt10">
+                  <thead class="text-primary border-top">
+                      <th>{{'tokenname' | translate}}</th>
+                      <th>{{'ticker' | translate}}</th>
+                      <th>{{'amount-deposited' | translate}}</th>
+                      <th>{{'amount-remaining' | translate}}</th>
+                      <th>{{'usd-remaining' | translate}}</th>
+                      <th>{{'eth-remaining' | translate}}</th>
+                    </thead>
+                <tbody>
+                  <tr *ngFor="let item of reportData | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total } ">
+                    <td>{{item?.token_name || '- - -'}}</td>
+                    <td>{{item?.ticker || '- - -'}}</td>
+                    <td>{{item?.received_fund_quantity ? (item?.received_fund_quantity | separator:5) : '- - -'}}</td>
+                    <td>{{item?.remaining_quantity ? (item?.remaining_quantity | separator:5) : '- - -'}}</td>
+                    <td>{{item?.usd_remaining ? (item?.usd_remaining | separator:5) : '- - -'}}</td>
+                    <td>{{item?.eth_remaining ? (item?.eth_remaining | separator:5) : '- - -' }}</td>
+                  </tr>
+                  <tr *ngIf="!reportData.length">
+                      <td colspan="6" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                    </tr>
+                </tbody>
+              </table> -->
+              </div>
+              <div class="tbl_footer">
+                  <div class="row align-items-center flex-wrap flR">
+                      <div class="text-md-right" *ngIf="paginationData?.total > paginationData?.limit" >
+                          <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-in-footer></app-in-footer>
+  </div>
+</div>
+
+
+
+<div class="modal fade global-modal reset-modal" id="table_modal">
+  <div class="modal-dialog max-WT-1030">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <!--<div class="modal-header ">
+                           <h4 class="modal-title text-center">Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div> -->
+        <div class="modal-body">
+          <div class="row align-items-center minHeight180">
+            <div class="col">
+              <!-- <form class="common-form" autocomplete="off"> -->
+              <!-- <div class="head_box2 text-center mb15">
+                        <h4>{{'confirm-message-logout' | translate}}</h4>
+                      </div> -->
+              <div class="table-responsive pl5 pr5" id="grid1">
+                <div class="logo text-center row mb10 mt20">
+                  <div class="simple-text logo-normal aLogoCss text-left mL20 col-md-4 ">
+                    <img alt="Logo" class="" src="data:image/png;base64,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">
+                  </div>
+                  <div class="reportCss col-md-4 pt100">
+                    <h4 class="font-bold">Report</h4>
+                  </div>
+                  <div class="reportCss col-md-3 pt10">{{currDate | date}}</div>
+                </div>
+                          <table class="table table-bordered tableWidth800 mt10">
+                            <thead class="text-primary border-top">
+                              <th></th>
+                              <th>{{'asset' | translate}}</th>
+                              <th>{{'ticker' | translate}}</th>
+                              <th>{{'amount_initially' | translate}}</th>
+                              <th>{{'amount-remaining' | translate}}</th>
+                              <th>{{'usd_equivalent' | translate}}</th>
+                              <th>{{'no_of_offering' | translate}}</th>
+                            </thead>
+                          <!-- <tbody>
+                            <tr *ngFor="let item of reportData | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total } ">
+                              <td>{{item?.token_name || '- - -'}}</td>
+                              <td>{{item?.ticker || '- - -'}}</td>
+                              <td>{{item?.received_fund_quantity ? (item?.received_fund_quantity | separator:5) : '- - -'}}</td>
+                              <td>{{item?.remaining_quantity ? (item?.remaining_quantity | separator:5) : '- - -'}}</td>
+                              <td>{{item?.usd_remaining ? (item?.usd_remaining | separator:5) : '- - -'}}</td>
+                              <td>{{item?.eth_remaining ? (item?.eth_remaining | separator:5) : '- - -' }}</td>
+                            </tr>
+                            <tr *ngIf="!reportData.length">
+                                <td colspan="6" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                              </tr>
+                          </tbody> -->
+                          <ng-container *ngFor="let report of reportData" >
+                            <tr >
+                              <td ><i class="fa fa-minus"></i></td>
+                              <td>{{report?.token_name}}</td>
+                              <td>{{report?.ticker}}</td>
+                              <td>{{report?.total_supply ? (report?.total_supply | separator:5) : '- - -'}}</td>
+                              <td>{{report?.remaining_supply ? (report?.remaining_supply | separator:5) : '- - -'}}</td>
+                              <td>{{report?.usd_equivalent ? (report?.usd_equivalent | separator: 5) : '- - -'}}</td>
+                              <td>{{report?.offerings.length}}</td>                              
+                            </tr>
+                            <ng-container  >
+                              <tr id="demo" class="managerow" *ngFor="let item of report.offerings" >
+                                <td></td>
+                                <td colspan="2" class="text-center">{{item?.offering_order_id}}</td>
+                                <td >{{item?.initial_supply ? (item?.initial_supply | separator:5) : '- - -'}}</td>
+                                <td >{{item?.token_for_sale ? (item?.token_for_sale | separator:5) : '- - -'}}</td>
+                                <td >{{item?.usd_remaining ? (item?.usd_remaining|separator:5) : '- - -'}}</td>
+                                <td></td>
+                              </tr>
+                          </ng-container>
+                        </ng-container>
+                        </table>
+
+                <!-- <div class="row">
+                  <div class="panel-group" *ngFor="let token of reportArr; let i = index">
+                    <div class="panel panel-default" style="width:95%;"
+                     >
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a>
+                            {{token.token_name}} <span class="badge badge-pill badge-warning">
+                              {{token.total_supply}}
+                            </span></a>
+                        </h4>
+                      </div>
+                      <div>
+                        <div class="panel-body">
+                          <div class="panel-group" *ngFor="let token of reportArr[i].offerings; let j = index">
+                            <div class="panel panel-default" style="width:95%;">
+                              <div class="panel-heading">
+                                <h4 class="panel-title">
+                                  <a>
+                                    Offering {{j + 1}} <span class="badge badge1 badge-pill badge-secondary">
+                                      {{token.initial_supply}}
+                                    </span></a>
+                                </h4>
+                              </div>
+                              <div>
+                                <div class="panel-body">
+                                  <table class="table">
+                                    <thead>
+                                      
+                                        <th>{{'Offering Code' | translate}}</th>
+                                        <th>{{'Offering start date' | translate}}</th>
+                                        <th>{{'Nr of tokens initially' | translate}}</th>
+                                        <th>{{'Nr of tokens left' | translate}}</th>
+                                        <th>{{'ticker' | translate}}</th>
+                                        <th>{{'usd-remaining' | translate}}</th>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <td>{{token.offering}}</td>
+                                        <td>{{token.start_date}}</td>
+                                        <td>{{token.initial_supply }}</td>
+                                        <td>{{token.token_for_sale }}</td>
+                                        <td>{{token.ticker}}</td>
+                                        <td>{{token.usd_remaining }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12" *ngIf="!reportArr.length">
+                    <div class="text-center fs20">{{'no-data-found' | translate}}</div>
+                  </div>
+                </div> -->
+              </div>
+
+              <!-- </form> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- <div class="table-responsive" id="content" #content  [hidden]="true">
+          <div  class="logo text-center">
+               <div  class="simple-text logo-normal aLogoCss" >
+                  <img alt="Logo" class="" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAUA
+                                  AAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO
+                                      9TXL0Y4OHwAAAABJRU5ErkJggg==">
+              </div> 
+              <span class="reportCss">Reports</span>
+          </div>
+          <table class="table table-bordered tableWidth800">
+              <thead class="text-primary border-top">
+                  <th>{{'tokenname' | translate}}</th>
+                  <th>{{'ticker' | translate}}</th>
+                  <th>{{'amount-deposited' | translate}}</th>
+                  <th>{{'amount-remaining' | translate}}</th>
+                  <th>{{'usd-remaining' | translate}}</th>
+                </thead>
+            <tbody>
+              <tr *ngFor="let item of reportData | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total } ">
+                <td>{{item?.token_name || '- - -'}}</td>
+                <td>{{item?.ticker || '- - -'}}</td>
+                <td>{{item?.received_fund_quantity ? (item?.received_fund_quantity | separator:5) : '- - -'}}</td>
+                <td [ngClass]="item.eth_address ? 'link-make1': '' " (click)="item.eth_address ? openEther(item.eth_address, 'ETH') : ''" >{{item?.remaining_quantity ? (item?.remaining_quantity | separator:5) : '- - -'}}</td>
+                <td>{{item?.usd_remaining ? (item?.usd_remaining | separator:5) : '- - -'}}</td>
+              </tr>
+              <tr *ngIf="!reportData.length">
+                  <td colspan="5" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>  -->

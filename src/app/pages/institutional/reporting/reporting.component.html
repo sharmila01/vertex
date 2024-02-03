@@ -1,0 +1,86 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+  <app-in-sidebar [activeTab]="20"></app-in-sidebar>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <app-in-header [headerName]="'Report'"></app-in-header>
+    <!-- <app-in-header [headerName]="'Edit Project'" *ngIf="currId != 'add'" ></app-in-header> -->
+    <!-- End Navbar -->
+    <div class="content">
+      <div class="container-fluid pt-4">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary profileHeader">
+            <h4 class="card-title font-weight-bold inrtl-title">Report</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="panel-group" id="accordion" *ngFor="let token of reportArr; let i = index">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" [attr.href]="'#token' + i">
+                        {{token.token_name}}
+                        <span class="badge badge-pill badge-warning">
+                          500
+                        </span>
+                      </a>
+                    </h4>
+                  </div>
+                  <div [attr.id]="'token' + i" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                      <div class="panel-group" id="accordion2" *ngFor="let token of reportArr[i].offerings; let j = index">
+                        <div class="panel panel-default">
+                          <div class="panel-heading">
+                            <h4 class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion2" [attr.href]="'#token' + j + i">
+                                Offering {{j + 1}}
+                                <span class="badge badge-pill badge-warning">
+                                  300
+                                </span>
+                              </a>
+                            </h4>
+                          </div>
+                          <div [attr.id]="'token' + j + i" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                              <table class="table">
+                                <thead>
+                                  <th>Offering Code</th>
+                                  <th>Offering start date</th>
+                                  <th>Nr of tokens initially</th>
+                                  <th>Nr of tokens left</th>
+                                  <th>{{'ticker' | translate}}</th>
+                                  <th>{{'usd-remaining' | translate}}</th>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>{{token.offering_order_id}}</td>
+                                    <td>{{token.start_date}}</td>
+                                    <td>{{token.id}}</td>
+                                    <td>{{token.id}}</td>
+                                    <td>{{token.id}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="panel-group" id="accordion2" *ngIf="!reportArr[0].offerings">
+                        No offerings found
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-in-footer></app-in-footer>
+  </div>
+</div>

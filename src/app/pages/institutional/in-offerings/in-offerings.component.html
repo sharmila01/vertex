@@ -1,0 +1,321 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="2"></app-in-sidebar>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <app-in-header [headerName]="'Offerings'"></app-in-header>
+      <!-- End Navbar -->
+      <div class="content contentChange">
+        <div class="container-fluid  pt-4">
+          <div class="row justify-content-end m-0 px-3">
+            <button class="btn btn-green mb20 " type="button" [routerLink]="['/institutional/add-offering', 'add']" >{{'add_offering' | translate}}</button>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card my-3">
+                <div class="card-header card-header-primary offHeader p4">
+                    <div class="row align-items-center pl20">
+                        <div class="col-md-8 ">
+                            <h4 class="card-title font-weight-bold inrtl-title">{{'offering-list' | translate}}</h4>
+                        </div>
+                        <div class="col-md-4 rtl-text-left">
+                            <form class="navbar-form d-inline-flex ml-md-auto" autocomplete="off" novalidate>
+                                <div class="input-group no-border">
+                                    <input type="text" class="form-control text-white" placeholder="Search" [(ngModel)]="filter.search" name="search" maxlength="50" (keyup)="!filter.search ? onSearch() :  '' ">
+                                    <button type="submit" class="btn btn-white btn-round btn-just-icon pStatic" (click)="filter.search ? onSearch(): ''" >
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  
+                  <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered tableWidth800">
+                      <thead class=" text-primary border-top">
+                        <th>{{'offeringid' | translate}}</th>
+                        <th>{{'token' | translate}}</th>
+                        <th>{{'startdate' | translate}}</th>
+                        <th>{{'available-for-sale' | translate}}</th>
+                        <th>{{'initial_amount_token' | translate}}</th>
+                        <th>{{'price' | translate}}</th>
+                        <th>{{'isapproved'| translate}}</th>
+                        <th>{{'islive' |  translate}}</th>
+                        <th>{{'status' | translate}}</th>
+                        <th class="text-center">{{'pay-fund' | translate}}</th>
+                        <th class="text-center">{{'pending-orders' | translate}}</th>
+                        <th class="text-center minW85">{{'action' | translate}}</th>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of offeringArr | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total, id: 'offering' } " >
+                          <td>{{item?.offering_order_id}}</td>
+                          <td>{{item?.token_name}}</td>
+                          <td class="no-wrap">{{item?.start_date | date : 'MMM. dd yyyy'}}</td>
+                          <td class="no-wrap">{{item?.token_for_sale | separator: 5 }}</td>
+                          <td>{{item?.initial_supply ? (item?.initial_supply | separator: 5) : '0'}}</td>
+                          <td *ngIf="item.offer_type != 'Floating'"> <i class="fa fa-edit" (click)="editPriceModal(item)"></i> {{item?.token_price | separator:7 }} 
+                            <!-- {{item?.symbol_name}} -->
+                            <span *ngIf="item.payment_type == 1"> {{item?.symbol_name}} </span>
+                            <span *ngIf="item.payment_type == 2"> {{item.accepting_currency}} </span>
+                          </td>
+                          <td *ngIf="item.offer_type == 'Floating'"><i class="fa fa-edit" (click)="editPriceModal(item)"></i> {{item?.third_market_percent}}%</td>
+                          <!-- <td *ngIf="item.offer_type != 'Floating'">  {{item?.token_price | separator:7 }} {{item?.symbol_name}}</td>
+                          <td *ngIf="item.offer_type == 'Floating'"> {{item?.third_market_percent}}%</td> -->
+                          <td>{{item?.is_approved ? 'Yes' : 'No' }}</td>
+                          <td class="text-success" *ngIf="item?.is_live">Yes</td>
+                          <td class="text-danger" *ngIf="!item?.is_live">No</td>
+                          <td *ngIf="item?.is_closed">{{'Closed'}}</td>
+                          <td *ngIf="item?.soft_close">{{'Temporarily Closed'}}</td>
+                          <td  *ngIf="(!item?.soft_close&&!item?.is_closed) && item?.is_cancel">{{item?.is_pending_cancellation ? 'Pending Cancellation' : 'Cancelled'}}</td>
+                          <td *ngIf="(!item?.soft_close&&!item?.is_closed) && (!item?.is_cancel)" >{{item?.is_live ? 'Active' : 'Pay Funds'}}</td>
+                          
+                          <td class="text-center">
+                            <button class="btn btn-link btn-sm btn-primary" (click)="payFund(item) " ><i class="fa fa-credit-card custom"></i></button>
+                          </td>
+                          <td class="text-center">
+                            <button class="btn btn-link btn-sm btn-primary" (click)="openPendingOrderModal(1, item)" ><i class="fab fa-first-order"></i></button>
+                          </td>
+                          <td class="text-center">
+                              <button class="btn btn-link btn-sm btn-default" [routerLink]="['/institutional/view-offering', item.id]"><i class="fa fa-eye"></i></button>
+                              <button class="btn btn-link btn-sm btn-danger"  (click)="deleteModal(item.id)" ><i class="fa fa-times"></i></button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="!offeringArr.length">
+                          <td colspan="12" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tbl_footer">
+                      <div class="row align-items-center flex-wrap flR">
+                          <div class="text-md-right" *ngIf="paginationData?.total > paginationData?.limit" >
+                              <pagination-controls (pageChange)="changePage($event)" id="offering"></pagination-controls>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- <footer class="footer">
+        <div class="container-fluid">
+            <div class="copyright text-left">
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, Anzen
+            </div>
+        </div>
+    </footer> -->
+    <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteDsa">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">{{'btn-logout' | translate}}</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+      
+          <!-- Modal body -->
+          <div class="modal-body text-center">
+             {{'confirm-message-logout' | translate}}
+          </div>
+      
+          <!-- Modal footer -->
+          <div class="modal-footer btn-group justify-content-between">
+              <button type="button" class="btn btn-primary flex-fill" data-dismiss="modal">{{'no' | translate}}</button>
+              <a href="./login.html" class="btn btn-warning flex-fill">{{'yes' | translate}}</a>
+          </div>
+      
+          </div>
+      </div>
+  </div>
+  <div class="modal fade global-modal reset-modal" id="delete_offering_inst">
+        <div class="modal-dialog max-WT-500">
+          <form class="pin_code_form">
+            <div class="modal-content">
+              <!--<div class="modal-header ">
+                           <h4 class="modal-title text-center">Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div> -->
+              <div class="modal-body">
+                <div class="row align-items-center minHeight180">
+                  <div class="col">
+                    <!-- <form class="common-form" autocomplete="off"> -->
+                      <div class="head_box2 text-center mb15">
+                        <!-- <h4>{{'delete-offering-confirm' | translate}}</h4> -->
+                        <h4>{{'cancel_offering_sure' | translate}} </h4>
+                        <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                      </div>
+                    
+                      <div class="modalActionBtn text-center">
+                        <button type="button" class="btn btn-gray max-WT-150"  data-dismiss="modal" >{{'no' | translate}}</button>
+                        <button type="button" class="btn btn-orange max-WT-150" (click)="onDelete()" >{{'yes' | translate}}</button>
+                      </div>
+                    <!-- </form> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="qr_offering_modal">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+          <div class="padd10">
+              <button type="button" class="close padd5" (click)="updateFund(currModalData)" >&times;</button>
+          </div>
+        <div class="modal-body">
+          <div class="row align-items-center minh400 ">
+            <div class="col modalAbs top-0">
+              <form class="common-form" >
+                <div class="head_box2 text-center">
+                  <h4>{{'offering-added' | translate}}</h4>
+                  <!-- <p>Please send {{currModalData.ticker == 'ETH' ? currModalData?.eth : currModalData?.btc_pay}} {{currModalData?.ticker}} and {{currModalData?.token}} {{currModalData?.token_name}} token to this  address to make your offering live.</p> -->
+                  <p>Please send <span class="font-bold">{{currModalData?.token}} {{currModalData?.token_ticker}}</span> token to this  address to make your offering live.</p>
+                </div>
+                <div class="mt40">
+                  <div class="qr-code-box">
+                    <qrcode [qrdata]="currModalData.qr" [size]="256" [level]="'M'"></qrcode>
+                  </div>
+                </div>
+                <div class="text-center mb10 mt10">
+                    <p class="font-bold addressFont">{{currModalData?.qr}} <span class="makeLink"  (click)="copyToClipboard(currModalData?.qr)"><i class="fa fa-clipboard copyFont"></i></span></p> 
+                    <p class="font-bold color-red" >{{'note_single_transaction' | translate}}</p>
+                    <!-- <p class="font-bold color-red" *ngIf="currModalData.ticker == 'ETH'">{{'note' | translate}}</p> -->
+                    <!-- <p class="font-bold color-red" *ngIf="currModalData.ticker == 'BTC'">{{'Note: Issue a single transaction.'}}</p> -->
+                </div>
+                <div class="action-btn text-center  mb10">
+                  <button type="button" class="btn btn-orange max-WT-150" (click)="updateFund(currModalData)">{{'ok' | translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Modal End -->
+
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="pending_order_modal">
+  <div class="modal-dialog pendingModalHeight">
+    <form class="pin_code_form">
+      <div class="modal-content">
+          <div class="padd10">
+              <h4 class="modal-title text-center">Pending Order List</h4>
+              <button type="button" class="close crossIcon" data-dismiss="modal" >&times;</button>
+          </div>
+        <div class="modal-body">
+          <div class="row align-items-center minh400 ">
+            <div class="col modalAbs top-0">
+              <div class="table-responsive">
+                <table class="table table-bordered tableWidth800">
+                  <thead class=" text-primary border-top">
+                    <th>{{'date' | translate}}</th>
+                    <th>{{'Order Id'}}</th>
+                    <th>{{'Token Name'}}</th>
+                    <th>{{'status' | translate}}</th>
+                    <th>{{'Token Buy'}}</th>
+                    <th>{{'Token Price'}}</th>
+                    <th>{{'email'| translate}}</th>
+                  </thead>
+                  <tbody >
+                    <tr *ngFor="let item of pendingOrderData.data | paginate: { itemsPerPage: pendingOrderData?.paginationData?.limit, currentPage: pendingOrderData?.paginationData?.page, totalItems: pendingOrderData?.paginationData?.total, id: 'pendingorder' } ">
+                      <td>{{item?.order_created_at | date: 'MM/dd/yyyy hh:mm a'}}</td>
+                      <td>{{item?.order_id}}</td>
+                      <td>{{item?.token_name || '- - -'}}</td>
+                      <td>{{item?.transaction_status}}</td>
+                      <td>{{item?.buy_token || '- - -'}}</td>
+                      <td>{{item?.token_price}}</td>
+                      <td>{{item?.email}}</td>
+                    </tr>
+                    <tr *ngIf="!pendingOrderData.data.length">
+                      <td colspan="7" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                    </tr> 
+                  </tbody>
+                </table>
+              </div>
+              <div class="tbl_footer">
+                <div class="row align-items-center flex-wrap flR">
+                    <div class="text-md-right" *ngIf="pendingOrderData?.paginationData?.total > pendingOrderData?.paginationData?.limit" >
+                        <pagination-controls (pageChange)="changeModalPage($event)" id="pendingorder"></pagination-controls>
+                    </div> 
+                </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Modal End -->
+
+<!-- Price Change Modal -->
+<div class="modal fade global-modal reset-modal" id="offering_price_change">
+  <div class="modal-dialog max-WT-430">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <!--<div class="modal-header ">
+                     <h4 class="modal-title text-center">Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div> -->
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height270">
+            <div class="col">
+              <form class="common-form" autocomplete="off" [formGroup]="priceForm">
+                <div class="head_box2 text-center mb10">
+                  <h4 *ngIf="currEditData?.offer_type != 'Floating'">{{'price_per_token'| translate}}</h4>
+                  <h4 *ngIf="currEditData?.offer_type == 'Floating'">{{'distance_to_spot' | translate}}</h4>
+                  <!-- <p>{{'Enter price'}}</p> -->
+                </div>
+                <div class="form-group mb20 price-div" *ngIf="currEditData?.offer_type != 'Floating'">
+                    <input class="form-control no_arrow text-center" type="text"  placeholder="Price" [formControl]="priceForm.controls['price']" (keyup)="priceForm.controls['price'].valid ? priceVal.next(priceForm.controls['price'].value) : ''" />
+                    <div class="error-msg" *ngIf="priceForm.dirty && priceForm.invalid">
+                      <span *ngIf="priceForm.controls['price'].hasError('required')">*Please enter price.</span>
+                      <span *ngIf="priceForm.controls['price'].hasError('pattern')">*Please enter valid price.</span>
+                    </div>
+                    <div class="text-center pt10" *ngIf="priceUSDVal">
+                      <span class="text-success makeHover" >{{priceUSDVal}} USD</span>
+                  </div>
+                </div>
+                <div class="form-group mb20 text-center mt-50" *ngIf="currEditData?.offer_type == 'Floating'">
+                  <input type="range" class="input_range" [formControl]="priceForm.controls['thirdPrice']" min="-30" max="30" (input)="thirdPriceVal.next(priceForm.controls['thirdPrice'].value);" >
+                  <output class="outputVal">{{priceForm.controls['thirdPrice'].value}}%</output>
+                  <div class="text-center pt10" *ngIf="priceUSDVal">
+                    <span class="text-success makeHover" >{{priceUSDVal}} USD</span>
+                  </div>
+                </div>
+                <div class="action-btn text-center">
+                  <button type="button" class="btn btn-gray max-WT-120" data-dismiss="modal" >{{'cancel' | translate}}</button>
+                  <button type="button" class="btn btn-orange max-WT-120 ml-30" (click)="changePrice()" *ngIf="currEditData?.offer_type == 'Floating'" >{{'submit' | translate}}</button>
+                  <button type="button" class="btn btn-orange max-WT-120 ml-30" (click)="changePrice()" [disabled]="priceForm.invalid"  *ngIf="currEditData?.offer_type != 'Floating'">{{'submit' | translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- End Price Change Modal -->

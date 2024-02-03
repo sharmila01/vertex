@@ -1,0 +1,42 @@
+<app-loading *ngIf="isLoading">
+</app-loading>
+<main class="main-container">
+  <section class="static_page_section common_section">
+    <div class="container-1280">
+      <div class="head_box2 mb20">
+        <h4 style="text-align: center;">{{'whitepaper'| translate}}</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-6 m-auto">
+          <div class="dist_box shadow_border">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">{{'downloads' | translate}}</th>
+                  <th scope="col">{{'links' | translate}}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{'whitepaper'| translate}}</td>
+                  <td>
+                    <a href="{{whitepaper[0]?.whitepaper}}">link</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>{{'twopager'| translate}}</td>
+                  <td>
+                    <a href="{{whitepaper[0]?.two_pager}}">link</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </section>
+</main>
+<!------------------------------------End About Us Section---------------------------------------------->

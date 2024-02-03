@@ -1,0 +1,371 @@
+.rtl {
+    direction: rtl
+}
+
+/*--------------------------------- header for rtl ----------------------------------------------------*/
+.rtl .btn.btn-header + .btn.btn-header {
+    margin-left: 0;
+    margin-right: 10px;
+}
+.rtl .notify-bell {
+    margin-left: 0;
+}
+.rtl .flags.active-flag, .flags {
+    float: right;
+}
+
+/*----------------------------------end header for rtl -------------------------------------------------*/ 
+
+/*--------------------------------------- home page for rtl-------------------------------------------- */
+.rtl .ng-select .ng-select-container .ng-value-container .ng-placeholder {
+    padding-right: 20px;
+}
+  
+.rtl .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    left: 30px;
+}
+.rtl #snackbar {
+    right: 0;
+    left: unset;
+    margin-right: 55px;
+}
+.rtl .card_box .rtl-right-homebtn {
+    float: right;
+}
+.rtl .home-whitebtn {
+    text-align: left;
+  }
+
+.rtl .special-offer {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: right top 0;
+    transform-origin: right top 0;
+    margin-left: 0;
+    margin-right: -17px;
+    margin-top: 83px;
+}
+.rtl .specialoff-true {
+    margin-left: 0;    
+    margin-right: 80px;
+}
+.rtl .specOff {
+    text-align: right;
+}
+.rtl .offerNos {
+    text-align: left;
+}
+.rtl .symbol-group {
+    margin-left: 0;
+    float: left;
+}
+.rtl .sales_start_time {
+    float: right;
+}
+.rtl .price-range {
+    margin-right: 0;
+}
+
+.rtl .btnbuy,.rtl .btnsell {
+    right: unset;
+    left: 20px;
+}
+.rtl .footer-inner .socialList {
+    text-align: left;
+    margin-top: 10px;
+}
+.rtl .socialUL {
+    margin-right: 0;
+    /* margin-left: -120px; */
+}
+
+/*---------------------------------end home page for rtl---------------------------------------------- */
+
+/*--------------------------------------token sale page-------------------------------------------- */
+.rtl .offer-pagination {
+    float: left !important;
+}
+/*-----------------------------end token sal page--------------------------------------------- */
+
+/*-----------------------------------aboutus page for rtl----------------------------------------- */
+.rtl .panel-heading .panel-title .aboutus-collapse-title {
+    float: right;
+  }
+.rtl .panel-heading .panel-title .aboutus-collapse-icon {
+    float: left;
+  }
+.rtl .panel-group .panel .aboutus-panel-content {
+    text-align: right
+  }
+/*----------------------------------------------- end of aboutus--------------------------------- */
+
+/*-----------------------transaction history page---------------------------------------------------------- */
+.rtl .rtl-trans-title {
+    text-align: right
+}
+
+/*----------------------------------------------- end of transaction history--------------------------------- */
+
+/*-------------------------------------------token detail page--------------------------------------- */
+.rtl .market_rate_div {
+    float: left;
+}
+.rtl .market_icon {
+    float: right;
+}
+.rtl .mglft {
+    float: left;
+}
+.rtl .rtl-detail-head {
+    text-align: right
+}
+.rtl .rtl-token{
+    margin-right: 15px;
+}
+.rtl .table td,.rtl .table th {
+    text-align: right
+  }
+.rtl .detail-left-col{
+    float: right;
+    text-align: right;
+}
+.rtl .detail-right-col {
+    float: left;
+    text-align: right;
+} 
+.rtl .rating_box {
+    text-align: right;
+}
+.rtl .rtl-detail-describe {
+    text-align: right;
+}
+.rtl .what-token-do {
+    text-align: right;
+}
+.rtl .galleries {
+    text-align: right;
+}
+.rtl .comments-title {
+    text-align: right
+  }
+.rtl .text-count {
+    float: right;
+    margin-bottom: 5px;
+}
+.rtl .comment-sendbtn {
+    float: right;
+}
+.rtl .author {
+    float: right;
+}
+.rtl .comment-actions {
+    float: left;
+}
+.rtl .bottom-comment {
+    text-align: right;
+}
+.rtl .comment-actions li.reply {
+    padding-right: 0.5rem;
+  }
+.rtl .comment-text {
+    text-align: right
+  }
+  
+.rtl  .comment-time {
+    float: left;
+  }
+.rtl .comment-pagination {
+    float: left;
+  }
+.rtl .detail-table-pagin {
+    float: right;
+}
+.rtl .news-list {
+    text-align: right
+}
+.rtl .center {
+    text-align: center
+}
+.rtl .news-item .meta .time{
+    text-align:left;
+  }
+.rtl .icon {
+    margin-right: 0;
+    margin-left: 5px;
+}
+.rtl .buyTokenCancelbtn {
+    float: right;
+  }
+.rtl  .buyTokenOkbtn {
+    float: left;
+  }
+.rtl .modal-header .close {
+    margin: -1rem auto -1rem -1rem;
+}
+.rtl .modal-body {
+    text-align: right;
+}
+.rtl .page-item:first-child .page-link {
+    margin-left: 6px;
+}
+/*----------------------------------- end detail ----------------------------------------------*/
+
+/* -------------------------------------login page------------------------------------------- */
+.rtl .rtl-text-right {
+    text-align: right;
+}
+.rtl .rtl-text-left {
+    text-align: left;
+}
+.rtl .rtl_f_left {
+    float: left;
+}
+.rtl .rtl_f_right {
+    float: right;
+}
+.rtl .f-right {
+    float: left;
+}
+/*-------------------------------------------- end login---------------------------------------- */
+
+/*----------------------------------- normal user profile ------------------------------------------*/
+.rtl .tabordion section article {
+    left: 34px;
+    text-align: right
+}
+.rtl .global_box1 {
+    text-align: right
+}
+.rtl .head_box2 h4.media-level {
+    text-align: left
+}
+.rtl .calendar-icon {
+    padding-right: 30px;
+}
+.rtl .ngxmdp .selector {
+    top: 49px !important;
+    left: 119px !important;
+}
+.rtl .ngxmdp .selectorarrowleft:after,.rtl .ngxmdp .selectorarrowleft:before {
+    left: 233px;
+}
+/*----------------------------- end of normal user profile -----------------------------------------*/
+
+/*---------------------------------------------- news page ------------------------------------------*/
+.rtl .lib-panel {
+    text-align: right
+  }
+.rtl .less,.rtl .more{
+    float: left;
+  }
+/*------------------------------------- end of news page ---------------------------------------------*/
+
+/*------------------------------------- buytoken page -------------------------------------*/
+.rtl .global_box {
+    text-align: right
+}
+.rtl .uploadFileDiv {
+    right: unset;
+    left: -23px;
+}
+.rtl .lefttime-grp {
+    float: left;
+}
+/*------------------------------------- end of buytoken page -------------------------------------*/
+
+/* ---------------------------------------------mobile----------------------------------------- */
+@media(max-width: 767px) {
+    /* ----------------------header */
+    .rtl .flags.active-flag {
+        float: unset;
+    }
+    .rtl .flags {
+        float: right;
+    }   
+    .rtl .btn.btn-header + .btn.btn-header {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    /*----------------------- app */
+    .rtl .btnbuy-round,.rtl .btnsell-round {
+        right: unset;
+        left: 10px;
+    }
+    .rtl #snackbar {
+        left: unset;
+        right: 0;
+    }
+
+    .rtl .offer-pagination {
+        float: right !important;
+    }
+
+    /*------------------------------ profile */
+    .rtl .tabordion section article {
+        left: 215px;
+        text-align: right
+    }
+    .rtl .tabordion input[name="sections"]:checked + label, .rtl .label1 {
+        margin-right: -27px;
+    }
+    .rtl .ngxmdp .selector {
+        left: -9px !important;
+    }
+    /* ---------------------------------buytoken */
+    .rtl .lefttime-grp {
+        float: right;
+      }
+    .rtl .mglft {
+        float: right;
+      }
+    .rtl .token_img img {
+        margin-right: 0 !important;
+       }
+}
+
+/*--------------------------------------------- end of mobile ------------------------------------------*/
+
+/*---------------------------------------------- iPad  -----------------------------------------------------*/
+@media only screen and (min-device-width: 768px)  and (max-device-width: 1024px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+    .rtl #snackbar {
+        left: unset;
+        bottom: 495px;
+    }
+    .rtl .tabordion section article {
+        left: -21px;
+    }
+    .rtl .label1 {
+        width: 245px;
+        margin-right: -198px;
+    }
+    .rtl .tabordion input[name="sections"]:checked + label {
+        width: 245px;
+    }
+
+    .rtl .ngxmdp .selector {
+        left: 59px !important;
+    }
+}
+ /*------------------------------------------- end ipad ------------------------------------------------------*/
+
+/*------------------------------------------------- ipad pro------------------------------------- */
+@media (max-width: 1280px) and (min-width: 800px) {
+    .rtl .global_box1 {
+        margin-right: -77px;
+    }    
+}
+/*----------------------------------------------------- end of ipad pro -------------------------------------------*/
+
+ /* ------------------------------------ iPhone 6+, 7+ and 8+ ------------------------------------------------ */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) 
+and (-webkit-min-device-pixel-ratio: 3) { 
+    .rtl .global_box1 {
+        margin-right: -38px;
+    }
+
+    .rtl .ngxmdp .selector {
+        left: 29px !important;
+    }
+}
+/* ------------------------------------end of iPhone 6+, 7+ and 8+ ------------------------------------------------ */

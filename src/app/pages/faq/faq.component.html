@@ -1,0 +1,30 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container">
+  <section class="static_page_section common_section">
+    <div class="container-1280">
+      <div class="head_box2 mb20">
+        <h4>{{'frequentlyquestion' | translate}} </h4>
+      </div>
+      <!-- Accordian Box Start -->
+      <div id="accordion" class="global-accordian2">
+        <!-- Card Start -->
+        <div class="card" *ngFor="let item of faqArr; index as i">
+          <div class="card-header" id="{{i}}">
+            <button class="btn btn-link" data-toggle="collapse" attr.data-target="#collapseOne{{i}}" aria-expanded="false" attr.aria-controls="collapseOne{{i}}">
+              {{item?.question}}
+            </button>
+            <span class="qno">Q.{{i + 1}}</span>
+          </div>
+          <div id="collapseOne{{i}}" class="collapse" attr.aria-labelledby="{{i}}" data-parent="#accordion">
+            <div class="card-body">
+              <h5 class="ans">{{'answer' | translate}}</h5>{{item?.answer}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Accordian Box End -->
+    </div>
+  </section>
+</main>
+<!-- main End -->

@@ -1,0 +1,442 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="2"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Add Offering'" *ngIf="currId == 'add'"></app-in-header>
+        <app-in-header [headerName]="'Edit Offering'" *ngIf="currId != 'add'"></app-in-header>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary offHeader">
+                        <h4 class="card-title font-weight-bold">{{currId == 'add' ? ('add_offering' | translate): ('edit_offering' | translate)}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box" novalidate autocomplete="off" [formGroup]="addOfferingForm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Token Name for which you want to create offering" placement="left" tooltip-class="addOffTooltip"
+                                            theme="light">{{'token' | translate}}
+                                        </label>
+
+                                        <ng-select class="inNgSelect margtop" [items]="projectList" bindLabel="token_name" bindValue="id" placeholder="Select Token"
+                                            [formControl]="form.project" (change)="onChangeToken()">
+                                            <ng-template ng-label-tmp let-item="item">
+                                                <div>
+                                                    <span class="ng-value-label">{{item.token_name}}</span>
+                                                </div>
+                                            </ng-template>
+
+                                            <ng-template ng-option-tmp let-item="item">
+                                                <div class="selected_option" (click)="getSelectedToken(item)">
+                                                    <div class="row-img">
+                                                        {{item.token_name}}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </ng-select>
+                                        <div class="errMsg " *ngIf="form.project.dirty && form.project.invalid">
+                                            <span *ngIf="form.project.hasError('required')">{{'selectproject' | translate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 col-lg-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Payment Types for Offering" placement="left" theme="light" tooltip-class="addOffTooltip">Payment Type </label>
+                                        <ng-select [items]="paymentTypes" bindLabel="payment_type_name" [formControl]="form.paymentType" placeholder="Select Payment Types"
+                                            style="width: 66%;">
+
+                                            <ng-template ng-label-tmp let-item="item">
+                                                <div>
+                                                    <span class="ng-value-label">{{item.payment_type_name}}</span>
+                                                </div>
+                                            </ng-template>
+
+                                            <ng-template ng-option-tmp let-item="item">
+                                                <div class="selected_option" (click)="getSelectedPaymentTypes(item)">
+                                                    <div class="row-img">
+                                                        {{item.payment_type_name}}
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </ng-select>
+                                        <div class="errMsg" *ngIf="form.symbol.dirty && form.symbol.invalid">
+                                            <span *ngIf="form.symbol.hasError('required')">{{'select-symbol-validation' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup display-property">
+                                        <label class="control-label" tooltip="Payment Currency for Offering" placement="left" theme="light" tooltip-class="addOffTooltip">{{'payment-currency' | translate}} </label>
+                                        <div *ngIf="isShowPayment">
+                                            <ng-select class="inNgSelect margtop" [items]="symbolArr" bindLabel="platform_currency_symbol" bindValue="id" placeholder="Select Payment Currency"
+                                                [formControl]="form.symbol" (change)="symbolChange()">
+                                            </ng-select>
+                                        </div>
+                                        <div *ngIf="!isShowPayment">
+                                            <ng-select class="inNgSelect margtop" [items]="symbolArr" bindLabel="currency_name" bindValue="id" placeholder="Select Payment Currency"
+                                                [formControl]="form.symbol">
+                                                <ng-template ng-label-tmp let-item="item">
+                                                    <div>
+                                                        <span class="ng-value-label">{{item.currency_name}}</span>
+                                                    </div>
+                                                </ng-template>
+
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    <div class="selected_option" (click)="getSelectedCurrency(item)">
+                                                        <div class="row-img">
+                                                            {{item.currency_name}}
+                                                        </div>
+                                                    </div>
+                                                </ng-template>
+                                            </ng-select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label " tooltip="Select Offer Type" placement="left" theme="light" tooltip-class="addOffTooltip">{{'offer_type' | translate}}</label>
+                                        <div class="form-check">
+                                            <form>
+                                                <label class="checkbox-inline mybox">
+                                                <input type="radio" value="fixed" [formControl]="form.offerType" (click)="changeOfferType()"> <span tooltip="Price is entered manually and remains stable" placement="top" theme="light" tooltip-class="addOffTooltip">{{'fixed' | translate}}</span>
+                                                </label>
+                                                <label class="checkbox-inline mybox" *ngIf="currencyCheck?.project_ticker && currencyCheck?.currency_ticker">
+                                                <input type="radio" value="floating" [formControl]="form.offerType" (click)="changeOfferType()"><span tooltip="Price is linked to market price, premium or discount can be added" placement="top" theme="light" tooltip-class="addOffTooltip">{{'floating'|translate}}</span>
+                                                </label>
+                                                <label class="checkbox-inline mybox" *ngIf="currencyCheck?.project_ticker">
+                                                <input type="radio" value="linkedToken" [formControl]="form.offerType" (click)="changeOfferType()"><span tooltip="Token to be sold is linked to performance on exchanges and value adjusted in the offering" placement="top" theme="light" tooltip-class="addOffTooltip">{{'linked_token' | translate}}</span>
+                                                </label>
+                                                <label class="checkbox-inline mybox" *ngIf="currencyCheck?.currency_ticker">
+                                                    <input type="radio" value="linkedCurrency" [formControl]="form.offerType" (click)="changeOfferType()"><span tooltip="Currency is linked to performance on exchanges and value adjusted in the offering" placement="top" theme="light" tooltip-class="addOffTooltip">{{'linked_currency'|translate}}</span>
+                                                    </label>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- Added-->
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label " tooltip="Select Offer Type" placement="left" theme="light" tooltip-class="addOffTooltip">{{'offer_type' | translate}}</label>
+                                        <div class="form-check mt-0 mL10">
+                                            <div class="row">
+                                                <!-- <div class="col-md-3" *ngFor="let type of offers" (click)="onSelect(type)"
+                                                    [class.selected]="type === selectedOfferType">
+                                                        <div class="offerBox" [style.background-color]="getStyle(type)">
+                                                             <p class="offer" [style.color]="getStyleColor(type)">{{type.name}}</p>   
+                                                        </div>
+                                                    </div> -->
+                                                <div class="col-md-3 makeHover" tooltip="Price is entered manually and remains stable" placement="top" theme="light" tooltip-class="addOffTooltip">
+                                                    <div class="offerBox" [ngClass]="{'backGreen' : form.offerType.value=='fixed' }" (click)="changeOfferType('fixed')">
+                                                        <p class="offer" [style.color]="getStyleColor('fixed')">{{'fixed'| translate}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 makeHover" tooltip="Price moves with the exchange rate of token and currency. You can choose how many percentage points above or below market rate you want to sell"
+                                                    placement="top" theme="light" tooltip-class="addOffTooltip">
+                                                    <div class="offerBox" [ngClass]="{'backGreen' : form.offerType.value=='floating', 'disabledOffer': !(currencyCheck?.project_ticker && currencyCheck?.currency_ticker)}"
+                                                        (click)="changeOfferType('floating')">
+                                                        <p class="offer" [style.color]="getStyleColor('floating')">{{'floating'| translate}}</p>
+                                                    </div>
+                                                </div>
+                                                <span *ngIf="isShowPay">
+                                                    <div class="col-md-3 makeHover" tooltip="Token to be sold is linked to performance on exchanges and value adjusted in the offering"
+                                                        placement="top" theme="light" tooltip-class="addOffTooltip">
+                                                        <div class="offerBox" [ngClass]="{'backGreen' : form.offerType.value=='linkedToken', 'disabledOffer': !currencyCheck?.project_ticker }"
+                                                            (click)="changeOfferType('linkedToken')">
+                                                            <p class="offer" [style.color]="getStyleColor('linkedToken')">{{'linked_token' | translate}}</p>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                                <span *ngIf="isShowPays">
+                                                    <div class="col-md-3 makeHover" tooltip="Token to be sold is linked to performance on exchanges and value adjusted in the offering"
+                                                        placement="top" theme="light" tooltip-class="addOffTooltip">
+                                                        <div class="offerBox" [ngClass]="{'backGreen' : form.offerType.value=='linkedToken',  'enabledOffer': currencyCheck?.currency_ticker }"
+                                                            (click)="changeOfferType('linkedToken')">
+                                                            <p class="offer" [style.color]="getStyleColor('linkedToken')">{{'linked_token' | translate}}</p>
+                                                        </div>
+                                                    </div>
+                                                </span>
+
+
+                                                <div class="col-md-3 makeHover" tooltip="Currency is linked to performance on exchanges and value adjusted in the offering"
+                                                    placement="top" theme="light" tooltip-class="addOffTooltip">
+                                                    <div class="offerBox" [ngClass]="{'backGreen' : form.offerType.value=='linkedCurrency', 'disabledOffer': !currencyCheck?.currency_ticker}"
+                                                        (click)="changeOfferType('linkedCurrency')">
+                                                        <p class="offer" [style.color]="getStyleColor('linkedCurrency')">{{'linked_currency' | translate}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Added-->
+                                <div class="col-md-12" *ngIf="form.offerType.value == 'fixed' || form.offerType.value == 'linkedToken' ||  form.offerType.value == 'linkedCurrency'">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Enter price per token as third market is disable" placement="left" theme="light" tooltip-class="addOffTooltip">{{'price_per_token' | translate}} </label>
+                                        <input type="text" class="form-control" placeholder="Price" maxlength="15" [formControl]="form.price" (keyup)="form.price.valid ? priceVal.next(form.price.value) : ''">
+                                        <div class="errMsg" *ngIf="form.price.dirty && form.price.invalid">
+                                            <span *ngIf="form.price.hasError('required')">{{'enter-price' | translate}}</span>
+                                            <span *ngIf="form.price.hasError('pattern')">{{'enter-valid-price' | translate}}
+                                            </span>
+                                        </div>
+                                        <div class="myAddressClass  ml200" *ngIf="priceUSDVal">
+                                            <span class="text-success makeHover">{{priceUSDVal}} USD</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="form.offerType.value == 'floating'">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Use slider to select % discount at price as third market is enable" placement="left"
+                                            theme="light" tooltip-class="addOffTooltip">{{'distance_to_spot' | translate }} </label>
+                                        <input id="idsad" type="range" class="input_range" (input)="onChangeRange();thirdPriceVal.next(form.thirdPrice.value);" [formControl]="form.thirdPrice"
+                                            min="-30" max="30">
+                                        <output class="outputVal">{{form.thirdPrice.value}}%</output>
+                                        <!-- <span id="val"></span>
+                                        <input id="slide" type="range" min="0" max="30" [formControl]="form.price"  (input)="displayValue($event)" /> -->
+                                    </div>
+                                    <div class="myAddressClass  ml200" *ngIf="priceUSDVal">
+                                        <span class="text-success makeHover">{{priceUSDVal}} USD</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Start Date of Offering" placement="left" theme="light" tooltip-class="addOffTooltip">{{'startdate' | translate}}</label>
+                                        <input type="text" class="form-control calendarReadCss" style="float:none" placeholder="Select a date" ngx-mydatepicker [formControl]="form.startDate"
+                                            [options]="startDateOptions" #dp1="ngx-mydatepicker" (click)="dp1.toggleCalendar()"
+                                            (inputFieldChanged)="onStartDateChanged($event)" readonly="true">
+                                        <div class="dateIcon">
+                                            <span class="input-group-text material-icons p-0 " (click)="dp1.toggleCalendar()">{{'daterange' | translate}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="!form.infiniteEnd.value">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="End Date of Offering" placement="left" theme="light" tooltip-class="addOffTooltip">{{'enddate' | translate}}</label>
+                                        <input type="text" class="form-control calendarReadCss" style="float:none" placeholder="Select a date" ngx-mydatepicker [formControl]="form.endDate"
+                                            [options]="endDateOptions" #dp2="ngx-mydatepicker" (click)="dp2.toggleCalendar()"
+                                            (inputFieldChanged)="onStartDateChanged($event)" readonly="true">
+                                        <div class="dateIcon">
+                                            <span class="input-group-text material-icons p-0 " (click)="dp2.toggleCalendar()">{{'daterange' | translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="errMsg" *ngIf="dateError">{{'validation_msg_enddate' | translate}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label mtauto" tooltip="Click on the checkbox if you want to set end date to infinite" placement="left"
+                                            theme="light" tooltip-class="addOffTooltip">{{'uptoinfinite' | translate}}</label>
+                                        <div class="form-check mt-0 mL10">
+                                            <label class="form-check-label t-6">
+                                                <input class="form-check-input" type="checkbox" [formControl]="form.infiniteEnd" (change)="onInfiniteEnd()">
+
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label" tooltip="Quantity for Sale Tokens" placement="left" theme="light" tooltip-class="addOffTooltip">{{'quantity-for-sale' | translate}} </label>
+                                        <input type="text" class="form-control" placeholder="Quantity" maxlength="10" [formControl]="form.quantity">
+                                        <div class="errMsg" *ngIf="form.quantity.dirty && form.quantity.invalid">
+                                            <span *ngIf="form.quantity.hasError('required')">{{'enter_quantity' | translate}}
+                                            </span>
+                                            <span *ngIf="form.quantity.hasError('pattern')">{{'enter-valid-quantity' | translate}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="(currencyName != 'BTC' && currencyName != 'ETH' && currencyName != 'USD') ">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label mtauto" tooltip="Tokens received are not
+                                        forwarded and will be lost" placement="left" theme="light" tooltip-class="addOffTooltip">{{'token_burning' | translate}}</label>
+                                        <div class="form-check mt-0 mL10">
+                                            <label class="form-check-label t-6">
+                                                <input class="form-check-input" type="checkbox" [formControl]="form.tokenBurning" (change)="selectBurning()">
+
+                                                <span class="form-check-sign">
+                                                    <span class="check"></span>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12" *ngIf="!form.tokenBurning.value">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label d-grid" tooltip="Enter the address on which you want to receive the payment during token sale"
+                                            theme="light" placement="left" tooltip-class="addOffTooltip">{{'payout-address' | translate}}
+                                            <span *ngIf="selectedToken == 'Bitcoin'">{{'bitcoin_add' | translate}}</span>
+                                            <span *ngIf="selectedToken == 'Ethereum'">{{'ethereum_add' | translate}}
+                                            </span>
+                                        </label>
+                                        <input type="text" class="form-control" placeholder="Payout address" maxlength="100" [formControl]="form.hotAddress" />
+                                        <div class="errMsg" *ngIf="form.hotAddress.dirty && form.hotAddress.invalid">
+                                            <span *ngIf="form.hotAddress.hasError('required')">{{'enter-payout-address' | translate}}</span>
+                                            <span *ngIf="form.hotAddress.hasError('pattern')">{{'enter-valid-payoutaddress' | translate}}</span>
+                                        </div>
+                                        <div class="myAddressClass  ml200">
+                                            <span class="text-success makeHover" (click)="selectMyAddress(selectedToken)" (mouseenter)="mouseHovering()" (mouseleave)="mouseLeft()"
+                                                tooltip="Click on my address to select your address as payout address" theme="light"
+                                                placement="left" tooltip-class="addOffTooltip" *ngIf="selectedToken == 'Bitcoin' || selectedToken == 'Ethereum'">{{'my-address'| translate}}
+                                            </span>
+                                            <span style="word-break: break-all; margin-left: 10px;" *ngIf="mouseHover && selectedToken == 'Bitcoin'">{{profileData?.btc_address}}</span>
+                                            <span style="word-break: break-all;  margin-left: 10px;" *ngIf="mouseHover && selectedToken == 'Ethereum'">{{profileData?.eth_address}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-12 text-md-right">
+                                    <div class="form-group horizontalGroup ">
+                                        <label class="control-label"></label>
+                                        <div class="form-control text-left border0 padd0 formActionBtn">
+                                            <button type="submit" class="btn btn-vertex minWidth100" [disabled]="addOfferingForm.invalid || dateError" (click)="(addOfferingForm.invalid || dateError) ? '' : onAddOffering()">{{currId=='add' ? ('add' | translate) : ('update' | translate)}} </button>
+                                            <!-- <button type="submit" class="btn btn-vertex minWidth100" [disabled]="addOfferingForm.invalid || dateError || isSameSupply" (click)="(addOfferingForm.invalid || dateError || isSameSupply) ? '' : onAddOffering()" *ngIf="currId!='add'">UPDATE</button> -->
+                                            <button type="button" class="btn btn-default minWidth100" (click)="goBack()">{{'cancel' | translate}} </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+</div>
+
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="add_offering_modal1">
+    <div class="modal-dialog max-WT-500">
+        <form class="pin_code_form">
+            <div class="modal-content">
+                <div class="padd10">
+                    <!-- <h4 class="modal-title text-center">Heading</h4> -->
+                    <!-- <button type="button" class="close padd5" (click)="updateFund(currModalData)" >&times;</button> -->
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center minh400 ">
+                        <div class="col modalAbs top-0">
+                            <form class="common-form">
+                                <div class="head_box2 text-center">
+                                    <h4>{{'offering-added' | translate}}</h4>
+                                    <p>Please send {{currModalData.ticker == 'ETH' ? currModalData?.eth : currModalData?.btc_pay}}
+                                        {{currModalData?.ticker}} and {{currModalData?.token}} {{currModalData?.token_name}}
+                                        token to this address to make your offering live.</p>
+                                </div>
+                                <div class="mt40">
+                                    <div class="qr-code-box">
+                                        <!-- <img src="https://www.cognex.com/library/media/resources/symbologies/qrcode.jpg?h=300&w=447&la=en&hash=A5A3FD0478D5941A5B1838829B5E50F441C91C19" alt="images" /> -->
+                                        <qrcode [qrdata]="currModalData.qr" [size]="256" [level]="'M'"></qrcode>
+
+                                    </div>
+                                </div>
+                                <div class="text-center mb10 mt10">
+                                    <p class="font-bold addressFont">{{currModalData?.qr}}
+                                        <span class="makeLink" (click)="copyToClipboard(currModalData?.qr)">
+                                            <i class="fa fa-clipboard copyFont"></i>
+                                        </span>
+                                    </p>
+                                    <p class="font-bold color-red" *ngIf="currModalData.ticker == 'ETH'">{{'note' | translate}}
+                                    </p>
+                                    <p class="font-bold color-red" *ngIf="currModalData.ticker == 'BTC'">{{'Note: Issue a single transaction.'}}</p>
+                                </div>
+                                <!-- <div class="form-group mb20">
+                    
+                  </div> -->
+                                <div class="action-btn text-center  mb10">
+                                    <button type="button" class="btn btn-orange max-WT-150" (click)="closeModalAndBack()">{{'ok' | translate}}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="add_offering_modal">
+    <div class="modal-dialog max-WT-500">
+        <form class="pin_code_form">
+            <div class="modal-content">
+                <div class="padd10">
+                    <!-- <h4 class="modal-title text-center">Heading</h4> -->
+                    <!-- <button type="button" class="close padd5" (click)="updateFund(currModalData, 2)" >&times;</button> -->
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center minh400 ">
+                        <div class="col modalAbs top-0">
+                            <form class="common-form">
+                                <div class="head_box2 text-center">
+                                    <h4>{{'offering-added' | translate}}</h4>
+                                    <!-- <p>Please send {{currModalData.ticker == 'ETH' ? currModalData?.eth :
+                                        currModalData?.btc_pay}} {{currModalData?.ticker}} and {{currModalData?.token}}
+                                        {{currModalData?.token_name}} token to this address to make your offering live.</p> -->
+                                    <p>Please send
+                                        <span class="font-bold">{{currModalData?.token}} {{currModalData?.token_name}}</span> token to this address
+                                        to make your offering live.</p>
+                                </div>
+                                <div class="mt40">
+                                    <div class="qr-code-box">
+                                        <!-- <img src="https://www.cognex.com/library/media/resources/symbologies/qrcode.jpg?h=300&w=447&la=en&hash=A5A3FD0478D5941A5B1838829B5E50F441C91C19" alt="images" /> -->
+                                        <qrcode [qrdata]="currModalData.eth_address" [size]="256" [level]="'M'"></qrcode>
+
+                                    </div>
+                                </div>
+                                <div class="text-center mb10 mt10">
+                                    <p class="font-bold addressFont">{{currModalData?.eth_address}}
+                                        <span class="makeLink" (click)="copyToClipboard(currModalData.eth_address)">
+                                            <i class="fa fa-clipboard copyFont"></i>
+                                        </span>
+                                    </p>
+                                    <!-- <p class="font-bold">Note:- We accept only single transaction for ETH and token both.</p> -->
+                                    <p class="font-bold color-red">{{'note_single_transaction' | translate}}</p>
+                                    <!-- <p class="font-bold color-red" *ngIf="currModalData.ticker == 'ETH'">{{'note' |
+                                        translate}}</p>
+                                    <p class="font-bold color-red" *ngIf="currModalData.ticker == 'BTC'">{{'Note: Issue
+                                        a single transaction.'}}</p> -->
+                                </div>
+                                <!-- <div class="form-group mb20">
+                    
+                  </div> -->
+                                <div class="action-btn text-center  mb10">
+                                    <button type="button" class="btn btn-orange max-WT-150" (click)="closeModalAndBack()">OK</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal End -->

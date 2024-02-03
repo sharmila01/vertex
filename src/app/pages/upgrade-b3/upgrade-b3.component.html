@@ -1,0 +1,73 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container">
+  <section class="login_section common_section">
+    <div class="container">
+      <div class="loginRegister">
+        <div class="login_panel_body">
+          <div class="row align-items-center Height-300">
+            <div class="col-md-12" [ngClass]="((applicationData.bank_statement) && applicationData.verify_stage!='UNVERIFIED') ? 'pointerNone' : ''" >
+              <div class="form-box center-box max-WT-500">
+                  <form class="common-form text-webkit-center" [formGroup]="upgradeForm" autocomplete="off">
+                  <div class="head_box2 text-center">
+                    <h4>{{'upgrade_B3' | translate}}</h4>
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
+                  </div>
+                  
+
+                  <!--    Private  Form       -->
+                  <!-- <form [formGroup]="upgradeForm" autocomplete="off" > -->
+                    <div class="dFlex">
+                    <div class="form-group w50percent">
+                      <label>{{'proof_of_residence' | translate }}</label>
+                      <div class="uploadImgDiv ">
+                        <div class="uploadFileDiv">
+                          <input accept="image/*" type="file" (change)="fileChangeEvent($event, 'proofOfRes')" accept="image/*">  
+                          <label class="uploadFileDivLabel"></label>  
+                        </div>
+                        <img src="{{'assets/images/placeholder.jpg'}}" *ngIf="!form.proofOfRes.value">
+                        <img src="{{form.proofOfRes.value}}" *ngIf="form.proofOfRes.value">
+                      </div>
+                    </div>
+                    <div class="form-group w50percent">
+                      <label>{{'bank_statement' | translate}}</label>
+                      <div class="uploadImgDiv ">
+                        <div class="uploadFileDiv">
+                          <input accept="image/*" type="file" (change)="fileChangeEvent($event, 'bankStatement')" accept="image/*">  
+                          <label class="uploadFileDivLabel"></label>  
+                        </div>
+                        <img src="{{'assets/images/placeholder.jpg'}}" *ngIf="!form.bankStatement.value">
+                        <img src="{{form.bankStatement.value}}" *ngIf="form.bankStatement.value">
+                      </div>
+                    </div>
+                  </div>
+                    <!-- <div class="form-group">
+                      <label>{{'proof_of_residence' | translate}}</label>
+                      <input type="file" #proofOfResidence class="form-control" (change)="fileChangeEvent($event, 'proofOfRes')" accept="image/*"/>
+                    </div> -->
+                    
+                    
+                    <div class="form-group">
+                      <label class="checkbox-design agreeTerms">
+                        <input type="checkbox" name="remember" [formControl]="form.terms" >
+                        <span></span>{{'agree' | translate}}<a target="_blank" [routerLink]="['/terms']"> {{'termandservices'| translate}}</a>
+                      </label>
+                    </div>
+                  <!-- </form> -->
+                  <!--     End Private  Form       -->
+
+                  
+
+                  <div class="form-group mb0">
+                    <button type="button" class="btn btn-block btn-submit" [disabled]="upgradeForm.invalid || !form.terms.value" (click)="upgrade()">{{'submit' | translate}}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- main End -->

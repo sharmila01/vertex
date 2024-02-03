@@ -1,0 +1,688 @@
+
+/*----Media Query For Mobile Start----*/
+
+    
+
+@media(max-width: 767px){
+    /* .content_image_center .token_img.buytoken_img {
+    width: 98px !important;
+    object-fit: contain;
+    } */
+    .mglft {
+        float: left;
+        margin-top: 5% !important;
+    }
+    .lefttime-buy {
+        margin-top: 15px
+    }
+    .lefttime-grp {
+        float: left;
+      }
+    .label1  {
+        background: #e7e8e9;
+        cursor: pointer;
+        display: block;
+        font-size: 10px;
+        font-weight: bold;
+        padding: 15px 20px;
+        position: relative;
+        width: 80px;
+        z-index: 50;
+        border: 1px solid #ccc;
+        margin-bottom: 0px;
+        box-shadow: 0 0 20px #fff;
+        margin-left: -39px;
+      }
+      .tabordion input[name="sections"]:checked + label { 
+        background: #fff;
+        color: #000;
+        border: 1px solid #ccc;
+        border-right: none;
+        width: 80px;
+        font-size: 10px;
+        margin-left: -39px;
+      } 
+    .flags.active-flag {
+        float: unset;
+    }
+    .notify-bell {
+        margin-left: 0 !important;
+    }
+    .offer-pagination {
+        float: left !important;
+    }
+    .notifi-dropdown-hover {
+        width: unset;
+    }
+    .notifi-dropdown-hover:hover {
+        width: unset;
+    }
+	  #snackbar {
+    left: 37.5%;
+     bottom: 33%;
+     font-size: 13px;
+    }
+    .ptrade-header {
+        top: 62px !important;
+        }
+    .home-carousel-inner {
+        margin-top: -18.55px;
+    }
+    .w-15 {
+        width: 25% !important;
+      }
+      .w-85 {
+        width: 75% !important;
+      }
+    .trading_box_body1 {
+        padding: 10px 10px 30px;
+        text-align: center;
+        height: 161px !important;
+    }
+    .contain {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin-right: 0px;
+        margin-top: 0px !important;
+    }
+    .lib-panel .lib-row.lib-header {
+        background-color: #FFFFFF;
+        font-size: 15px;
+        padding: 10px 20px 0 20px;
+        text-align: justify;
+        color: #f36f46;
+    }
+    .lib-panel .lib-row.lib-desc{
+        position: relative;
+        height: 100%;
+        display: block;
+        font-size: 13px;
+        padding-bottom: 10px;
+        text-align: justify;
+    }
+
+    .lib-panel img {
+        width: 100%;
+        background-color: transparent;
+        height: 120px;
+        /* / margin-left: -14px; / */
+        margin: 25px auto 5px;
+        -o-object-fit: scale-down;
+        object-fit: scale-down;
+        /* / padding: 26px; / */
+    }
+    .panel-group.panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+
+    .panbody {
+        border-top-color: #EEEEEE;
+        margin-right: 40px !important;
+    }
+    .section_content{
+       margin-bottom: 30px;
+       width: 100%;
+       padding-left: 0px;
+    }
+    .paySymbolBox {
+        font-size: 20px !important;
+    }
+    .field_divider .fs25 {font-size: 20px !important;}
+   .modal-dialog.signupModalmt{margin-left: -5px; margin-top: 42px;}
+   /* .d-cell.v-middle.pl15Mobile{padding-left: 15px!important;} */
+   .d-cell.v-middle.pl15Mobile {
+    padding: 0 3px !important;
+  }
+    .token_img {
+    width: 80px !important;
+    margin-right: 5px !important;
+   }
+   .token_img img {
+    height: 70px !important;
+    margin-right: 5px !important;
+   }
+   .activateImg{ width: 103px; } 
+   .searchBtn1 {width: 100%;margin-top: 10px;}
+   .spacerow{margin: auto;}
+   .searchBtn{width: 100%;}
+   body{padding-top:60px;}
+   header{min-height:auto;}
+   header nav.navbar{height:60px;}
+   .logo_large{display:none!important;}	
+   .btn-gr-head > .btn-header{padding: 6px 12px;font-size: 11px;}
+   .logo.navbar-brand{max-width:50px;}
+   
+   .btn.btn-header{font-size: 12px;    padding: 7px 11px;    min-height: auto;}	
+   button.navbar-toggler {     background: #000;     width: 35px;     height: 35px;     padding: 6px 0; }
+   .navbar-toggler-icon { color: #fff; width: 100%; height: 100%; }
+   .menu-box{right:65px;}
+   header nav.navbar .navbar-collapse{
+   display:none;
+   margin: 0!important;
+   position: absolute;
+   top: 100%;
+   width: 100%;
+   left: 0;
+   }
+   header nav.navbar .navbar-collapse.show{display:block!important;}
+   .navbar-collapse.collapse .main-menu {width:100%;display:block!important;background:#000;left:0;padding:0;}
+   .main-menu.navbar-nav .nav-item { margin-right:0;}
+   .main-menu.navbar-nav .nav-link{color:#fff;font-size:13px;padding:10px;}
+   .topBanner-content {min-height:calc(100vh - 60px);padding:15px 0;}
+   .topBanner-content h1{font-size: 26px;line-height: 1.2;}
+   .topBanner-content p{font-size:14px;}
+   .topBanner-content h2{font-size:19px;}
+   .banner_sub_content{margin: 25px auto 0;}
+   .menu-box ul li a,.menu-box ul li a.active{padding:10px 6px;font-size:1em;}
+   
+   
+   
+   .card_box{padding:10px;margin: 7.5px 0 !important}
+   .card_box .btn{font-size:12px; margin-left: 0px;}
+   .section-head h4{font-size:20px;}
+   .new-para { max-height: 56px;overflow: hidden; }
+   .new-para-about { max-height: 47px; overflow: hidden; }
+   .section-head p,.section_content p,.vertex_feture_box p{font-size:14px;}
+   .feture_icon{ max-width: 65px; margin-bottom: 15px;	 }
+   .testimonial-box{padding:15px;}
+   .testimonial_slider{padding:0;}
+   .testimonial-boxparent{padding:0 28px;}
+   .testimonial-header img{width:45px;height:45px;}
+   .testimonial-header{padding-left:55px;padding-top:0;    min-height: 65px;}
+   .vertex_feture_box h3{font-size:22px;}
+   .trading_box{
+       /* margin-bottom:15px; */
+       margin: 7.5px 0;
+    }
+   .about-vertex-section,.common_section {padding:2em 0;}
+   .pyramid_images{display:none;}
+   .vertex_feture_box{padding-top:0;margin-bottom:30px;}
+   
+   .subscribe_inner_cell h3{font-size: 16px;}
+   .subscribe_inner_cell p{font-size:14px;}
+   .get_connect_social_box .socialList li,.socialList li { width: 25px; height: 25px; line-height: 25px; font-size: 12px; }
+   .subscribe_block .subscribeBox .form-control,.subscribe_block .subscribeBox .input-group-btn > .btn{font-size:14px;}
+   .footmenu li{display:block;}
+   .footmenu li a{padding:0;}
+   .footer-inner .socialList{text-align:center;}
+   
+   .global-modal .modal-body {padding:15px;}
+   .global-modal.modal.fade .modal-dialog{margin:42px 0 0;}
+   .modal_flax_height {min-height: 325px;}
+   
+   
+   .border_style:before, .border_style:after{border:none!important;width:0!important;height:0!important;}
+   .footer_menu_outer{padding-left:0;}
+   .footer_menu_inner{width:100%;float:none;}
+   .footer_menu_inner + .footer_menu_inner{margin-top:15px;}
+   .footer_menu_inner2 .set_width,.footer_menu_inner4 .set_width {max-width: 100%;}
+   .footer_logo{position: static;margin:0 auto 25px;display: block;}
+   .footer_head{font-size: 24px;}
+   .footer_menu_list li, .footer_menu_list li a, .footer_body p{font-size:15px;}
+   .footer_menu_list.socialList li { width: 47%; display: inline-block; margin-bottom: 7px; }
+   .copyright{font-size:14px;}
+   .list_with_icon img{max-width: 14px;}
+   .list_with_icon img.mail_icon{top: 7px;}
+   .list_with_icon img.phone_icon{max-width: 7px;top: 4px;left: 3px;}
+   .fox_trading_video iframe{height:240px;}
+   .fox_trading_video video { height: unset;}
+   .global_box,.token_detail_head_box{padding:15px;}
+   .timer{margin:15px 0;display: block;text-align: center;}
+   .count-down-timer li{margin:0;}
+   .count-down-timer li + li{margin-left:2px;}
+   .count-block span{line-height:30px;font-size:14px;padding:0px 7px 0;}
+   .count-down-timer li > span{font-size:12px;font-weight:600;}
+   .token_detail_head_box .text-right{text-align:center!important;}
+   .global_box .btn.btn-cart{max-width:100%;margin:0 auto;display:block;}
+   .rating_box ,.buying_step,.kyc_user,.table_box_head{margin-bottom: 15px;}
+   .right_aside_box,.table_search_filter{margin-top:15px;}
+   .purchase_field{padding: 15px 10px;}
+   .scan_qr_img{text-align:center;margin-bottom:10px;}
+   .scan_qr_code{text-align:center;}
+   .validate_document_box,.table_box{padding:15px;}
+   .validate_box{margin:7px 0;}
+   .head_box2_border,.aboutus_box, .kyc_box{padding-left:0;}
+   .head_box2 h4{font-size:18px;}
+   .kyc_inner_box  .btn-orange{min-width:100%;margin-top:10px;}
+   .pagination_block .page-link{font-size:12px;padding:3px 7px;}
+   .scan_loader.active{display:block;}
+   .scan_loader{text-align:center;margin:10px auto 0;}
+   .fund_box_inner label, .fund_box_inner span, .fund_box_inner strong{float:none;width:100%;display:block;font-size:13px;}
+   .fund_box_inner span{padding: 5px 0;}
+   .topBanner-content {
+       min-height: 200px;
+       padding: 15px 0;
+   }
+   .mtop30 {
+    margin-top: 30px !important;  
+   }
+   .no-projects {
+    margin-bottom: .5rem !important ;  
+  }
+   .bitcoin-menu{margin:0!important;}
+   .ngxmdp .selector {
+     left: 10px !important;
+   } 
+   .trading_box{
+     width: 100% !important;
+  }        
+  .trading_box_body {
+      min-height: calc(40vh - 256.3px);
+      padding: 7px 0;
+  }
+  
+  .trade_icon img {
+      height: 45px;
+  }
+  .trading_box_body h3 {
+      font-size: 15px;
+      margin: 0 auto;
+  }    
+  .symbol-group {
+      display: none;
+  }
+  .sales_start_time {
+      display: none;
+  }
+  .offerNos {
+      margin-right: 8%;
+  }
+  .offerNo {
+      margin-right: 8%;
+  }
+
+  .trading_head_foot {
+      text-align: left;
+  }
+  .special-offer-txt1 {
+      font-size: 6px;
+  }
+  .special-offer1 { 
+      width: 38.3%;
+      margin-left: -8px;
+      margin-top: -9px;
+      border-bottom: 9px solid #913232;
+      border-right: 9px solid transparent;
+      border-left: 9px solid transparent;
+  }
+}
+   /*----Media Query For Mobile End----*/
+   
+   @media(min-width:768px){
+    .panel-group.panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+   .logo_small{display:none!important;}
+   main.main-container {min-height: calc(100vh - 166px);}
+   .scan_qr_img {padding-left: 15px;}
+   .ML15-large{margin-left:15px;}
+   .scan_loader.active{display:inline-block;}	
+   /* .main-menu.navbar-nav .nav-link{font-size:10px;padding:29px 8px;}*/
+   .main-menu.navbar-nav .nav-link{font-size:16px;} 
+   .threeBox .testimonial-boxparent{display:inline-block;vertical-align:top;width:33%;}
+   
+   }
+   
+   /*----Media Query From Tablet to Large Device Start----*/
+   @media(min-width:1024px){
+       .banner img {
+           object-fit: cover !important;
+         width: 100%
+        }
+   
+   .main_slider_section .carousel-indicators li.cash_for_cars_list{position:relative;}
+   .cash_for_cars_thumb{position:absolute;width:100%;top: -60px;}
+   .kyc_left_spcae{padding-left:30px;max-width: 1100px;}
+   }/*----Media Query From Tablet to Large Device Endt----*/
+   
+   /*----Media Query From Horizontal Tablet to Small Device Start----*/
+   @media(max-width:990px){
+       /* .banner img {height: 250px; object-fit: cover; width: 100%} */
+   
+   .validate-style1 .error { background: none; color: #e93e2c; position: static; padding: 5px 0 0;font-size: 12px; }
+   .validate-style1 .error:before{border:none;}
+   }/*----Media Query From Horizontal Tablet to Small Device End----*/
+   
+   
+   /*----Media Query From Verticla Tablet to Horizontal Tablet Start----*/
+   @media(min-width:768px) and (max-width:1023px){
+       /* .banner img {height: 250px; object-fit: cover; width: 100%} */
+   
+   body{padding-top:80px;}	
+   .logo.navbar-brand{max-width:100px;}	
+   .main-menu.navbar-nav .nav-link{font-size:10px;padding:29px 8px;}	
+   .btn.btn-header{font-size:12px;padding:11px 7px;}
+   .main-menu.navbar-nav .nav-item {margin-right: 7px;}
+   .topBanner-content {min-height: 450px;}
+   .main_slider_section {padding-left:15px;}
+   .testimonial-section .carousel-indicators li img{width:45px;height:45px;}
+   .testimonial-section .carousel-indicators li.active:after{left:19px;}
+   .footmenu li a{font-size:11px;padding: 0px 5px;}
+   .copyright{font-size: 11px!important;}
+   .section_head p{font-size: 20px;}
+   .static-content-section p{font-size:20px;}
+   .left_content_box{padding:15px;}
+   .testimonial-box{padding: 20px 10px 15px 10px;}
+   .testimonial-header{padding-left:50px;padding-top:0;    min-height: 80px;}
+   .testimonial-header img{width:40px;height:40px;}
+   .pyramid_images { left: -15px; top: 61px; max-width: 240px; }
+   .socialList li {width: 23px; height: 23px; line-height: 23px; font-size: 12px; }
+   .token_detail_head_box{padding:15px;}
+   .token_detail_head_box .text-right{text-align:left!important;}
+   .content_image_center{margin-bottom:15px;}
+   .fox_trading_video iframe{height:240px;}
+   .image {
+    position: relative;
+    top: 48% !important;
+    left: 45% !important;
+    margin: auto !important;
+}
+   }/*----Media Query From Verticla Tablet to Horizontal Tablet End----*/
+   
+   /*----Media Query From Horizontal Tablet to Laptop Start----*/
+   @media(min-width:1024px) and (max-width:1279px){
+       .banner img {
+           /* height: 250px;  */
+        object-fit: cover !important; 
+        /* width: 100% */
+    }
+   
+   /* .main-menu.navbar-nav .nav-link,.btn-gr-head>.btn-header{font-size:13px;padding:29px 10px;}	 */
+   .main-menu.navbar-nav .nav-item {margin-right: 10px;}
+   .testimonial-box{padding: 20px 10px 15px 10px;}
+   .testimonial-header{padding-left:50px;padding-top:0;    min-height: 60px;}
+   .testimonial-header img{width:40px;height:40px;}
+   .pyramid_images {left: -16px;top:-4px;max-width:288px;}
+   .timer{margin-right:10px;}
+   .btn.btn-cart{width:152px;}
+   }/*----Media Query From Horizontal Tablet to Laptop End----*/
+   
+   /*----Media Query From Laptop to Large Device Start----*/
+   @media(min-width:1280px) and (max-width:1480px){
+   .main-menu.navbar-nav .nav-link{font-size:14px;color:#fff!important;font-family:arial;padding:29px 16px;}
+   .main-menu.navbar-nav .nav-item .nav-link.active,
+   .main-menu.navbar-nav .nav-item .nav-link:hover,
+   .main-menu.navbar-nav .nav-item .nav-link:focus{background:#535355; height: 82px;}	
+   /* .pyramid_images{left:-43px;} */
+   }
+
+
+   @media(min-width:800px) and (max-width:1280px){
+    .main-menu.navbar-nav .nav-link{font-size:14px;color:#fff!important;font-family:arial;padding:29px 11px;}
+    .main-menu.navbar-nav .nav-item .nav-link.active,
+    .main-menu.navbar-nav .nav-item .nav-link:hover,
+    .main-menu.navbar-nav .nav-item .nav-link:focus{background:#535355; height: 82px;}	
+    /* .
+   /*----Media Query From Laptop to Large Device End----*/
+   
+   }
+
+   @media (max-width: 1024px) and (min-width: 768px){
+    .symbol-group {
+        display: none;
+    }
+    .panbody {
+        border-top-color: #EEEEEE;
+        margin-right: 40px !important;
+    }
+    .main-menu.navbar-nav .nav-link {
+        /* font-size: 9px; */
+        font-size: 11px;
+        padding: 22px 1px;
+   }
+   .scan_qr_img {
+    margin-left: 31px;
+    }
+    .copy {
+        margin-top: 15px;
+        margin-left: 15px;
+    }
+    #tokensent{
+        margin-left: 100px;
+    }
+   .main-menu.navbar-nav .nav-item .nav-link:focus{background:#535355; height: 75px;}	
+}
+@media (max-width: 640px) and (min-width: 360px){
+    .lib-panel .lib-row.lib-header {
+        background-color: #FFFFFF;
+        font-size: 15px;
+        padding: 10px 20px 0 20px;
+        text-align: justify;
+        color: #f36f46;
+    }
+    .lib-panel .lib-row.lib-desc{
+        position: relative;
+        height: 100%;
+        display: block;
+        font-size: 13px;
+        padding-bottom: 10px;
+        text-align: justify;
+    }
+
+    .lib-panel img {
+        width: 100%;
+        background-color: transparent;
+        height: 120px;
+        /* / margin-left: -14px; / */
+        margin: 25px auto 5px;
+        -o-object-fit: scale-down;
+        object-fit: scale-down;
+        /* / padding: 26px; / */
+    }
+    .panel-group.panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+
+    .panbody {
+        border-top-color: #EEEEEE;
+        margin-right: 40px !important;
+    }
+    .scan_qr_img {
+        margin-left: 26px;
+   }
+   #tokensent {
+    margin-left: 0px;
+}
+.copy {
+    margin-top: 15px;
+    margin-left: -20px;
+}
+.copybtn {
+    background: #f36e47;
+    width: 54px;
+    border: 1px solid #f36e47;
+    height: 37px;
+    color: #fff;
+    margin-left: 123px;
+}
+.btnGroup{
+    margin-top: 0px;
+    margin-right: 11px;
+}
+.pinned {
+    width: 100%;
+    background: #f47a55;
+    color: #fff;
+}
+.image {
+    position: relative;
+    top: 48% !important;
+    left: 40% !important;
+    margin: auto !important;
+}
+}
+/* ----------- iPhone 5s ----------- */
+@media screen and (device-aspect-ratio: 40/71) {
+    .home-carousel-inner {
+        margin-top: -19.55px ;
+    }
+    .ptrade-header {
+        font-size:15px !important;
+        }
+    .w-15 {
+        width: 25% !important;
+      }
+      .w-85 {
+        width: 75% !important;
+      }
+    .contain {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin-right: 0px;
+        margin-top: 0px !important;
+    }
+
+    .trading_box_body1{
+        padding: 10px 10px 30px;
+        text-align: center;
+        height: 161px !important;
+    }
+    .lib-panel .lib-row.lib-header {
+        background-color: #FFFFFF;
+        font-size: 15px;
+        padding: 10px 20px 0 20px;
+        text-align: justify;
+        color: #f36f46;
+    }
+    .lib-panel .lib-row.lib-desc{
+        position: relative;
+        height: 100%;
+        display: block;
+        font-size: 13px;
+        padding-bottom: 10px !important;
+        text-align: justify;
+    }
+
+    .lib-panel img {
+        width: 100%;
+        background-color: transparent;
+        height: 120px;
+        /* / margin-left: -14px; / */
+        margin: 25px auto 5px;
+        -o-object-fit: scale-down;
+        object-fit: scale-down;
+        /* / padding: 26px; / */
+    }
+    .panel-group[_ngcontent-c3] .panel[_ngcontent-c3] {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95%;
+    }
+    .panel-group.panel {
+        border-radius: 0;
+        box-shadow: none;
+        border-color: #EEEEEE;
+        width: 95% !important;
+    }
+    header nav.navbar {padding: 0 5px;}
+    .panbody {
+        border-top-color: #EEEEEE;
+        margin-right: 40px !important;
+    }
+    .image {
+        position: relative;
+        top: 50% !important;
+        left: 38% !important;
+        width: 70px;
+        height: 70px;
+        margin: auto !important;
+    }
+
+    .content {
+        margin-top: 80px;
+        padding: 30px 15px;
+        min-height: calc(100vh - 150px);
+    }
+    
+    .contentChange {
+        margin-top: 36px !important;
+        min-height: calc(100vh - 105px) !important;
+    }
+    .d-cell.v-middle.pl15Mobile {
+        padding: 0 0 0 1px !important;
+      }
+      .token_head {
+        font-size: 18px !important;
+      }
+      .token_img {
+        width: 69px !important;
+      }
+      .trading_box_body {
+        min-height: calc(48vh - 255.77px);
+        padding: 0;
+      }
+      .trading_box_head {
+          padding: 5px 7px;
+      }
+      .special-offer1 {
+          margin-top: 0px;
+      }
+}
+
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) 
+and (orientation : landscape) {   
+
+}
+
+/* iPhone 6, 7, & 8 */
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) 
+and (orientation: landscape) { 
+ 
+}
+/* end iPhone 6, 7, & 8 */
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) 
+and (-webkit-min-device-pixel-ratio: 3) { 
+    .global_box1 {
+        width: 328px !important;
+    }
+}  
+
+/* iPad  */
+@media only screen and (min-device-width: 768px)  and (max-device-width: 1024px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+  
+}
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) 
+and (orientation : landscape) { 
+  /* .lightbox .lb-dataContainer {
+    margin: -73% auto !important;
+  } */
+  /* .ngxmdp .selector {
+    top: 376px !important;
+    left: 278px !important;
+  } */
+}
+/*end iPad  */
+
+
+@media (min-width:768px) and (max-width:1023px) {
+    /* .lightbox .lb-dataContainer {
+      margin: -56% auto !important;
+  } */
+    /* .lb-close */
+    .qrcode{word-break: break-all;
+      display: inline-block;
+      padding-right: calc(100% - 386px);
+    }
+  
+  
+  }

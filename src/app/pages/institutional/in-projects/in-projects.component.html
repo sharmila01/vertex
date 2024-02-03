@@ -1,0 +1,135 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+  <app-in-sidebar [activeTab]="6"></app-in-sidebar>
+  <div class="main-panel">
+    <!-- Navbar -->
+    <app-in-header [headerName]="'Projects'"></app-in-header>
+    <!-- End Navbar -->
+    <div class="content contentChange">
+      <div class="container-fluid  pt-4">
+        <div class="row justify-content-end m-0 px-3">
+          <button class="btn btn-green mb20 " type="button" [routerLink]="['/institutional/add-project', 'add']" >{{'add-project' | translate}}</button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card my-3">
+              <div class="card-header card-header-primary projHeader p4">
+                  <div class="row align-items-center pl20">
+                      <div class="col-md-8 ">
+                          <h4 class="card-title font-weight-bold inrtl-title">{{'project-list' | translate}}</h4>
+                      </div>
+                      <div class="col-md-4 rtl-text-left">
+                          <form class="navbar-form d-inline-flex ml-md-auto" autocomplete="off" novalidate>
+                              <div class="input-group no-border">
+                                  <input type="text" class="form-control text-white" placeholder="Search" [(ngModel)]="filter.search" name="search" maxlength="50" (keyup)="!filter.search ? onSearch() :  '' "> 
+                                  <button type="submit" class="btn btn-white btn-round btn-just-icon pStatic" (click)="filter.search ? onSearch(): ''" >
+                                  <i class="material-icons">search</i>
+                                  <div class="ripple-container"></div>
+                                  </button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+                
+                <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered tableWidth800">
+                    <thead class=" text-primary border-top">
+                      <th>{{'projectid' | translate}}</th>
+                      <th>{{'tokenname' | translate}}</th>
+                      <th>{{'token-type'| translate}}</th>
+                      <th>{{'ticker' | translate}}</th>
+                      <th>{{'platform' | translate}}</th>
+                      <th>{{'market_type' | translate}}</th>
+                      <th>{{'isapproved'|translate}}</th>
+                      <th>{{'status' | translate}}</th>
+                      <th class="text-center">{{'action' | translate}}</th>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of projectArr | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total } " >
+                        <td>{{item?.project_order_id}}</td>
+                        <td>{{item?.token_name}}</td>
+                        <td>{{item?.token_type || '- - -'}}</td>
+                        <td>{{item?.ticker}}</td>
+                        <td>{{item?.platform_symbol}}</td>
+                        <!-- <td>{{item?.third_market ? 'Yes' : 'No'}}</td> -->
+                        <td>{{item?.market_type || '- - -'}}</td>
+                        <td>{{item?.is_approved ? 'Yes' : 'No'}}</td>
+                        <td [ngClass]="item?.is_cancel ? 'text-danger' : 'text-success'">{{item?.is_cancel ? 'Cancelled' : 'Active'}}</td>
+                        <td class="text-center">
+                            <!-- <button class="btn btn-link btn-sm btn-primary" (click)="editProject(item)" ><i class="fa fa-edit"></i></button> -->
+                            <!-- <button  class="btn btn-primary btn-link btn-sm"  [routerLink]="['/institutional/add-project', item.id]"><i class="material-icons">edit</i><div class="ripple-container"></div></button> -->
+                            <button class="btn btn-link btn-sm btn-default " [routerLink]="['/institutional/view-project', item.id]"><i class="fa fa-eye"></i></button>
+                            <!-- <button class="btn btn-link btn-sm btn-danger "  (click)="deleteModal(item.id)" ><i class="fa fa-times"></i></button> -->
+                        </td>
+                      </tr>
+                      <tr *ngIf="!projectArr.length">
+                        <td colspan="9" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tbl_footer">
+                    <div class="row align-items-center flex-wrap flR">
+                        <!-- align-items-center -->
+                        <div class="text-md-right" *ngIf="paginationData?.total > paginationData?.limit" >
+                            <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <!-- <footer class="footer">
+      <div class="container-fluid">
+          <div class="copyright text-left">
+              Copyright &copy;
+              <script>
+                  document.write(new Date().getFullYear())
+              </script>, Anzen
+          </div>
+
+      </div>
+  </footer> -->
+  <app-in-footer></app-in-footer>
+  </div>
+</div>
+
+
+<div class="modal fade global-modal reset-modal" id="delete_project_inst">
+      <div class="modal-dialog max-WT-500">
+        <form class="pin_code_form">
+          <div class="modal-content">
+            <!--<div class="modal-header ">
+                         <h4 class="modal-title text-center">Heading</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div> -->
+            <div class="modal-body">
+              <div class="row align-items-center minHeight180">
+                <div class="col">
+                  <!-- <form class="common-form" autocomplete="off"> -->
+                    <div class="head_box2 text-center mb15">
+                      <h4>{{'cancel_project_sure' | translate}}</h4>
+                      <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                    </div>
+                  
+                    <div class="modalActionBtn text-center">
+                      <button type="button" class="btn btn-gray max-WT-150"  data-dismiss="modal" >{{'no' | translate}}</button>
+                      <button type="button" class="btn btn-orange max-WT-150" (click)="onDelete()" >{{'yes' | translate}}</button>
+                    </div>
+                  <!-- </form> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+

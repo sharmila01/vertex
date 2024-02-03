@@ -1,0 +1,37 @@
+<main class="main-container bg_gray">
+  <section class="inner_section common_section">
+    <div class="container-1280">
+      <div class="card-block">
+        <div *ngIf="loader" class="loader" style="display: block; margin: 5% auto;"></div>
+        <div class="list-group">
+          <a class="list-group-item clearfix d-block notificolor noti" *ngFor='let notification of notifications'>
+            <span class="noti-wrap">
+              <!-- <span class="title">{{notification.message | translate}} </span> -->
+              
+              <span class="title" *ngIf="notification.title == 'ETH Received'">{{'We have received' | translate}} {{notification.quantity | separator: 5}} {{'ETH'}}</span>
+              <span class="title" *ngIf="notification.title == 'New Trade ETH'">{{'New Trade for' | translate}} {{notification?.entity}} {{'for' | translate}} {{notification?.quantity | separator: 5}} ETH</span>
+              <span class="title" *ngIf="notification.title == 'BTC Received'">{{'We have received' | translate}} {{notification?.quantity | separator: 5}} BTC </span>
+              <!-- <span class="title" *ngIf="notification.title == 'BTC Recieved'">{{notification.title | translate}} </span> -->
+              <span class="title" *ngIf="notification.title == 'New Trade BTC'">{{'New Trade for' | translate}} {{notification?.entity}} {{'for' | translate}} {{notification?.quantity | separator: 5}} BTC </span>
+              <span class="title" *ngIf="notification.title == 'ERC20 Received'">{{'We have received' | translate}} {{notification?.quantity | separator: 5}} ERC20 </span>
+              <span class="title" *ngIf="notification.title == 'New Trade ERC20'">{{'New Trade for' | translate}} {{notification?.entity}} {{'for'| translate}} {{notification?.quantity | separator: 5}} ERC20 </span>
+              <span class="title" *ngIf="notification.title == 'ETH Sent'">{{'We have sent you' | translate}} {{notification?.quantity| separator: 5}} ETH</span>
+              <span class="title" *ngIf="notification.title == 'Token Sent'">{{'We have sent you' | translate}} {{notification?.quantity| separator: 5}} Tokens</span>
+              <span class="title" *ngIf="notification.title == 'BTC Sent'">{{'We have sent you' | translate}} {{notification?.quantity| separator: 5}} BTC</span>
+              <span class="title" *ngIf="notification.title != 'ETH Received' && notification.title != 'New Trade ETH' && notification.title != 'BTC Received' && notification.title != 'New Trade BTC' && notification.title != 'ERC20 Received' && notification.title != 'New Trade ERC20' &&  notification.title != 'ETH Sent' && notification.title != 'Token Sent' && notification.title != 'BTC Sent' && notification.title != 'ETH Received' " >{{notification.title | translate}} </span>
+              <p class="notification_time">
+                {{notification.created_at | date:'yyyy-MM-dd HH:mm:ss'}}
+              </p>
+            </span>
+            <span class="float-right text-muted">
+              <i (click)="seenNotification(notification.id)" *ngIf="!notification.is_seen" class="fa fa-check-circle check-hover" style="color:green"
+                aria-hidden="true">
+              </i> &nbsp;
+              <i (click)="deleteNotification(notification.id)" class="fa fa-times-circle cross-hover" style="color:red" aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

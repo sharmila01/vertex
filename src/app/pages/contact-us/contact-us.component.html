@@ -1,0 +1,58 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container">
+  <section class="login_section common_section">
+    <div class="container">
+      <div class="loginRegister">
+        <div class="login_panel_body">
+          <div class="row align-items-center Height-300">
+            <div class="col-md-12">
+              <div class="form-box center-box max-WT-500">
+                <form class="common-form" [formGroup]="contactusForm">
+                  <div class="head_box2 text-center">
+                    <h4>{{'contactus' | translate}}</h4>
+                    <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
+                  </div>
+                  <div class="form-group p5" [ngClass]="{'validate-style1 has-error': contactusForm.controls['name'].dirty && contactusForm.controls['name'].invalid}">
+                    <input type="text" class="form-control" placeholder="Name" maxlength="50"  [formControl]="contactusForm.controls['name']" />
+                    <div class="error" *ngIf="contactusForm.controls['name'].dirty && contactusForm.controls['name'].invalid">
+                      <span *ngIf="contactusForm.controls['name'].hasError('required')">{{'entername' | translate}}</span>
+                      <span *ngIf="contactusForm.controls['name'].hasError('minlength')">{{'validationname1' | translate}}</span>
+                      <span *ngIf="contactusForm.controls['name'].hasError('pattern') && !contactusForm.controls['name'].hasError('minlength')">{{'validname'}}.</span>
+                    </div>
+                  </div>
+                  <div class="form-group p5" [ngClass]="{'validate-style1 has-error': contactusForm.controls['email'].dirty && contactusForm.controls['email'].invalid}">
+                    <input type="text" class="form-control" placeholder="Email id" maxlength="50" [formControl]="contactusForm.controls['email']" />
+                    <div class="error" *ngIf="contactusForm.controls['email'].dirty && contactusForm.controls['email'].invalid">
+                      <span *ngIf="contactusForm.controls['email'].hasError('required')">{{'enteremail' | translate}}</span>
+                      <span *ngIf="contactusForm.controls['email'].hasError('pattern')">{{'validemail' | translate}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group p5" >
+                    <ng-select  [items]="countryListArr"
+                    bindLabel="name"
+                    bindValue="name"
+                    placeholder="Select Country"
+                    [formControl]="contactusForm.controls['country']">
+                    </ng-select>
+                  </div>
+                  <div class="form-group p5 mb20" [ngClass]="{'validate-style1 has-error': contactusForm.controls['message'].dirty && contactusForm.controls['message'].invalid}">
+                    <textarea class="form-control minHeight125" placeholder="Message" maxlength="200" [formControl]="contactusForm.controls['message']"></textarea>
+                    <div class="error" *ngIf="contactusForm.controls['message'].dirty && contactusForm.controls['message'].invalid">
+                  <span *ngIf="contactusForm.controls['message'].hasError('required')">{{'entermessage'| translate}}</span>
+                  <span *ngIf="contactusForm.controls['message'].hasError('pattern')">{{'validmessage' | translate}}</span>
+                </div>
+                  </div>
+                  <div class="form-group p5 mb0">
+                    <button type="button" class="btn btn-block btn-submit" [disabled]="contactusForm.invalid" (click)="contactUs()">{{'submit' | translate}}</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- main End -->

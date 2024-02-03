@@ -1,0 +1,248 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="4"></app-in-sidebar>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <app-in-header [headerName]="'Deposit Transfer'"></app-in-header>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid  pt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card my-3">
+                <div class="card-header card-header-primary fundHeader p4">
+                    <div class="row align-items-center pl20">
+                        <div class="col-md-8">
+                            <h4 class="card-title font-weight-bold inrtl-title">{{'deposit-transfer-list' | translate}}</h4>
+                        </div>
+                        <div class="col-md-4 rtl-text-left">
+                            <form class="navbar-form d-inline-flex ml-md-auto" autocomplete="off" novalidate>
+                                <div class="input-group no-border">
+                                    <input type="text" class="form-control text-white" placeholder="Search" [(ngModel)]="filter.search" name="search" maxlength="50" (keyup)="!filter.search ? onSearch() :  '' ">
+                                    <button type="submit" class="btn btn-white btn-round btn-just-icon pStatic" (click)="filter.search ? onSearch(): ''" >
+                                    <i class="material-icons">search</i>
+                                    <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                  
+                  <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered tableWidth800 nohoveer">
+                      <thead class="text-primary border-top">
+                        <th>{{'offeringid' | translate}}</th>
+                        <th>{{'ticker' | translate}}</th>
+                        <th>{{'address' | translate}}</th>
+                        <th>{{'txnid' | translate}}</th>
+                        <!-- <th>Txn ID</th> -->
+                        <!-- <th>ETH</th> -->
+                        <th>{{'quantity' | translate}}</th>
+                        <th class="text-center">{{'date' | translate}}</th>
+                        <th>{{'transactionstatus' | translate}}</th>
+                        
+                        
+                        <th class="text-center">{{'pay-fund' | translate}}</th>
+                        <th class="text-center">{{'action' | translate}}</th>
+                      </thead>
+                      <tbody>
+                        <!-- Commented part of making 2 row for transaction and quantity -->
+                        <!-- <tr *ngFor="let item of fundArr | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total }; let i = index; " > -->
+                          <!-- Offering ID -->
+                          <!-- <td rowspan="2" *ngIf="!(i%2)">{{item?.offering_order || '- - -'}}</td> -->
+                          <!-- Ticker  -->
+                          <!-- <td rowspan="2" *ngIf="!(i % 2)">{{item?.ticker}} </td> -->
+                          <!-- Etherium Address -->
+                          <!-- <td rowspan="2" *ngIf="!(i % 2)">{{item?.eth_address}}</td> -->
+                          <!-- Txn ID -->
+                          <!-- <td *ngIf="!(i % 2)" [ngClass]="item.transcation_id ? 'link-make1': '' " (click)="item.transcation_id ? openEther(item.transcation_id, item?.received_fund_symbol) : ''">{{item?.transcation_id ? (item?.transcation_id | truncate: 7 : '...') : '- - -'}}</td> -->
+                          <!-- <td *ngIf="(i % 2)" [ngClass]="item.eth_transcation_id ? 'link-make1': '' " (click)="item.eth_transcation_id ? openEther(item.eth_transcation_id, isBTCTransaction(item)) : ''">{{item?.eth_transcation_id ? (item?.eth_transcation_id | truncate: 7 : '...') : '- - -'}}</td> -->
+                         <!-- Quantity -->
+                         <!-- <td *ngIf="!(i % 2)">{{item?.received_fund_quantity ? (item?.received_fund_quantity | separator:5 ) : '- - -'}}  {{item?.received_fund_symbol}}</td>
+                         <td *ngIf="(i % 2)">{{item?.received_eth ? (item?.received_eth | separator:5 ) : '- - -'}} {{item?.received_eth ? isBTCTransaction(item) : ''}}</td> -->
+
+                         <!-- <td rowspan="2" *ngIf="!(i % 2)">{{item?.created_at | utcTime | date: 'MM/dd/yyyy hh:mm a' }} </td> -->
+                          <!-- Transaction Status -->
+                          <!-- <td rowspan="2" *ngIf="!(i % 2)">{{item?.transaction_status}}</td> -->
+
+                          
+
+                          <!-- Pay Fund  -->
+                          <!-- <td rowspan="2" *ngIf="!(i % 2)" class="text-center">
+                              <button class="btn btn-link btn-sm btn-primary" (click)="payFund(item)" ><i class="fa fa-credit-card custom"></i></button>
+                            </td> -->
+
+                          <!-- Action -->
+                         <!--  <td class="text-center minWidth125" rowspan="2" *ngIf="!(i % 2)">
+                              <button class="btn btn-link btn-sm btn-primary" (click)="updateFund(item, 1)"><i class="fa fa-refresh"></i></button>
+                              <button class="btn btn-link btn-sm btn-default" [routerLink]="['/institutional/view-fund-transfer', item.id]"><i class="fa fa-eye"></i></button>
+                          </td>
+                        </tr>  -->
+                        <!-- Commented part of making 2 row for transaction and quantity -->
+
+                        <tr *ngFor="let item of fundArr | paginate: { itemsPerPage: paginationData?.limit, currentPage: paginationData?.page, totalItems: paginationData?.total }; let i = index; " >
+                            <td >{{item?.offering_order || '- - -'}}</td>
+                            <td >{{item?.ticker}} </td>
+                            <td >{{item?.eth_address}}</td>
+                            
+                            <td  *ngIf="item.ticker == 'ETH' || item.ticker == 'BTC'" [ngClass]="item.eth_transcation_id ? 'link-make1': '' " (click)="item.eth_transcation_id ? openEther(item.eth_transcation_id, item?.ticker) : ''" >{{item?.eth_transcation_id ? (item?.eth_transcation_id | truncate: 7 : '...') : '- - -'}}</td>
+                            <td  *ngIf="item.ticker != 'ETH' && item.ticker != 'BTC'" [ngClass]="item.transcation_id ? 'link-make1': '' " (click)="item.transcation_id ? openEther(item.transcation_id, item?.received_fund_symbol) : ''" >{{item?.transcation_id ? (item?.transcation_id | truncate: 7 : '...') : '- - -'}}</td>
+
+                            <td *ngIf="item.ticker == 'ETH' || item.ticker == 'BTC'">{{item?.received_eth ? (item?.received_eth | separator:5 ) : '- - -'}} {{item?.received_eth ? item?.ticker : ''}}</td>
+                            <td *ngIf="item.ticker != 'ETH' && item.ticker != 'BTC'">{{item?.received_fund_quantity ? (item?.received_fund_quantity | separator:5 ) : '- - -'}}  {{item?.received_fund_quantity ? item?.ticker : ''}}</td>
+                            
+
+                            <td >{{item?.created_at | utcTime | date: 'MM/dd/yyyy hh:mm a' }} </td>
+                            <td >{{item?.transaction_status}}</td>
+                            <td class="text-center">
+                              <button class="btn btn-link btn-sm btn-primary" (click)="payFund(item)" ><i class="fa fa-credit-card custom"></i></button>
+                            </td>
+                            <td class="text-center minWidth125" >
+                                <button class="btn btn-link btn-sm btn-primary" (click)="updateFund(item, 1)"><i class="fa fa-refresh"></i></button>
+                                <button class="btn btn-link btn-sm btn-default" [routerLink]="['/institutional/view-fund-transfer', item.id]"><i class="fa fa-eye"></i></button>
+                            </td>
+                        </tr>
+                         <tr *ngIf="!fundArr.length">
+                          <td colspan="8" class="text-center fs20">{{'no-data-found' | translate}}</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="tbl_footer">
+                      <div class="row align-items-center flex-wrap flR">
+                          <!-- <div class="col-md-7">
+                              <p class="small m-0">Showing results 7 of 14 out of 20</p>
+                          </div> -->
+                          <!-- align-items-center -->
+                          <div class="text-md-right" *ngIf="paginationData?.total > paginationData?.limit" >
+                              <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- <footer class="footer">
+        <div class="container-fluid">
+            <div class="copyright text-left">
+                Copyright &copy;
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>, Anzen
+            </div>
+
+        </div>
+    </footer> -->
+    <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteDsa">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">{{'btn-logout' | translate}}</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+      
+          <!-- Modal body -->
+          <div class="modal-body text-center">
+              {{'confirm-message-logout' | translate}}
+          </div>
+      
+          <!-- Modal footer -->
+          <div class="modal-footer btn-group justify-content-between">
+              <button type="button" class="btn btn-primary flex-fill" data-dismiss="modal">{{'no' | translate}}</button>
+              <a href="./login.html" class="btn btn-warning flex-fill">{{'yes' | translate}}</a>
+          </div>
+      
+          </div>
+      </div>
+  </div>
+  <div class="modal fade global-modal reset-modal" id="deleteOffering">
+        <div class="modal-dialog max-WT-500">
+          <form class="pin_code_form">
+            <div class="modal-content">
+              <!--<div class="modal-header ">
+                           <h4 class="modal-title text-center">Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div> -->
+              <div class="modal-body">
+                <div class="row align-items-center minHeight180">
+                  <div class="col">
+                    <!-- <form class="common-form" autocomplete="off"> -->
+                      <div class="head_box2 text-center mb15">
+                        <h4>{{'delete-offering-confirm' | translate}}</h4>
+                        <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                      </div>
+                    
+                      <div class="modalActionBtn text-center">
+                        <button type="button" class="btn btn-gray max-WT-150"  data-dismiss="modal" >{{'cancel' | translate}}</button>
+                        <button type="button" class="btn btn-orange max-WT-150"  >{{'delete' | translate}}</button>
+                      </div>
+                    <!-- </form> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="qr_offering_modal1">
+    <div class="modal-dialog max-WT-500">
+      <form class="pin_code_form">
+        <div class="modal-content">
+            <div class="padd10">
+                <!-- <h4 class="modal-title text-center">Heading</h4> -->
+                <button type="button" class="close padd5" (click)="updateFund(currModalData, 2)" >&times;</button>
+            </div>
+          <div class="modal-body">
+            <div class="row align-items-center minh400 ">
+              <div class="col modalAbs top-0">
+                <form class="common-form" >
+                  <div class="head_box2 text-center">
+                    <h4>{{'Offering Added' | translate}}</h4>
+                    <!-- <p>Please send {{currModalData.ticker == 'ETH' ? currModalData?.eth : currModalData?.btc_pay}} {{currModalData?.ticker}} and {{currModalData?.token}} {{currModalData?.token_name}} token to this  address to make your offering live.</p> -->
+                    <p>Please send <span class="font-bold">{{currModalData?.token}} {{currModalData?.token_name}}</span> token to this  address to make your offering live.</p>
+                  </div>
+                  <div class="mt40">
+                    <div class="qr-code-box">
+                      <!-- <img src="https://www.cognex.com/library/media/resources/symbologies/qrcode.jpg?h=300&w=447&la=en&hash=A5A3FD0478D5941A5B1838829B5E50F441C91C19" alt="images" /> -->
+                      <qrcode [qrdata]="currModalData.eth_address" [size]="256" [level]="'M'"></qrcode>
+                      
+                    </div>
+                  </div>
+                  <div class="text-center mb10 mt10">
+                      <p class="font-bold addressFont">{{currModalData?.eth_address}} <span class="makeLink"  (click)="copyToClipboard(currModalData.eth_address)"><i class="fa fa-clipboard copyFont"></i></span> </p>
+                    <!-- <p class="font-bold">Note:- We accept only single transaction for ETH and token both.</p> -->
+                      <p class="font-bold color-red">{{'note_single_transaction' | translate}}</p>
+                      <!-- <p class="font-bold color-red" *ngIf="currModalData.ticker == 'ETH'">{{'note' | translate}}</p> -->
+                      <!-- <p class="font-bold color-red" *ngIf="currModalData.ticker == 'BTC'">{{'Note: Issue a single transaction.'}}</p> -->
+                  </div>
+                  <!-- <div class="form-group mb20">
+                    
+                  </div> -->
+                  <div class="action-btn text-center  mb10">
+                    <button type="button" class="btn btn-orange max-WT-150" (click)="updateFund(currModalData, 2)">OK</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Modal End -->

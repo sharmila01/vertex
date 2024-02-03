@@ -1,0 +1,284 @@
+.socialList li {
+    display: inline-block;
+    width: 33px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 1.5px;
+}
+.socialUL{
+    margin-right: 45px;
+}
+.btn-tg {
+    position: fixed;
+    left: 20px;
+    bottom: 14px;
+    background-position: 0 0;
+    width: 140px;
+    font-size: 14px;
+    padding: 8px;
+    height: 40px;
+    float: left;
+    text-align: center;
+    transition: opacity .35s ease;
+    cursor: pointer;
+    background: #f36f46;
+    border: 1px solid #f36e47;
+    color: #fff;
+    z-index: 3;
+  }
+
+.dropdown-menu-right {
+    width: 380px !important;
+}
+.dropdown-item {
+    padding-bottom: 10px;
+    padding-top: 6px;
+}
+.notifi-title {
+    font-weight: bold;
+    color: #464a4c;
+    font-size: 13px;
+    max-width: 85%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline;
+    /* float: left; */
+    /* line-height: 31px; */
+}
+.notification_action {
+    float: right;
+    position: relative;    
+    font-size: 14px;
+}
+.dropdown-item .small-text{
+    font-size: 10px;
+}
+.notifi-dropdown {    
+    width: 250px;
+    left: -170px;
+    cursor: pointer;
+}
+.notifi-item:hover {
+    height: 51px;
+}
+.view-all:hover {
+    background-color: unset;
+}
+
+.view-all{
+    text-align: center;
+    position: relative;
+    /* padding-top: 10px;
+    padding-bottom: 6px; */
+}
+.view-hover{
+    color: black;
+}
+.view-hover:hover {
+    height: 51px;
+    text-decoration: unset;
+    background-color: #f8f9fa;
+}
+.bell-hover {
+    font-size: 20px;
+}
+.notifi-dropdown-hover {
+ width: 80px;
+ text-align: center;
+ cursor: pointer;
+}
+.notifi-dropdown-hover:hover {
+    width: 80px;
+}
+.user-hover {
+    height: 82px;
+}
+.user-hover:hover{
+    background: #535355;
+    height: 82px;
+}
+.i-user {
+    font-size: 24px;
+    margin-top: 15px;
+}
+.ml-n-100{
+    margin-left: -100px;
+}
+.logout-dropdown {
+    padding-left: 34px;
+}
+.navbar-collapse {
+    flex-grow: inherit !important;
+}
+.logo.navbar-brand {
+    /* margin: 0 auto !important; */
+}
+.menu-box .btn-nav{
+    padding: 10px 18px;
+    margin-top: 21px;
+}
+.login-btn:hover {
+    background: #e04b1d;
+    color: #fff!important;
+}
+@media (max-width: 767px) {
+    .socialUL{
+        margin-right: auto;
+    }
+    .bitcoin-menu {
+        text-align: left !important;
+        /* margin-left: 8px !important; */
+    }
+    .menu-box {
+        display: inline-grid;
+        margin: 0 auto;
+        width: 100%;
+    }   
+    .login-btn {
+        padding: 10px 149px !important;
+    } 
+    .signup-btn {
+        padding: 10px 127px !important;
+    }
+    .menu-box .btn-nav{
+        display: inline-block !important;
+        margin-top: 0;
+        margin: 0 auto;
+        width: 100%;
+        /* margin-left: 13px; */
+        margin-bottom: 10px;
+        position: relative !important;
+        /* padding: 10px 133px !important; */
+    }
+    .amounts {
+        font-size:12px !important;
+    }
+    .coin {
+        font-size:10px !important;
+    }
+    .bitcoin-menu {
+        text-align: left !important;
+    }
+    .btnGroup {
+        padding-left: 10px;
+        margin-right: 0 !important;
+    }
+    .user-hover {
+        height: 65px;
+    }
+    .user-hover:hover{
+        height: 65px;
+    }
+    .noti-bubble {
+        top: 0;
+        left: 13px;
+        margin: auto;
+    }
+    .notifi-dropdown {
+        width: 100%;
+        margin: auto;
+        padding-bottom: 20px;
+    }
+ 
+    .logout-dropdown {
+        text-align: center;
+        padding-left: 23px;
+    }
+    .main-menu.navbar-nav .nav-item {
+        text-align: center;
+    }
+    .notifi-dropdown-hover {
+        width: unset;
+    }
+    .notifi-dropdown-hover:hover {
+        width: unset;
+    }
+}
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) 
+and (orientation : landscape) { 
+    .bitcoin-menu {
+        margin-left: 24px !important;
+    }
+}
+
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) 
+and (orientation : landscape) { 
+    .bitcoin-menu {
+        margin-left: 24px !important;
+    }
+}
+.check-hover:hover {
+    color: #056305 !important;
+    transform: scale(1.5);
+}
+
+.cross-hover:hover {
+    color: #8c0707 !important;
+    transform: scale(1.5);
+}
+/* .dropdown-toggle:hover {
+     transform: scale(1.2); 
+} */
+.bell-hover:hover {
+    color: #f36e47;
+    transform: scale(1.1);
+}
+.notifi-no {
+    display: block !important;
+    margin: auto !important;
+    text-align: center;
+}
+.notifi-no:hover {
+    background-color: unset !important;
+    box-shadow: unset !important;
+    cursor: default;
+}
+
+.bitcoin-menu {
+    display: flex; 
+    /* text-align: center; */
+    margin: 0 auto;
+}
+.main-menu.navbar-nav .nav-item {
+    margin-right: 0 !important;
+}
+@media(min-width:768px) and (max-width:1023px){
+    .main-menu.navbar-nav .nav-link{
+        font-size:11px !important;
+    }	
+   
+    .amounts {
+        font-size:8px !important;
+    }
+    .coin {
+        font-size:9px !important;
+    }
+    .btnGroup {        
+        padding-left: 4px;
+    }
+    .menu-box1 {
+        display: flex !important;
+    }
+}
+.ptrade-header {
+    text-align: center;
+    background-color: #e97442;
+    padding: 5px 0 6px 0;
+    color: #ffff;
+    position: fixed;
+    top: 83px;
+    left: 0;
+    z-index: 111111111;
+    right: 0;
+    font-size: 16px;
+}
+.click-here{
+    color: #007bff;
+    text-decoration: underline;
+    background-color: transparent;
+    cursor: pointer;
+}
+.z-index1 {
+    z-index: 1000000000;
+}

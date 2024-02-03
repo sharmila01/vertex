@@ -1,0 +1,337 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<main class="main-container">
+  <section class="login_section common_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="loginRegister">
+            <!-- nav-tabs Start -->
+            <ul class="nav nav-tabs nav-tabs-style2" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a id="signinTab" class="nav-link  radius-TR0 radius-BR0" (click)="toggle(true)">{{'btn-signin' | translate }}</a>
+              </li>
+              <li class="nav-item">
+                <a id="signupTab" class="nav-link radius-TL0 radius-BL0" (click)="toggle(false)">{{'createaccount' | translate}}</a>
+              </li>
+            </ul>
+            <!-- nav-tabs End -->
+            
+            <!-- Tab Content Start -->
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade" [ngClass]="{'show active': isSignin}" role="tabpanel" *ngIf="isSignin">
+                <div class="form-box center-box max-WT-500">
+                  <form class="common-form" [formGroup]="loginForm">
+                    <div class="form-group p5" [ngClass]="{'validate-style1 has-error': loginForm.controls['email'].dirty && loginForm.controls['email'].invalid}">
+                      <input type="text" class="form-control" placeholder="Email id" [formControl]="loginForm.controls['email']" maxlength="64" />
+                      <div class="error" *ngIf="loginForm.controls['email'].dirty && loginForm.controls['email'].invalid">
+                        <span *ngIf="loginForm.controls['email'].hasError('required')">{{'enteremail' | translate}}</span>
+                        <span *ngIf="loginForm.controls['email'].hasError('pattern')">{{'validemail' | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="form-group p5" [ngClass]="{'validate-style1 has-error': loginForm.controls['password'].dirty && loginForm.controls['password'].invalid}">
+                      <input type="password" class="form-control" placeholder="Password" [formControl]="loginForm.controls['password']" >
+                      <div class="error" *ngIf="loginForm.controls['password'].dirty && loginForm.controls['password'].invalid">
+                        <span *ngIf="loginForm.controls['password'].hasError('required')">{{'enterpassword' | translate}}.</span>
+                        <!-- <span *ngIf="loginForm.controls['password'].hasError('minlength')">*Password must be between 8 to 16 characters.</span> -->
+                        <span *ngIf="loginForm.controls['password'].hasError('pattern')">{{'entervalidpassword' | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="form-group p5">
+                      <div class="row">
+                        <div class="col-6 rtl-text-right">
+                          <label class="checkbox-design">
+                            <input type="checkbox" name="remember" [formControl]="loginForm.controls['rememberMe']">
+                            <span></span> {{'rememberme' | translate}}
+                          </label>
+                        </div>
+                        <div class="col-6 rtl-text-left">
+                          <a class="forgotpass" [routerLink]="['/forgot-password']">{{'forgetpassword' | translate}}</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group mb20">
+                      <div class="input-group">
+                        <re-captcha style="margin: auto;" site_key="6LfvDF0UAAAAAIkOZrhJ6KKGs9HbMR857IGuLspj" (captchaResponse)="handleCorrectCaptcha($event)" (captchaExpired)="handleExpiredCaptcha()"></re-captcha>
+                        <!-- <div class="input-group-prepend">
+                          <span class="input-group-text captch_img"><img src="assets/images/captcha-img.png" alt="Captcha Image"/></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" /> -->
+                      </div>
+                    </div>
+                    <div class="form-group p5 mb0">
+                      <button type="button" class="btn btn-block btn-submit" [disabled]="loginForm.invalid" (click)="login()">{{'login' | translate}}</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- SigninTab End -->
+              <div class="tab-pane fade " [ngClass]="{'show active': (!isSignin)}" role="tabpanel" *ngIf="!isSignin">
+                <div class="form-box center-box max-WT-500">
+                  <form class="common-form" autocomplete="off" [formGroup]="registerForm">
+                    <!-- <div class="form-group" [ngClass]="{'validate-style1 has-error': registerForm.controls['firstName'].dirty && registerForm.controls['firstName'].invalid}">
+                      <input type="text" class="form-control" placeholder="First name" [formControl]="registerForm.controls['firstName']" maxlength="50" />
+                      <div class="error" *ngIf="registerForm.controls['firstName'].dirty && registerForm.controls['firstName'].invalid">
+                        <span *ngIf="registerForm.controls['firstName'].hasError('required')">{{'enterfirstname' | translate}}</span>
+                        <span *ngIf="registerForm.controls['firstName'].hasError('minlength')">{{'validfirstname' | translate}}</span>
+                        <span *ngIf="registerForm.controls['firstName'].hasError('pattern') && !registerForm.controls['firstName'].hasError('minlength')">{{'entervalidfirstname' | translate}}</span>
+                      </div>
+                    </div> -->
+                    <!-- <div class="form-group" [ngClass]="{'validate-style1 has-error': registerForm.controls['lastName'].dirty && registerForm.controls['lastName'].invalid}">
+                      <input type="text" class="form-control" placeholder="Last name" [formControl]="registerForm.controls['lastName']" maxlength="50" />
+                      <div class="error" *ngIf="registerForm.controls['lastName'].dirty && registerForm.controls['lastName'].invalid">
+                        <span *ngIf="registerForm.controls['lastName'].hasError('minlength')">{{'validlastname' | translate}}</span>
+                        <span *ngIf="registerForm.controls['lastName'].hasError('pattern') && !registerForm.controls['lastName'].hasError('minlength')">{{'validenterlastname' | translate}}</span>
+                      </div>
+                    </div> --> 
+                    <div class="form-group p5" [ngClass]="{'validate-style1 has-error': registerForm.controls['email'].dirty && registerForm.controls['email'].invalid}">
+                      <input type="text" class="form-control" placeholder="Email id" maxlength="64" [formControl]="registerForm.controls['email']" />
+                      <div class="error" *ngIf="registerForm.controls['email'].dirty && registerForm.controls['email'].invalid">
+                        <span *ngIf="registerForm.controls['email'].hasError('required')">{{'enteremail' | translate}}</span>
+                        <span *ngIf="registerForm.controls['email'].hasError('pattern')">{{'validemail' | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="form-group p5" [ngClass]="{'validate-style1 has-error phone-group': registerForm.controls['password'].dirty && registerForm.controls['password'].invalid}">
+                      <input type="password" class="form-control" placeholder="Password" maxlength="16" [formControl]="registerForm.controls['password']"  />
+                      <div class="error" *ngIf="registerForm.controls['password'].dirty && registerForm.controls['password'].invalid">
+                        <span *ngIf="registerForm.controls['password'].hasError('required')">{{'enterpassword' | translate}}</span>
+                        <span *ngIf="registerForm.controls['password'].hasError('minlength')">{{'validpassword' | translate}}</span>
+                        <span *ngIf="registerForm.controls['password'].hasError('pattern') && !registerForm.controls['password'].hasError('minlength')">{{'entervalidpassword' | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="form-group p5" [ngClass]="{'validate-style1 has-error phone-group': (registerForm.controls['password'].value && registerForm.controls['cnfPassword'].value) && (registerForm.controls['password'].value != registerForm.controls['cnfPassword'].value)}">
+                      <input type="password" class="form-control" placeholder="Confirm password" maxlength="16" [formControl]="registerForm.controls['cnfPassword']" />
+                      <div class="error" *ngIf="registerForm.controls['password'].value && registerForm.controls['cnfPassword'].value">
+                        <span *ngIf="registerForm.controls['password'].value != registerForm.controls['cnfPassword'].value">{{'confirmpassword' | translate}}</span>
+                      </div>
+                    </div>
+                    <div class="form-group p5 mb20 rtl-text-right">
+                      <label class="checkbox-design agreeTerms">
+                        <input type="checkbox" name="remember" [formControl]="registerForm.controls['terms']">
+                        <span></span>{{'agree' | translate}}<a target="_blank" [routerLink]="['/terms']"> {{'termandservices'| translate}}</a>
+                      </label>
+                    </div>
+                    <div class="form-group mb20">
+                      <div class="input-group">
+                        <!-- <div class="input-group-prepend">
+                          <span class="input-group-text captch_img"><img src="assets/images/captcha-img.png" alt="Captcha Image"/></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="" /> -->
+                        <re-captcha style="margin: auto;" site_key="6LfvDF0UAAAAAIkOZrhJ6KKGs9HbMR857IGuLspj" (captchaResponse)="handleCorrectCaptcha($event)" (captchaExpired)="handleExpiredCaptcha()"></re-captcha>
+                      </div>
+                    </div>
+                    <div class="form-group p5 mb0">
+                      <button type="button" class="btn btn-block btn-submit" [disabled]="signupDisableFun()" (click)="signup()">{{'createaccount'| translate}}</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- Signup Tab Content End -->
+            </div>
+            <!-- Tab Content Block -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- main End -->
+<!-- Modal Start-->
+<!--<div class="modal-header ">
+                     <h4 class="modal-title text-center">Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div> -->
+<!-- <div class="modal fade global-modal reset-modal" id="otp_Autheticator">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height270">
+            <div class="col">
+              <form class="common-form" autocomplete="off">
+                <div class="head_box2 text-center mb10">
+                  <h4>{{'emailverification' | translate}}</h4>
+                  <p>{{'sentemail' | translate}}</p>
+                </div>
+                <div class="form-group mb20">
+                  <ul class="insert_qr_code d-flex">
+                    <li>
+                      <input class="form-control no_arrow" type="text" id="firstInput" maxlength="1" [(ngModel)]="otp.one" name="one" (keyup)="changeFocus(otp.one, 'secondInput', $event)" (keydown.backspace)="remove(otp.one, 'secondInput', $event)"  onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="secondInput" [(ngModel)]="otp.two" name="two" (keyup)="changeFocus(otp.two, 'thirdInput', $event)" (keydown.backspace)="remove(otp.two, 'thirdInput', $event)" onlyNumber />
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="thirdInput" [(ngModel)]="otp.three" name="three" (keyup)="changeFocus(otp.three, 'fourthInput', $event)"  (keydown.backspace)="remove(otp.three, 'fourthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="fourthInput" [(ngModel)]="otp.four" name="four" (keyup)="changeFocus(otp.four, 'fifthInput', $event)" (keydown.backspace)="remove(otp.four, 'fifthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="fifthInput" [(ngModel)]="otp.five" name="five" (keyup)="changeFocus(otp.five, 'sixthInput', $event)" (keydown.backspace)="remove(otp.five, 'sixthInput', $event)"  onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="sixthInput" [(ngModel)]="otp.six" name="six" (keyup)="changeFocus(otp.six, 'complete', $event)" (keydown.backspace)="remove(otp.six, 'complete', $event)" onlyNumber/>
+                    </li>
+                  </ul>
+                </div>
+                <div class="action-btn text-center">
+                  <button type="button" class="btn btn-orange max-WT-200" (click)="(otp.one&&otp.two&&otp.three&&otp.four&&otp.five&&otp.six) ? submitotp() : '' ">SUBMIT</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div> -->
+<!-- Modal End -->
+
+<!-- Signup Modal Start-->
+<div class="modal fade global-modal reset-modal" id="signup_success">
+    <div class="modal-dialog max-WT-500 signupModalmt ">
+      <form class="pin_code_form">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close zIndex link-make" (click)="closeSignupModal()" >&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="row align-items-center">
+              <div class="col">
+                <div class="head_box2 text-center mt20">
+                  <h4 class="font-bold">
+                    <h5> {{'sucessfully_registered' | translate}} </h5>
+                    <p class="mt20">{{'register_link_message' | translate}}</p>
+                    <!-- <p class="word-break  mt-1">{{stakeTransactionData.admin_stake_address }} </p> -->
+                  </h4>
+                  <!-- <img src="http://res.cloudinary.com/vertexportal/image/upload/v1538982752/non0bf2nlhcpiae0ju5i.png" class="qr-code-box"> -->
+                  
+                </div>
+                <!-- <div class="form-group">
+                </div> -->
+                <!-- <div class="form-group mb20"></div> -->
+                <div class="action-btn text-center mb20">
+                    <button type="button" class="btn btn-orange max-WT-200" (click)="closeSignupModal()">{{'ok' | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Signup Modal End -->
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="loginGoogleAutheticator">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <!--<div class="modal-header ">
+                     <h4 class="modal-title text-center">Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div> -->
+        <div class="modal-body">
+            <!-- modal_flax_height -->
+          <div class="row align-items-center p30">
+            <div class="col">
+              <form class="common-form" autocomplete="off">
+                <div class="head_box2 text-center">
+                  <h4>{{'googleauthenticator' | translate}}</h4>
+                  <p>{{'Please enter the code from your Google Authenticator app.'}}</p>
+                </div>
+                <!-- <div class="form-group">
+                  <div class="qr-code-box">
+                    <img src="{{profileData?.data?.qr_code}}" alt="images" />
+                  </div>
+                </div> -->
+                <div class="form-group mb20">
+                    <input class="form-control no_arrow text-center" type="text" [(ngModel)]="loginGOtp" name="loginGOtp" maxlength="6" />
+                  <!-- <ul class="insert_qr_code d-flex">
+                    <li>
+                      <input class="form-control no_arrow" type="text" id="googleFirstInput" maxlength="1" [(ngModel)]="loginGOtp.one" name="one" (keyup)="changeFocus(loginGOtp.one, 'googleSecondInput', $event)" (keydown.backspace)="remove(loginGOtp.one, 'googleSecondInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="googleSecondInput" [(ngModel)]="loginGOtp.two" name="two" (keyup)="changeFocus(loginGOtp.two, 'googleThirdInput', $event)" (keydown.backspace)="remove(loginGOtp.two, 'googleThirdInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="googleThirdInput" [(ngModel)]="loginGOtp.three" name="three" (keyup)="changeFocus(loginGOtp.three, 'googleFourthInput', $event)" (keydown.backspace)="remove(loginGOtp.three, 'googleFourthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="googleFourthInput" [(ngModel)]="loginGOtp.four" name="four" (keyup)="changeFocus(loginGOtp.four, 'googleFifthInput', $event)" (keydown.backspace)="remove(loginGOtp.four, 'googleFifthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="googleFifthInput" [(ngModel)]="loginGOtp.five" name="five" (keyup)="changeFocus(loginGOtp.five, 'googleSixthInput', $event)" (keydown.backspace)="remove(loginGOtp.five, 'googleSixthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="googleSixthInput" [(ngModel)]="loginGOtp.six" name="six" (keyup)="changeFocus(loginGOtp.six, 'complete', $event)" (keydown.backspace)="remove(loginGOtp.six, 'googleComplete', $event)" onlyNumber/>
+                    </li>
+                  </ul> -->
+                </div>
+                <div class="action-btn text-center">
+                  <!-- <button type="button" class="btn btn-orange max-WT-200" (click)="(loginGOtp.one&&loginGOtp.two&&loginGOtp.three&&loginGOtp.four&&loginGOtp.five&&loginGOtp.six)? loginOtpSubmit('google') : '' " >SUBMIT</button> -->
+                  <button type="button" class="btn btn-orange max-WT-200" (click)="loginOtpSubmit('google')" >{{'submit' | translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Modal End -->
+<!-- Modal Start-->
+<div class="modal fade global-modal reset-modal" id="loginOtpAutheticator">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <!--<div class="modal-header ">
+                     <h4 class="modal-title text-center">Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div> -->
+        <div class="modal-body">
+          <div class="row align-items-center modal_flax_height270">
+            <div class="col">
+              <form class="common-form" autocomplete="off">
+                <div class="head_box2 text-center mb10">
+                  <h4>{{'otpathenticator' | translate}}</h4>
+                  <p>{{'sentemail' | translate}}</p>
+                </div>
+                <div class="form-group mb20">
+                    <input class="form-control no_arrow text-center" type="text" maxlength="6" [(ngModel)]="loginOtp" name="loginOtp" />
+                  <!-- <ul class="insert_qr_code d-flex">
+                    <li>
+                      <input class="form-control no_arrow" type="text" id="loginFirstInput" maxlength="1" [(ngModel)]="loginOtp.one" name="one" (keyup)="changeFocus(loginOtp.one, 'loginSecondInput', $event)" (keydown.backspace)="remove(loginOtp.one, 'loginSecondInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="loginSecondInput" [(ngModel)]="loginOtp.two" name="two" (keyup)="changeFocus(loginOtp.two, 'loginThirdInput', $event)" (keydown.backspace)="remove(loginOtp.two, 'loginThirdInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="loginThirdInput" [(ngModel)]="loginOtp.three" name="three" (keyup)="changeFocus(loginOtp.three, 'loginFourthInput', $event)" (keydown.backspace)="remove(loginOtp.three, 'loginFourthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="loginFourthInput" [(ngModel)]="loginOtp.four" name="four" (keyup)="changeFocus(loginOtp.four, 'loginFifthInput', $event)" (keydown.backspace)="remove(loginOtp.four, 'loginFifthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="loginFifthInput" [(ngModel)]="loginOtp.five" name="five" (keyup)="changeFocus(loginOtp.five, 'loginSixthInput', $event)" (keydown.backspace)="remove(loginOtp.five, 'loginSixthInput', $event)" onlyNumber/>
+                    </li>
+                    <li>
+                      <input class="form-control no_arrow" type="text" maxlength="1" id="loginSixthInput" [(ngModel)]="loginOtp.six" name="six" (keyup)="changeFocus(loginOtp.six, 'complete', $event)" (keydown.backspace)="remove(loginOtp.six, 'loginComplete', $event)" onlyNumber/>
+                    </li>
+                  </ul> -->
+                </div>
+                <div class="action-btn text-center">
+                  <!-- <button type="button" class="btn btn-orange max-WT-200" (click)="(loginOtp.one&&loginOtp.two&&loginOtp.three&&loginOtp.four&&loginOtp.five&&loginOtp.six) ? loginOtpSubmit('otp'): ''" >{{'submit' | translate}}</button> -->
+                  <button type="button" class="btn btn-orange max-WT-200" (click)="loginOtpSubmit('otp')" >{{'submit' | translate}}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Modal End -->

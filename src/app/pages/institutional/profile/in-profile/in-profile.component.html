@@ -1,0 +1,254 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<div class="wrapper ">
+    <app-in-sidebar [activeTab]="7"></app-in-sidebar>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <app-in-header [headerName]="'Profile'" ></app-in-header>
+        <!-- <app-in-header [headerName]="'Edit Project'" *ngIf="currId != 'add'" ></app-in-header> -->
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid pt-4">
+                <div class="card">
+                    <div class="card-header card-header-tabs card-header-primary profileHeader">
+                        <h4 class="card-title font-weight-bold inrtl-title">{{'myprofile' | translate}}</h4>
+                    </div>
+                    <div class="mt30 text-center">
+                        <label class="color-black"><h3>{{'tier-level' | translate}}  <span class="color-orange pl10">{{ (profileData?.seller_tier != 'N/A') ? profileData?.seller_tier : '- - -'}}</span></h3></label>
+                    </div>
+                    <div class="card-body">
+                        <form class="formBox max-WT-600 center-box" novalidate autocomplete="off" [formGroup]="profileForm" >
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'user_name' | translate}} </label>
+                                        <div class="viewField" *ngIf="profileData?.user_name">{{profileData?.user_name}}</div>
+                                        <div class="w100onSmall">
+                                            <input type="text" class="form-control inline-block mnh0 w30percent w165 " placeholder="User name" [formControl]="profileForm.controls['userName']" *ngIf="!profileData?.user_name" >
+                                            <button class="btn-gray btn-profile-user link-make ml20" type="button" *ngIf="!profileData?.user_name" (click)="saveUserName()" >{{'save' | translate}}</button>
+                                        </div>
+                                        <!-- <div class="viewField">{{profileData?.email || '- - -'}}</div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'email' | translate}} </label>
+                                        <div class="viewField">{{profileData?.email || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'firstname' | translate}} </label>
+                                        <div class="viewField">{{kycData?.first_name || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'lastname' | translate}} </label>
+                                        <div class="viewField">{{kycData?.last_name || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'dob' | translate}} </label>
+                                        <div class="viewField">{{kycData?.dob || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'country' | translate}} </label>
+                                        <div class="viewField">{{kycData?.country || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'nationality' | translate}} </label>
+                                        <div class="viewField">{{kycData?.nationality || '- - -'}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group horizontalGroup">
+                                        <label class="control-label">{{'mobilenumber' | translate}} </label>
+                                        <div class="viewField">{{kycData?.phone || '- - -'}}</div>
+                                    </div>
+                                </div>
+                             
+                              <div class="col-md-12 text-md-right">
+                                  <div class="form-group horizontalGroup mt0 pb0">
+                                      <label class="control-label"></label>
+                                      <div class="form-control text-left border0 padd0 formActionBtn">
+                                              <button type="button" class="btn btn-vertex minWidth100 btn-block " [routerLink]="['/change-password']" >{{'changepassword' | translate}}</button>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12 text-md-right" *ngIf="(!kycData?.manual_approve && kycData?.verify_stage != 'VERIFIED')">
+                                  <div class="form-group horizontalGroup mt0 pb0">
+                                      <label class="control-label"></label>
+                                      <div class="form-control text-left border0 padd0 formActionBtn">
+                                              <button type="button" class="btn btn-vertex minWidth100 btn-block "  [routerLink]="['/kyc']" >{{'completekyc' | translate}}</button>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12 text-md-right" *ngIf="profileData?.seller_tier != 'S2'">
+                                <div class="form-group horizontalGroup mt0">
+                                    <label class="control-label"></label>
+                                    <div class="form-control text-left border0 padd0 formActionBtn">
+                                            <button type="button" class="btn minWidth100 btn-block " [ngClass]="applicationData?.institutional_type == 'Company' && applicationData?.verify_stage != 'UNVERIFIED' ? 'btn-gray' : 'btn-orange'" [routerLink]="['/institutional/upgrade-tier']" >{{'upgrade_s2' | translate}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="head_box2 text-center">
+                                <label class="control-label fs18">{{'step2' | translate}}</label>
+                              </div>
+                                <!-- Google Auth Button -->
+                                <div class="col-md-12 text-md-right">
+                                    <div class="form-group horizontalGroup pb0">
+                                        <label class="control-label"></label>
+                                        <div class="form-control text-left border0 padd0 formActionBtn">
+                                                <button type="button" class="btn btn-block" [ngClass]="profileData?.google_auth ? 'btn-orange' : 'btn-gray' " (click)="changeAuth('google')">{{'googleauth' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Google Auth Button -->
+                                <!-- OTP Auth Button -->
+                                <div class="col-md-12 text-md-right">
+                                    <div class="form-group horizontalGroup mt0">
+                                        <label class="control-label"></label>
+                                        <div class="form-control text-left border0 padd0 formActionBtn">
+                                                <button type="button" class="btn btn-block " [ngClass]="profileData?.otp_auth ? 'btn-orange' : 'btn-gray' " (click)="changeAuth('otp')" >{{'otpauth' | translate}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End OTP Auth Button -->
+
+                            </div>
+                        </form>
+                    
+                      </div>
+                </div>
+            </div>
+        </div>
+        <!-- <footer class="footer">
+            <div class="container-fluid">
+                <div class="copyright text-left">
+                    Copyright &copy; 2018, Vertex
+                </div>
+  
+            </div>
+        </footer> -->
+        <app-in-footer></app-in-footer>
+    </div>
+  </div>
+
+  <div class="modal fade global-modal reset-modal" id="inAddOffering1">
+        <div class="modal-dialog max-WT-500">
+          <form class="pin_code_form">
+            <div class="modal-content">
+              <!--<div class="modal-header ">
+                           <h4 class="modal-title text-center">Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div> -->
+              <div class="modal-body">
+                <div class="row align-items-center minHeight180">
+                  <div class="col">
+                    <!-- <form class="common-form" autocomplete="off"> -->
+                      <div class="head_box2 text-center mb15">
+                        <h4>{{'tranfer-confirm-message' | translate}}</h4>
+                        <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                      </div>
+                    
+                      <div class="modalActionBtn text-center">
+                        <!-- <button type="button" class="btn btn-gray max-WT-150" (click)="goToFund()" >CANCEL</button> -->
+                        <button type="button" class="btn btn-orange max-WT-150">{{'delete' | translate}}</button>
+                      </div>
+                    <!-- </form> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <!-- Google Auth QR Modal Start   -->
+<div class="modal fade global-modal reset-modal" id="in_google_auth_qr1">
+        <div class="modal-dialog max-WT-500">
+          <form class="pin_code_form">
+            <div class="modal-content">
+              <div class="modal-header ">
+                    <!-- <h4 class="modal-title text-center">Heading</h4> -->
+                    <button type="button" class="close zIndex" data-dismiss="modal">&times;</button>
+                </div>
+              <div class="modal-body">
+                <div class="row align-items-center modal_flax_height">
+                  <div class="col">
+                    <form class="common-form" autocomplete="off">
+                      <div class="head_box2 text-center">
+                        <h4>{{'googleauthenticator' | translate}}</h4>
+                        <p>{{'msgqrcode' | translate}}</p>
+                      </div>
+                      <div class="form-group">
+                        <div class="qr-code-box">
+                          <img src="{{gAuthqrImage}}" alt="images" />
+                        </div>
+                      </div>
+                      <div class="form-group mb20">
+                          <input class="form-control no_arrow" type="text" [(ngModel)]="enableGOtp" name="enableGOtp" maxlength="6" />
+                      </div>
+                      <div class="action-btn text-center">
+                        <button type="button" class="btn btn-orange max-WT-200" (click)="enableGOtpSubmit()" >{{'submit' | translate}}</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    <!-- Google Auth QR Modal End -->
+
+      <!-- Modal Start-->
+    <div class="modal fade global-modal reset-modal" id="in_google_auth_qr">
+        <div class="modal-dialog max-WT-500">
+          <form class="pin_code_form">
+            <div class="modal-content">
+                <div class="padd10">
+                    <!-- <h4 class="modal-title text-center">Heading</h4> -->
+                    <button type="button" class="close padd5" data-dismiss="modal" >&times;</button>
+                </div>
+              <div class="modal-body">
+                <div class="row align-items-center minh355 ">
+                  <div class="col modalAbs mt--40">
+                    <form class="common-form" >
+                      <div class="head_box2 text-center">
+                        <!-- <h4>Offering Added</h4> -->
+                        <!-- <p>Please send 1 VTEX Token to the admin address <span class="font-bold addressFont">{{stakeTransactionData.admin_stake_address }} </span>as
+                            to prove your ownership</p> -->
+                            <!-- <p>Please send 1 VTEX Token to the admin address <span class="font-bold addressFont">{{stakeTransactionData.admin_stake_address}} </span> <span class="makeLink"  (click)="copyToClipboard(stakeTransactionData.admin_stake_address)"><i class="fa fa-clipboard copyFont"></i></span><br> as
+                                to prove your ownership</p> -->
+                            <h4>{{'googleauthenticator' | translate}}</h4>
+                            <p>{{'msgqrcode' | translate}}</p>
+                      </div>
+                      <div class="mt40">
+                        <div class="qr-code-box">
+                          <img src="{{gAuthqrImage}}" alt="images" />
+                        </div>
+                      </div>
+                      <div class="form-group mb20">
+                        <input class="form-control no_arrow text-center" type="text" [(ngModel)]="enableGOtp" name="enableGOtp" maxlength="6" />
+                      </div>
+                      <div class="action-btn text-center  mb10 mt10">
+                        <button type="button" class="btn btn-orange max-WT-150" (click)="enableGOtpSubmit()">{{'submit' | translate}}</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Modal End -->
+
+    

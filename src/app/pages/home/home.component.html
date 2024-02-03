@@ -1,0 +1,677 @@
+<app-loading *ngIf="isLoading"></app-loading>
+<!------------------------------------- carousel Start ---------------------------------- -->
+<div id="demo" class="carousel slide" data-ride="carousel" *ngIf="arrayRange != []"> 
+  <div class="carousel-inner" [ngClass]="ptradeHeaderShow=='true'? 'home-carousel-inner':''">
+    <div *ngFor="let item of banner; let first=first" class="carousel-item" [ngClass]="{active: first}">
+      <span class="banner">
+        <img src="{{item.img}}" class="banner-img" alt="img">
+      </span>
+    </div>
+  </div>
+</div>
+<!------------------------------------- carousel End ---------------------------------- -->
+<!------------------------------------- Search Start---------------------------------- -->
+
+<main>
+  <section class="token_detail_scetion mtop30 mbot-60">
+    <div class="container-1280">
+      <div class="token_trading_block">
+        <div class="row">
+          <!------------------------------------- WANT TO SPEND ---------------------------------- -->
+
+          <div class="col-md-6 col-lg-6 media-mb-10">
+            <ng-select [items]="sectorsSearch"  [clearable]="false" bindLabel="platform_currency_symbol" [(ngModel)]="selectedUsers1" (focus)="searchSpender()"
+              (focusout)="searchSpends()" placeholder="WANT TO SPEND" (keyup)="filterSpend($event)">
+              <ng-template ng-label-tmp let-item="item" >
+                <div class="ng-value">
+                  <span class="ng-value-label"> {{item.platform_currency_symbol}}</span>
+                </div>
+              </ng-template>
+              <ng-template ng-option-tmp let-item="item">
+                <div class="selected_option" (click)="getSelectedSpend(item.platform_currency_symbol,item.is_fiat_currency)">
+                  <div class="row-img">
+                    <img [src]="item.currency_logo || 'assets/images/diamond-icon.png'" class="selectImg"> {{item.platform_currency_symbol}}<span>&nbsp;({{item.platform_currency_ticker}})</span>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+            <div *ngIf="isTooltip" class="data-tooltip  tooltip-buy">
+              <span class="tooltiptext">{{'tooltip_spend' | translate}}</span>
+            </div>
+          </div>
+
+          <!------------------------------------- WANT TO BUY ---------------------------------- -->
+
+          <div class="col-md-6 col-lg-6">
+            <ng-select [items]="sectorsBuySearch" [clearable]="false" bindLabel="token_name" [(ngModel)]="selectedUsers2" (keyup)="filterBuy($event)" placeholder="WANT TO BUY"
+              (focus)="searchBuy()" (focusout)="searchBuys()">
+
+              <ng-template ng-label-tmp let-item="item">
+                <div>
+                  <span class="ng-value-label"> {{item.token_name}}</span>
+                </div>
+              </ng-template>
+
+              <ng-template ng-option-tmp let-item="item" style="padding: 0;">
+                <div class="selected_option" (click)="getSelectedBuy(item)">
+                  <div class="row-img">
+                    <img [src]="item.token_symbol || 'assets/images/diamond-icon.png'" class="selectImg"> {{item.token_name}}<span>&nbsp;({{item.ticker}})</span>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+
+            <div *ngIf="isTooltips" class="data-tooltip tooltip-buy">
+              <span class="tooltiptext">{{'tooltip_buy' | translate}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<!------------------------------------- Search End---------------------------------- -->
+
+<!------------------------------------- pinned projects---------------------------------- -->
+<!--      Pinned Project Container     -->
+<main>
+  <section class="token_detail_scetion mtop30">
+    <div class="container-1280">
+      <div class="token_trading_block">
+        <div class="row media-tiles-row">
+          <div class="col-6 col-md-3 col-lg-2  media-tiles-col contain card-new"  *ngFor="let token of pinnedprojects">
+            <div class="trading_box1" (click)="goToTradingDetail(token)">
+              <div class="trading_box_body1">
+                <span class="row col-md-12 trade_icon1">
+                  <img src="{{ token?.token_symbol || 'assets/images/diamond-icon.png'}}" alt="icon" />
+                </span>
+                <h3 class="h3add">
+                  {{token?.token_name | truncate : 13 :'...' }}
+                </h3>              
+
+                <div class="tokenusd">From : {{token?.price_range[0] | number:'1.2-2'}} USD</div>
+                <div class="tokenusd" style="margin-left: 21px;">To : {{token?.price_range[1] | number:'1.2-2'}} USD</div>
+              </div>
+            </div>
+              <div class="overlay" *ngIf="iswebApp" (click)="goToTradingDetail(token)"></div>
+            <div *ngIf="isLoggedIn && iswebApp">
+              <div class="buybtn" (click)="goToTradingDetail(token)">Buy</div>
+            </div>
+            <div *ngIf="!isLoggedIn && iswebApp">
+              <div class="buybtn" (click)="goToTradingDetail(token)">Buy</div>
+            </div>
+            <div *ngIf="!isLoggedIn && iswebApp">
+              <button type="button" class="sellbtn" data-toggle="modal" data-target="#userAlert">Sell</button>
+            </div>
+            <div *ngIf="isLoggedIn && iswebApp">
+              <button type="button" class="sellbtn" [routerLink]="['/institutional/add-offering/add']">Sell</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+<!--      Pinned Project Container     -->
+<!------------------------------------- pinned proeject end---------------------------------- -->
+<!------------------------------------------- token_detail_scetion Start -------------------------- -->
+<main class="main-container">
+  <section class="token_detail_scetion">
+    <div class="container-1280">
+      <!----------------------------------- Token_trading_box Start ---------------------------------------->
+      <div class="token_trading_block">
+        <div class="card_box">
+          <div class="row">
+            <div class="col-6">
+              <button type="button" class="btn btn-orange rtl-right-homebtn">{{'ongoing_offerings' | translate}}</button>
+            </div>
+            <div class="col-6 home-whitebtn">
+              <button class="btn btn-white" [routerLink]="['/token-sale/all']">{{'viewbtn' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="row media-tiles-row">
+          <div class="col-6 col-md-3 col-lg-4 media-tiles-col" *ngFor="let token of ongoingTokenArr | slice:0:6">
+            <div class="trading_box link-make" (click)="goToTradingDetail(token)">
+              <div class="special-offer" *ngIf="token?.special_offering == true">
+                <div class="special-offer-txt">special offer</div>
+              </div>
+              <div class="trading_box_head clearfix">
+                <div class="clearfix row">
+                  <div class="col-9 specOff" >
+                    <div *ngIf="token?.offering_type.length && token?.offering_nos > 0 && iswebApp" [ngClass]="{'specialoff-true': token?.special_offering}">
+                      <span class="badge badge-pill badge-warning badges" *ngIf="token?.offering_type.includes('Fixed')">
+                        <b>FIX</b>
+                      </span>
+                      <span class="badge badge-pill badge-warning badges" *ngIf="token?.offering_type.includes('Floating')">
+                        <b>FLO</b>
+                      </span>
+                      <span class="badge badge-pill badge-warning badges" *ngIf="token?.offering_type.includes('Linked Currency') || token?.offering_type.includes('Linked Token')">
+                        <b>LNK</b>
+                      </span>
+                    </div>                    
+                  </div>
+                  <div class="col-3 offerNos">
+                    <span class="badge badge-pill badge-warning">
+                      <b>{{token?.offering_nos}}</b>
+                    </span>
+                  </div>                  
+                </div>
+              </div>
+              <div class="trading_box_body">
+                <span class="trade_icon">
+                  <img src="{{ token?.token_symbol || 'assets/images/diamond-icon.png'}}" alt="icon">
+                </span>
+                <h3 *ngIf="!iswebApp">
+                  {{token?.token_name | truncate : 13 :'...' }}
+                  <span class="ticker">({{token?.ticker}})</span>
+                </h3>
+                <h3 *ngIf="iswebApp">
+                  {{token?.token_name}}
+                  <span class="ticker">({{token?.ticker}})</span>
+                </h3>
+                <p *ngIf="iswebApp">{{token?.description | truncate : 150 :'.' }}</p>
+              </div>
+              <div class="trading_head_foot clearfix">
+                <span class="sales_start_time">
+                  <i class="far fa-clock"></i>
+                  {{'ongoing' | translate}}
+                </span>
+                <span class="price-range" *ngIf="token?.price_range[1] != 0">
+                  ${{token?.price_range[0] | number:'1.2-2'}} - ${{token?.price_range[1] | number:'1.2-2'}}
+                </span>
+                <span class="clearfix row symbol-group" *ngIf="token?.offering_nos > 0">
+                  <div class="currency-symbol" *ngFor="let symbol of token?.offering_symbol">
+                    <div *ngIf="symbol == 'ETH'">
+                      <img src="../../../assets/images/coin-crypto.svg" class="currencyicon">
+                    </div>
+                    <div *ngIf="symbol == 'US Dollar'">
+                      <img src="../../../assets/images/money-bag.jpg" class="currencyicon">
+                    </div>
+                    <div *ngIf="symbol == 'BTC'">
+                      <img src="../../../assets/images/btc.svg" class="currencyicon">
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+            <!-- <div class="overlay" *ngIf="iswebApp" (click)="goToTradingDetail(token)"></div>
+            <div *ngIf="isLoggedIn && iswebApp">
+              <div class="buybtn" [routerLink]="['/token-sale/upcoming']">Buy tokens</div>
+            </div>
+            <div *ngIf="!isLoggedIn && iswebApp">
+              <div class="buybtn" [routerLink]="['/vertex/login']">Buy tokens</div>
+            </div>
+            <div *ngIf="!isLoggedIn && iswebApp">
+              <button type="button" class="sellbtn" data-toggle="modal" data-target="#userAlert">Sell tokens</button>
+            </div>
+            <div *ngIf="isLoggedIn && iswebApp">
+              <button type="button" class="sellbtn" [routerLink]="['/institutional/add-offering/add']">Sell tokens</button>
+            </div> -->
+          </div>
+          <div class="col-12" *ngIf="ongoingTokenArr.length == 0">
+            <h5 class=" text-center">{{'nodataongoing' | translate}}</h5>
+          </div>
+        </div>
+      </div>
+      <!-- To comment -->
+      <!-- <div class="token_trading_block media-mt-7">
+        <div class="card_box">
+          <div class="row">
+            <div class="col-6">
+              <button type="button" class="btn btn-orange rtl-right-homebtn">{{'currently_no_offerings' | translate}}</button>
+            </div>
+            <div class="col-6 home-whitebtn">
+              <button class="btn btn-white" [routerLink]="['/token-sale/upcoming']">{{'viewbtn' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="row media-tiles-row">
+          <div class="col-6 col-md-3 col-lg-4 media-tiles-col" *ngFor="let token of nooffering | slice:0:3">
+            <div class="trading_box" (click)="goToTradingDetail(token)">
+              <div class="special-offer" *ngIf="token?.special_offering == true">
+                <div class="special-offer-txt">{{'special_offer' | translate}}</div>
+              </div>
+              <div class="trading_box_head clearfix">
+                <div class="clearfix row">
+                  <div class="col-9" >
+                    <div *ngIf="token?.offering_type.length && token?.offering_nos > 0 && iswebApp" [ngClass]="{'specialoff-true': token?.special_offering}">
+                      <span class="badge badge-pill badge-warning" *ngIf="token?.offering_type.includes('Fixed')">
+                        <b>FIX</b>
+                      </span>
+                      <span class="badge badge-pill badge-warning" *ngIf="token?.offering_type.includes('Floating')">
+                        <b>FLO</b>
+                      </span>
+                      <span class="badge badge-pill badge-warning" *ngIf="token?.offering_type.includes('Linked Currency') || token?.offering_type.includes('Linked Token')">
+                        <b>LNK</b>
+                      </span>
+                    </div>
+
+                   
+
+                  </div>
+                  
+                  <div class="offerNos" *ngIf="token?.offering_nos > 0">
+                    <span class="badge badge-pill badge-warning">
+                      <b>{{token?.offering_nos}}</b>
+                    </span>
+                  </div>
+                  <div class="offerNos" *ngIf="!token?.offering_nos > 0">
+                    <span class="badge badge-pill badge-warning">
+                      <b>{{token?.offering_nos}}</b>
+                    </span>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="trading_box_body">
+                <span class="row col-md-12 trade_icon">
+                  <img src="{{ token?.token_symbol || 'assets/images/diamond-icon.png'}}" alt="icon" />
+                </span>
+                <h3 *ngIf="!iswebApp">
+                  {{token?.token_name | truncate : 13 :'...' }}
+                  <span class="ticker">({{token?.ticker}})</span>
+                </h3>
+                <h3 *ngIf="iswebApp">
+                  {{token?.token_name}}
+                  <span class="ticker">({{token?.ticker}})</span>
+                </h3>
+                <p *ngIf="iswebApp">{{token?.description | truncate : 150 :'.' }}</p>
+              </div>
+              <div class="trading_head_foot clearfix">
+                <span class="sales_start_time">
+                  <i class="far fa-clock"></i>
+                  {{'offering_na' | translate}}
+                </span>
+                <span class="price-range" *ngIf="token?.price_range[1] != 0">
+                  ${{token?.price_range[0] | number:'1.2-2'}} - ${{token?.price_range[1] | number:'1.2-2'}}
+                </span>
+                <span class="clearfix row symbol-group" *ngIf="token?.offering_nos > 0">
+                  <div class="currency-symbol" *ngFor="let symbol of token?.offering_symbol">
+                    <div *ngIf="symbol == 'ETH'">
+                      <img src="../../../assets/images/coin-crypto.svg" class="currencyicon">
+                    </div>
+                    <div *ngIf="symbol == 'US Dollar'">
+                      <img src="../../../assets/images/money-bag.jpg" class="currencyicon">
+                    </div>
+                    <div *ngIf="symbol == 'BTC'">
+                      <img src="../../../assets/images/btc.svg" class="currencyicon">
+                    </div>
+                    <div *ngIf="symbol == 'TST'">
+                      <img src="../../../assets/images/btc.svg" class="currencyicon">
+                    </div>
+                    <div *ngIf="symbol == 'POLY'">
+                      <svg width="227" height="227" viewBox="0 0 227 227" xmlns="http://www.w3.org/2000/svg">
+                        <title>poly</title>
+                        <path d="M113.5 227C50.816 227 0 176.184 0 113.5S50.816 0 113.5 0 227 50.816 227 113.5 176.184 227 113.5 227zm78.031-147.103l-.315-5.019-1.543 4.21-8.698 7.31-9.96 1.481-2.98-2.762 8.732-11.586 8.943-2.594-9.68.203-14.063 9.8-13.186-.909-18.517-9.094-10.942 2.122-34.124 27.282-16.448 5.086-6.768 6.601-12.1.169-5.996 10.71-8.417 2.324 7.96 1.044 7.4-9.599 11.433 2.29-.21 10.273-5.716 14.786-3.262 13.675-3.507 5.456 8.908-1.886-1.017-5.59 7.575-15.023L79.623 135l5.645-8.993 9.54-6.669 18.937 2.661 19.079-8.05-3.227 12.732-8.487.74-2.42 10.442 7.26-4.648 12.029-5.019 9.399-14.18.596-6.702 5.05 5.019 14.695 8.858 8.346-3.806-.49-18.727-2.42-7.241 10.906-2.661 7.47-8.858z"
+                        />
+                      </svg>
+
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-12" *ngIf="nooffering.length == 0">
+            <h5 class="text-center no-projects">{{'no_projects' | translate}}</h5>
+          </div>
+        </div>
+      </div> -->
+      <!--------------------------------- Token_trading_box End ---------------------------------------->
+
+    </div>
+  </section>
+  <!-------------------------------------- token_detail_scetion End --------------------------------------------->
+  <!--------------------------------------------- About Vertex -------------------------------------------------->
+  <!-- <section class="about-vertex-section text-center">
+    <div class="container">
+      <div class="about_bg">
+        <div class="pyramid_images">
+          <img src="assets/images/about-us.png" />
+        </div>
+        <div class="section-head">
+          <h4>{{'headingofabout' | translate}}</h4>
+        </div>
+        <div class="section_content">
+          <p class="new-para-about" [innerHTML]="aboutData"></p>
+        </div>
+        <button class="btn btn-read-more max-WT-250" [routerLink]="['/about-us']">{{'readbtn' | translate}}</button>
+      </div>
+    </div>
+  </section> -->
+  <!---------------------------------------- End About Vertex ---------------------------------------------------->
+  <!---------------------------------------- Why Choose Vertex ---------------------------------------------------->
+  <section class="why_choose_section text-center common_section">
+    <div class="container-1280">
+      <div class="section-head">
+        <h4 class="w-color">{{'whychoose' | translate}}</h4>
+        <p class="w-color">{{whyData?.description }}</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="vertex_feture_box">
+            <span class="feture_icon">
+              <img src="assets/images/handshake-icon.png" alt="Icon" style="width: 88px; height: 76px;">
+            </span>
+            <h3 style="word-wrap: break-word;">{{whyChooseArr[0]?.title}}</h3>
+            <p style="word-wrap: break-word;">{{whyChooseArr[0]?.description}}</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="vertex_feture_box">
+            <span class="feture_icon">
+              <img src="assets/images/imgpsh_fullsize.png" alt="Icon" style="width: 88px; height: 76px;">
+            </span>
+            <h3 style="word-wrap: break-word;">{{whyChooseArr[1]?.title}}</h3>
+            <p style="word-wrap: break-word;">{{whyChooseArr[1]?.description}}</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="vertex_feture_box">
+            <span class="feture_icon">
+              <img src="assets/images/imgpsh.png" alt="Icon" style="width: 88px; height: 76px;">
+            </span>
+            <h3 style="word-wrap: break-word;">{{whyChooseArr[2]?.title}}</h3>
+            <p style="word-wrap: break-word;">{{whyChooseArr[2]?.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="how-it-works-section text-center common_section">
+    <div class="container">
+      <div class="section-head">
+        <h4>{{'as_featured_on' | translate}}</h4>
+        <!-- <p style="word-wrap: break-word;" class="new-para" [innerHTML]="howitsWorksData.description"></p> -->
+
+        <span (click)="openImageLink('investing')" class="feature">
+          <img src="assets/images/how-it-works/investing.png" class="investing">
+        </span>
+        <span (click)="openImageLink('yahoo')" class="feature">
+          <img src="assets/images/how-it-works/Yahoo-Finance-logo.png" class="investing">
+        </span>
+        <span (click)="openImageLink('MWlogo')" class="feature">
+          <img src="assets/images/how-it-works/MW_logo.png" class="investing">
+        </span>
+        <span (click)="openImageLink('bizjournals')" class="feature">
+          <img src="assets/images/how-it-works/BUSINESSJOURNALS.png" class="investing">
+        </span>
+        <span (click)="openImageLink('finanzen')" class="feature">
+          <img src="assets/images/how-it-works/finanzen.png" class="investing">
+        </span>
+        <span (click)="openImageLink('morningstar')" class="feature">
+          <img src="assets/images/how-it-works/morningstar.png" class="investing">
+        </span>
+        <!-- <span (click)="openImageLink('businessinsider')" class="feature">
+          <img src="assets/images/how-it-works/morningstar.png" class="investing">
+        </span> -->
+        <span (click)="openImageLink('bitcoin')" class="feature">
+          <img src="assets/images/how-it-works/logo-bitcoincom.png" class="investing">
+        </span>
+        <span (click)="openImageLink('bitcoinist')" class="feature">
+          <img src="assets/images/how-it-works/logo-bitcoinist.png" class="investing">
+        </span>
+        <span (click)="openImageLink('newsbtc')" class="feature">
+          <img src="assets/images/how-it-works/logo-newsbtc.png" class="investing">
+        </span>
+        <span (click)="openImageLink('coinstaker')" class="feature">
+          <img src="assets/images/how-it-works/coinstaker.png" class="investing">
+        </span>
+        <span (click)="openImageLink('coinspeaker')" class="feature">
+          <img src="assets/images/how-it-works/coin-speaker.png" class="investing">
+        </span>
+        <span (click)="openImageLink('ccn')" class="feature">
+          <img src="assets/images/how-it-works/ccn.png" class="investing">
+        </span>
+        <span (click)="openImageLink('blockon')" class="feature">
+          <img src="assets/images/how-it-works/blockon.png" class="investing">
+        </span>
+        <span (click)="openImageLink('coinjournal')" class="feature">
+          <img src="assets/images/how-it-works/coinjournal.png" class="investing">
+        </span>
+        <span (click)="openImageLink('cryptocurrencynews')" class="feature">
+          <img src="assets/images/how-it-works/crypto.png" class="investing">
+        </span>
+        <span (click)="openImageLink('finanznachrichten')" class="feature">
+          <img src="assets/images/how-it-works/nachrich.png" class="investing">
+        </span>
+        <span (click)="openImageLink('businessinsider')" class="feature">
+          <img src="assets/images/how-it-works/network.png" class="investing">
+        </span>
+        <span (click)="openImageLink('indiatoday')" class="feature">
+          <img src="assets/images/how-it-works/india_today.png" class="investing">
+        </span>
+
+        <span (click)="openImageLink('nbc12')" class="feature">
+          <img src="assets/images/how-it-works/NBC12.png" class="investing">
+        </span>
+        <span (click)="openImageLink('exame')" class="feature">
+          <img src="assets/images/how-it-works/exame.png" class="investing">
+        </span>
+      </div>
+      <!-- <button class="btn btn-read-more-circular max-WT-250" [routerLink]="['/how-works']">{{'readbtn' | translate}}</button> -->
+    </div>
+  </section>
+  <!-- <section class="testimonial_section text-center common_section">
+    <div class="container">
+      <div class="section-head">
+        <h4>{{'whatcustomer' | translate}}</h4>
+      </div>
+      <div class="testimonial_slider" [ngClass]="{'threeBox': customersSayData.length<4, 'fourBox': customersSayData.length>3}">
+        <div class="testimonial-boxparent" *ngFor="let item of customersSayData">
+          <div class="testimonial-box">
+            <div class="testimonial-header">
+              <img src="{{ item.icon || 'assets/images/testimonial-img1.jpg'}}" alt="icon">
+              <h5 style="word-wrap: break-word;">{{item?.name}}</h5>
+              <p>{{item?.created_at | date: 'dd MMMM, yyyy' }}</p>
+            </div>
+            <div class="testimonial-body">
+              <p>{{item?.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <!---------------------------------------- Why Choose Vertex -------------------------------------->
+  <!--------------------------------------- Contact Us ------------------------------------------------>
+  <section class="contact_us_section text-center common_section">
+    <div class="container">
+      <div class="section-head">
+        <h4 class="w-color">{{'contactus' | translate}}</h4>
+      </div>
+      <!-------------------------------- form_box Start ------------------------------------------------>
+      <div class="form_box">
+        <form class="section_contact_form" [formGroup]="contactusForm">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Name" maxlength="50" [formControl]="contactusForm.controls['name']"
+                />
+                <div class="errMsgBlack" *ngIf="contactusForm.controls['name'].dirty && contactusForm.controls['name'].invalid">
+                  <span *ngIf="contactusForm.controls['name'].hasError('required')">*{{'entername' | translate}}</span>
+                  <span *ngIf="contactusForm.controls['name'].hasError('minlength')">*{{'validationname1' | translate}}</span>
+                  <span *ngIf="contactusForm.controls['name'].hasError('pattern') && !contactusForm.controls['name'].hasError('minlength')">*{{'validname' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Email id" maxlength="50" [formControl]="contactusForm.controls['email']"
+                />
+                <div class="errMsgBlack" *ngIf="contactusForm.controls['email'].dirty && contactusForm.controls['email'].invalid">
+                  <span *ngIf="contactusForm.controls['email'].hasError('required')">*{{'enteremail' | translate }}</span>
+                  <span *ngIf="contactusForm.controls['email'].hasError('pattern')">*{{'validemail' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="form-group">
+                <div class="input-group input-group-contact">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <select class="form-control select_style1" [formControl]="contactusForm.controls['phoneCode']" (change)="changeCode()">
+                        <option value="">{{'selectcode' | translate}}</option>
+                        <option *ngFor="let country of allCountryListArr | orderBy: 'code'" [value]="country.code">{{country.code}}</option>
+                      </select>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Contact number" maxlength="16" [formControl]="contactusForm.controls['phoneNumber']"
+                  />
+                </div>
+                <div class="errMsgBlack" *ngIf="contactusForm.controls['phoneNumber'].dirty && contactusForm.controls['phoneNumber'].invalid">
+                  <span *ngIf="contactusForm.controls['phoneNumber'].hasError('required')">*{{'enterno' | translate}}</span>
+                  <span *ngIf="contactusForm.controls['phoneNumber'].hasError('pattern')">*{{'validno' | translate}}.</span>
+                </div>
+              </div>
+            </div> -->
+            <div class="col-md-4">
+              <div class="form-group">
+                <!-- <select class="form-control select_style1" [formControl]="contactusForm.controls['country']">
+                  <option value="">{{'selectcountry' | translate}}</option>
+                  <option *ngFor="let country of countryListArr" [value]="country.name">{{country.name}}</option>
+                </select> -->
+
+                <ng-select [items]="countryListArr" bindLabel="name" bindValue="name" placeholder="Select Country" [formControl]="contactusForm.controls['country']">
+                </ng-select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group mb25">
+                <textarea class="form-control minHeight125" placeholder="Message" maxlength="200" [formControl]="contactusForm.controls['message']"></textarea>
+                <div class="errMsgBlack" *ngIf="contactusForm.controls['message'].dirty && contactusForm.controls['message'].invalid">
+                  <span *ngIf="contactusForm.controls['message'].hasError('required')">*{{'entermessage' | translate}}</span>
+                  <span *ngIf="contactusForm.controls['message'].hasError('pattern')">*{{'validmessage' | translate}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group text-center mb0">
+                <button type="button" class="btn btn-orange max-WT-200" [disabled]="contactusForm.invalid" (click)="contactUs()">{{'submit' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!---------------------------------------------- form_box Start -------------------------------->
+    </div>
+  </section>
+
+
+  <!--------------------------------------------News--------------------------------------------------->
+  <section class="token_detail_scetion mtop30 mbot-60">
+    <div class="container-1280">
+      <div class="token_trading_block">
+        <div class="section-head">
+          <h4>{{'news' | translate}}</h4>
+        </div>
+        <div class="row media-tiles-row">
+          <!-- <div class="col-md-12 col-lg-12"> -->
+          <div class="col-12 col-md-6 col-lg-4" *ngFor="let items of news | slice:0:6">
+            <div class="lib-panel">
+              <div class="box-shadow">
+                <div class="row row1">
+                  <div class="col-md-4 col-lg-5 col-4 imgspace">
+                    <div class="lib-img">
+                      <img class="lib-img-show" src="{{items.picture}}">
+                    </div>
+                  </div>
+                  <div class="col-md-8 col-lg-7 col-8">
+                    <div class="lib-row lib-header">
+                        <span>{{items.title | truncate : 60 :'...'}}</span>
+                      <div class="lib-header-seperator"></div>
+                    </div>
+                    <div class="lib-row lib-desc" dir="rtl">
+                      <span>{{items.text | truncate : 165 :'...'}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="!news.length">
+            <div class="text-center fs20">{{'no-data-found' | translate}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--------------------------------------------End News----------------------------------------------->
+  <!------------------------------ Connect With US ---------------------------------------------------->
+  <section class="connect_with_us common_section text-center connect_with_us_remove">
+    <div class="container-1280">
+      <div class="get_connect_social_box">
+        <p>{{'socialheading' | translate}}</p>
+        <ul class="socialList">
+          <li>
+            <a (click)="openSocialLink('bitcoin')" class="bitcoin">
+              <i class="fab fa-btc"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('fb')" class="facebook">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('twitter')" class="twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('medium')" class="medium">
+              <i class="fab fa-medium"></i>
+            </a>
+          </li>
+          <li>
+            <a class="Octocat" (click)="openSocialLink('github')" class="github">
+              <i class="fab fa-github-alt"></i>
+            </a>
+          </li>
+          <li>
+            <a (click)="openSocialLink('youtube')" class="youtube">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+<!--------------------------------- Subscribe_block Start -------------------------------------->
+<div class="subscribe_block">
+  <div class="subscribe_inner_block">
+    <div class="subscribe_inner_cell">
+      <h3>{{'tokendeals' | translate}}</h3>
+      <div class="subscribeBox">
+        <div class="input-group">
+          <input class="form-control" placeholder="Enter your email address" type="text" maxlength="50" [(ngModel)]="subscribeEmail">
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" (click)="subscribeFun()">{{'subscribe' | translate}}</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-------------------------------------------- Subscribe_block End ------------------------------>
+
+
+
+
+
+<div id="snackbar" ngDraggable>
+  <div class="snackbar-delete-icon" (click)="closeSnackBar()">
+    <i class="fas fa-times"></i>
+  </div>
+  <span>Last Six Trades</span>
+  <div class="trade_list" *ngFor="let item of lastTradesList">
+    <span>{{item?.user_name || 'unknown'}} has purchased {{item?.amount | separator:3}} {{item?.ticker}}</span>
+    <div class="trade-time" style="color: #4c4848; font-size: 12px;">{{item?.trade_time| utcTime | date: 'yyyy-MM-dd hh:mm' }}</div>
+  </div>
+</div>

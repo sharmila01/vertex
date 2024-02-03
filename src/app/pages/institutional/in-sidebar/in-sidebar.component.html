@@ -1,0 +1,264 @@
+<div class="sidebar" data-color="azure" data-background-color="white" data-image="../assets/img/sidebar-3.jpg">
+  <div class="logo">
+      <a href="javascript:;" class="simple-text logo-normal" [routerLink]="['/home']">
+          <img alt="Logo" class="" src="assets/images/logo-light.png">
+
+      </a>
+  </div>
+  <div class="sidebar-wrapper">
+    <ul class="nav">
+      <!-- Dashboard Tab  (Active Class - 1 ) -->
+      <li class="nav-item   " [ngClass]="{'active': activeTab==1}">
+        <a class="nav-link" href="javascript:;" [routerLink]="['/institutional/dashboard']" >
+          <i class="material-icons">dashboard </i>
+          <p>{{'dashboard' | translate}}</p>
+        </a>
+      </li>
+      <!-- End Dashboard Tab  (Active Class - 1 ) -->
+
+        <!-- Dashboard Tab  (Active Class - 1 ) -->
+        <li class="nav-item   " [ngClass]="{'active': activeTab==15}">
+          <a class="nav-link" href="javascript:;" [routerLink]="['/institutional/reporting']" >
+            <i class="material-icons">insert_chart_outlined </i>
+            <p>{{'reporting' | translate}}</p>
+          </a>
+        </li>
+
+
+        <!-- <li class="nav-item   " [ngClass]="{'active': activeTab==20}">
+            <a class="nav-link" href="javascript:;" [routerLink]="['/institutional/report']" >
+              <i class="material-icons">insert_chart_outlined </i>
+              <p>report</p>
+            </a>
+          </li> -->
+        <!-- End Dashboard Tab  (Active Class - 1 ) -->
+
+       <!-- Profile Tab -->
+       <li class="nav-item sub_items">
+          <a href="javascript:;" class="nav-link" [ngClass]="(activeTab == 7 || activeTab == 8 || activeTab == 9 || activeTab == 10 || activeTab == 16 || activeTab == 17 || activeTab == 18 ) ? 'collapse' : ''" data-target="#pageSubmenu" data-toggle="collapse" aria-expanded="false">
+              <i class="material-icons">account_box</i>
+            <p>{{'profile' | translate}}</p>
+          </a>
+          <!-- <a href="javascript:void(0);" data-target="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"></a> -->
+          <ul class="collapse list-unstyled p10 pl30" id="pageSubmenu" [ngClass]="(activeTab == 7 || activeTab == 8 || activeTab == 9 || activeTab == 10 || activeTab == 16 || activeTab == 17 || activeTab == 18) ? 'show' : ''">
+            <li class="nav-item"  [ngClass]="{'active': activeTab == 7}" >
+              <a class="nav-link nav-link1" [routerLink]="['/institutional/profile']">
+                <i class="material-icons">account_box</i>
+                <p>{{'myprofile' | translate}}</p>
+              </a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': activeTab == 8}">
+              <a class="nav-link nav-link1" [routerLink]="['/institutional/profile-eth']">
+                <!-- <i class="material-icons">attach_money</i> -->
+                <i class="fab fa-ethereum fs20"></i>
+                <!-- <p>{{'my-ethereum' | translate}} <span  style="color:red" *ngIf="!ether"> !</span></p> -->
+                <p class="d-flex">{{'my-ethereum' | translate}}<span *ngIf="!ether"><i class="fa fa-exclamation-circle" style="font-size:14px;color:red" ></i></span></p>
+              </a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': activeTab == 10}">
+              <a class="nav-link nav-link1" [routerLink]="['/institutional/profile-btc']">
+                <!-- <i class="material-icons">ballot</i> -->
+                <i class="fab fa-btc fs20"></i>
+                <!-- <p class="d-flex">{{'My Bitcoin'}} <span  style="color:red" *ngIf="!btc"> !</span></p> -->
+                <p class="d-flex">{{'my-bitcoin' | translate}} 
+                  <!-- <span *ngIf="!btc"><i class="fa fa-exclamation-circle" style="font-size:14px;color:red"></i></span> -->
+                </p>
+              </a>
+            </li>
+            <!-- My Stellar -->
+            <!-- <li class="nav-item" [ngClass]="{'active': activeTab == 18}">
+              <a class="nav-link nav-link1" [routerLink]="['/institutional/profile-stellar']">
+                <i class="fa fa-rocket fs20"></i>
+                <p class="d-flex">{{'my-stellar' | translate}} </p>
+              </a>
+            </li> -->
+            <li class="nav-item" [ngClass]="{'active': activeTab == 9}">
+              <a class="nav-link nav-link1" [routerLink]="['/institutional/profile-stake']">
+                <i class="material-icons">bar_chart</i>
+                <!-- <p class="d-flex"> {{'my-staking' | translate}} <span  style="color:red" *ngIf="stake"> !</span></p> -->
+                <p class="d-flex"> {{'my-staking' | translate}} 
+                  <!-- <span *ngIf="!stake"><i class="fa fa-exclamation-circle" style="font-size:14px;color:red"></i></span> -->
+                </p>
+              </a>
+            </li>
+            
+            <li class="nav-item" [ngClass]="{'active': activeTab == 16}">
+              <a class="nav-link nav-link1" [routerLink]="['/institutional/my-ranking']">
+                <i class="material-icons">star</i>
+                <p class="d-flex"> {{'my-ranking' | translate}} 
+                </p>
+              </a>
+            </li> 
+              <li class="nav-item" [ngClass]="{'active': activeTab == 17}"   >
+              <a class="nav-link nav-link1" [routerLink]="['/institutional/invite-friend']">
+                <i class="material-icons">person_add</i>
+                <p class="d-flex"> {{'invite-friend' | translate}} 
+                </p>
+              </a>
+            </li> 
+
+            <li class="nav-item" [ngClass]="{'active': activeTab == 23}"   >
+                <a class="nav-link nav-link1" [routerLink]="['/institutional/profile-bank']">
+                  <i class="material-icons">payment</i>
+                  <p class="d-flex"> {{'my-banking' | translate}} 
+                  </p>
+                </a>
+              </li> 
+          </ul>
+        </li>
+        <!-- End Profile Tab -->
+
+      <!-- Projects Tab  (Active Class - 6 ) -->
+      <li class="nav-item " [ngClass]="{'active': activeTab==6}">
+        <a class="nav-link" href="javascript:;" [routerLink]="['/institutional/projects']">
+          <i class="material-icons">polymer</i>
+          <p>{{'projects' | translate}}</p>
+        </a>
+      </li>
+      <!-- End Projects Tab  (Active Class - 6) -->
+
+      <!-- Offerings Tab  (Active Class - 2 ) -->
+      <li class="nav-item " [ngClass]="{'active': activeTab==2}">
+        <a class="nav-link" href="javascript:;" [routerLink]="['/institutional/offerings']">
+          <i class="material-icons">money</i>
+          <p>{{'offerings' | translate}}</p>
+        </a>
+      </li>
+      <!-- End Offerings Tab  (Active Class - 2 ) -->
+
+      <!-- Transaction History Tab  (Active Class - 3 ) -->
+      <li class="nav-item sub_items" [ngClass]="{'active': activeTab==3}">
+        <a href="javascript:;" class="nav-link" [routerLink]="['/institutional/transaction-history']">
+            <i class="material-icons">history</i>
+          <p *ngIf="txnData?.length > 0">
+            {{'nav-transaction' | translate}}
+            <i class="fa fa-exclamation-circle" style="font-size: 12px;
+            color: red;
+            margin-left: 165px;
+            margin-top: -29px;"></i>
+           
+          </p>
+          <p *ngIf="txnData?.length == 0">
+              {{'nav-transaction' | translate}}
+            </p>
+        </a>
+        <!-- <a href="javascript:void(0);" data-target="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"></a> -->
+        <!-- <ul class="collapse list-unstyled" id="pageSubmenu">
+          <li class="nav-item">
+            <a class="nav-link" href="javascript:;">
+              <p>Assign Annoucement</p>
+            </a>
+          </li>
+        </ul> -->
+      </li>
+      <!-- End Transaction History Tab  (Active Class - 3 ) -->
+
+      <!-- Deposit Transfer Tab  (Active Class - 4 ) -->
+      <li class="nav-item " [ngClass]="{'active': activeTab==4}">
+        <a class="nav-link" href="javascript:;" [routerLink]="['/institutional/fund-transfer']">
+          <i class="material-icons">account_balance_wallet</i>
+          <p>{{'deposit-transfer' | translate}}</p>
+        </a>
+      </li>
+      
+      <!-- End Deposit Transfer Tab  (Active Class - 4 ) -->
+      <!-- Withdraw Transfer Tab -->
+      <li class="nav-item " [ngClass]="{'active': activeTab==14}">
+        <a class="nav-link" href="javascript:;" [routerLink]="['/institutional/withdraw-transfer']">
+          <i class="material-icons">account_balance_wallet</i>
+          <p>{{'withdraw_transfer' | translate}}</p>
+        </a>
+      </li>
+      <!-- End Withdraw Transfer Tab (Active Class - ) -->
+
+      <!-- Daily Volume Tab  (Active Class - 5) -->
+      <!-- <li class="nav-item " [ngClass]="{'active': activeTab==5}">
+        <a class="nav-link" href="javascript:;" >
+          <i class="material-icons">chrome_reader_mode</i>
+          <p>{{'daily-volume' | translate}}</p>
+        </a>
+      </li> -->
+      <!-- End Daily Volume Tab  (Active Class - 5) -->
+      <li class="nav-item sub_items flag-item" *ngIf="iswebApp">
+        <a href="javascript:;" class="nav-link flag-items" [ngClass]="(activeTab == 11 || activeTab == 12 || activeTab == 13) ? 'collapse' : ''" data-target="#pageSubmenu1" data-toggle="collapse" aria-expanded="false">
+          <p *ngIf="currentLanguage == 'en'">
+            <img src="../assets/images/union-jack.jpg" class="flags_s active-flag" alt="icon" style="margin-right: 12px;" />
+            {{'english' | translate}}
+          </p>
+          <p *ngIf="currentLanguage == 'zh-Hans'">
+            <img src="../assets/images/chinese.jpg" class="flags_s active-flag" alt="icon" style="margin-right: 12px;" />
+            {{'chinese' | translate}}
+          </p>
+         
+          <p *ngIf="currentLanguage == 'ar-sa'">
+            <img src="../assets/images/saudi_Arabia.png" class="flags active-flag" alt="icon" />
+            {{'arabic' | translate}}
+          </p>
+        </a>
+        <!-- <a href="javascript:void(0);" data-target="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"></a> -->
+        <ul class="collapse list-unstyled p10 pl30" id="pageSubmenu1" [ngClass]="(activeTab == 11 || activeTab == 12 || activeTab == 13 ) ? 'show' : ''">
+          <li class="nav-item" [ngClass]="{'active': activeTab==12}"> 
+            <a class="nav-link nav-link1" (click)="changeLang('en')">
+              <img src="../assets/images/union-jack.jpg" class="flags" alt="icon" />
+               {{'english' | translate}}
+            </a>
+          </li>
+          <li class="nav-item" [ngClass]="{'active': activeTab==13}">
+            <a class="nav-link nav-link1" (click)="changeLang('zh-Hans')">
+              <img src="../assets/images/chinese.jpg" class="flags" alt="icon" /> {{'chinese' | translate}}
+            </a>
+          </li>
+          <li class="nav-item" [ngClass]="{'active': activeTab==13}">
+            <a class="nav-link nav-link1" (click)="changeLang('ar-sa')">
+              <img src="../assets/images/saudi_Arabia.png" class="flags" alt="icon" /> {{'arabic' | translate}}
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- Logout Tab -->
+      <li class="nav-item " *ngIf="iswebApp">
+        <a class="nav-link" href="javascript:;" data-target="#logoutInst" data-toggle="modal">
+          <i class="material-icons">exit_to_app</i>
+          <p>{{'log-out' | translate}}</p>
+        </a>
+      </li>
+      <!-- End Logout Tab -->
+      <!-- <li class="nav-item ">
+        <a class="nav-link" href="javascript:;">
+          <i class="material-icons">settings</i>
+          <p>Setting</p>
+        </a>
+      </li> -->
+    </ul>
+  </div>
+</div>
+
+<div class="modal fade global-modal reset-modal" id="logoutInst">
+  <div class="modal-dialog max-WT-500">
+    <form class="pin_code_form">
+      <div class="modal-content">
+        <!--<div class="modal-header ">
+                     <h4 class="modal-title text-center">Heading</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div> -->
+        <div class="modal-body">
+          <div class="row align-items-center minHeight180">
+            <div class="col">
+              <!-- <form class="common-form" autocomplete="off"> -->
+                <div class="head_box2 text-center mb15">
+                  <h4>{{'confirm-message-logout' | translate}}</h4>
+                  <!-- <p>Please scan the QR code on your Google Authenticator app and enter the code.</p> -->
+                </div>
+              
+                <div class="modalActionBtn text-center">
+                  <button type="button" class="btn btn-gray max-WT-120"  data-dismiss="modal" >{{'cancel' | translate}}</button>
+                  <button type="button" class="btn btn-orange max-WT-120 ml10" (click)="logoutFun()" >{{'btn-logout' | translate}}</button>
+                </div>
+              <!-- </form> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
